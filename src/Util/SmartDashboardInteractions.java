@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SmartDashboardInteractions {
-	private boolean lastBigAngle;
+	/*private boolean lastBigAngle;
 	private double lastHeading, lastTtolerance, lastTSKP, lastTSKI, lastTSKD, lastTBKP, lastTBKI, lastTBKD, 
 					lastTSmallMaxV, lastTSmallMinV, lastTBigMaxV, lastTBigMinV,
 					lastDistance, lastDTolerance, lastDKP, lastDKI, lastDKD, lastDminV, lastDmaxV;

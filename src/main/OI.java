@@ -2,9 +2,9 @@ package main;
 
 import edu.wpi.first.wpilibj.XboxController;
 
-public class oi implements Constants, HardwareAdapter {
+public class OI implements Constants, HardwareAdapter {
 	
-	public oi() {
+	public OI() {
 		check();
 	}
 	

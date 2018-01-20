@@ -2,7 +2,7 @@ package main.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 import main.Robot;
-import main.oi;
+import main.OI;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Drive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    		Robot.dt.driveVelocity(oi.getXbox().getY(), -oi.getXbox().getX());
+    		Robot.dt.driveVelocity(OI.getXbox().getY(), -OI.getXbox().getX());
     }
     
     protected boolean isFinished() {

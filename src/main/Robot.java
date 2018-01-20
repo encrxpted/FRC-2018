@@ -21,7 +21,7 @@ import main.subsystems.Drivetrain;
  */
 public class Robot extends TimedRobot {
 	
-	public static oi oi;
+	public static OI oi;
 	public static Drivetrain dt;
 	
 
