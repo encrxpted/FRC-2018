@@ -8,8 +8,8 @@ public class OI implements Constants, HardwareAdapter {
 		check();
 	}
 	
-	public static XboxController getXbox (){
-		return xbox;
+	public static XboxController getXbox() {
+		return xbox; 
 	}
 	
 	public void check() {

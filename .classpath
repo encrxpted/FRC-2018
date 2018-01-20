@@ -14,6 +14,8 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/niVisionWPI.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Harrison/wpilib/java/current/lib/WPILib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosha/wpilib/java/current/lib/WPILib.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/mindsensors-javadoc.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/mindsensors.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
