@@ -20,14 +20,17 @@ import main.subsystems.Drivetrain;
  * project.
  */
 public class Robot extends TimedRobot {
+	public static enum RobotState {
+		Driving, Climbing, Neither
+	}
 	
 	public static OI oi;
 	public static Drivetrain dt;
-	
-
 
 	@Override
 	public void robotInit() {
+		oi = new OI();
+		dt = new Drivetrain();
 	}
 
 	@Override
