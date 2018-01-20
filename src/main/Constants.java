@@ -1,8 +1,10 @@
 package main;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 public interface Constants {
-	
-	
+	//XBOX PORTS
 	public final int Xbox_Port = 0;
 	
 	// TALON SRX'S (CAN BUS)
@@ -14,5 +16,9 @@ public interface Constants {
 	// JOYSTICK DEADBAND'S
 	public final double throttleDeadband = 0.02;
 	public final double headingDeadband = 0.02;
+	
+	//TALON CONTROL MODES
+	public final ControlMode SLAVE_MODE = ControlMode.Follower;
+	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
 
 }
