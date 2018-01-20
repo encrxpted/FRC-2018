@@ -19,6 +19,6 @@ public interface Constants {
 	
 	//TALON CONTROL MODES
 	public final ControlMode SLAVE_MODE = ControlMode.Follower;
+	public final ControlMode PERCENT_VBUS_MODE = ControlMode.PercentOutput;
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
-
 }
