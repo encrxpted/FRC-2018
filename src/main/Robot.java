@@ -27,7 +27,8 @@ public class Robot extends IterativeRobot {
 	
 	public static OI oi;
 	public static Drivetrain dt;
-	
+	//public static SmartDashboardInteractions sdb;
+
 	Command autoCommand;
 
 	@Override
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 		//OI must be at end
 		dt = new Drivetrain();
 		oi = new OI();
+		//sdb = new SmartDashboardInteractions();
 		
 	}
 	

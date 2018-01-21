@@ -3,8 +3,10 @@ package main.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import Util.DriveHelper;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.Constants;
 import main.HardwareAdapter;
 import main.commands.drivetrain.Drive;
@@ -12,14 +14,21 @@ import main.commands.drivetrain.Drive;
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private DriveHelper helper = new DriveHelper(7.5);
+	public double timeBetween = 0.0;
 
 	public Drivetrain() {
 		setTalonDefaults();
 	}
 	
+	private double lastTime = 0.0;
 	public void driveVelocity(double throttle, double heading) {
 		setBrakeMode(BRAKE_MODE);
-		driveTrain.arcadeDrive(helper.handleOverPower(throttle), helper.handleOverPower(heading));
+		driveTrain.arcadeDrive(helper.handleOverPower(helper.handleDeadband(throttle, throttleDeadband)), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
+		double currentTime = Timer.getFPGATimestamp();
+		timeBetween = currentTime-lastTime;
+		System.out.println(timeBetween);
+		SmartDashboard.putNumber("Milliseconds between each call", timeBetween);
+		lastTime = currentTime;
 	}
 	
 	private void reverseTalons(boolean isInverted) {

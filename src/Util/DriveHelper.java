@@ -90,4 +90,10 @@ public class DriveHelper implements Constants{
     	else 
     		return throttle;
     }
+    
+    private double lastThrottleValue = 0.0;
+    public double smoothThrottle(double throttle) {
+    	
+    	return throttle;
+    }
 }

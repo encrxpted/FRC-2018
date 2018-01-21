@@ -14,11 +14,14 @@ public interface Constants {
 	public final int RIGHT_Drive_Slave1 = 5;
 	
 	// JOYSTICK DEADBAND'S
-	public final double throttleDeadband = 0.02;
+	public final double throttleDeadband = 0.03;
 	public final double headingDeadband = 0.02;
 	
 	//TALON CONTROL MODES
 	public final ControlMode SLAVE_MODE = ControlMode.Follower;
 	public final ControlMode PERCENT_VBUS_MODE = ControlMode.PercentOutput;
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
+	
+	//DRIVEHELPER
+	public final double smoothThrottleDif = 0.1; //Set to max difference you want
 }
