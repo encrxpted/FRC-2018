@@ -14,7 +14,6 @@ import main.commands.drivetrain.Drive;
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private DriveHelper helper = new DriveHelper(7.5);
-	public double timeBetween = 0.0;
 
 	public Drivetrain() {
 		setTalonDefaults();
@@ -25,9 +24,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		setBrakeMode(BRAKE_MODE);
 		driveTrain.arcadeDrive(helper.handleOverPower(helper.handleDeadband(throttle, throttleDeadband)), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 		double currentTime = Timer.getFPGATimestamp();
-		timeBetween = currentTime-lastTime;
-		System.out.println(timeBetween);
-		SmartDashboard.putNumber("Milliseconds between each call", timeBetween);
+		SmartDashboard.putNumber("Milliseconds between each call", currentTime-lastTime);
 		lastTime = currentTime;
 	}
 	

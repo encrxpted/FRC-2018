@@ -93,7 +93,11 @@ public class DriveHelper implements Constants{
     
     private double lastThrottleValue = 0.0;
     public double smoothThrottle(double throttle) {
-    	
-    	return throttle;
+    	if (throttle - lastThrottleValue <= smoothThrottleDif) {
+    		System.out.println("Smoothing");
+    		return throttle;
+    	} else {
+    		return smoothThrottleDif;
+    	}
     }
 }
