@@ -36,8 +36,8 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	
 	private void setCtrlMode() {
 		//Problem Here BOI'S
-		leftDriveMaster.set(PERCENT_VBUS_MODE, 0);        
-		rightDriveMaster.set(PERCENT_VBUS_MODE, 0);
+		leftDriveMaster.set(PERCENT_VBUS_MODE, 0.5);     
+		rightDriveMaster.set(PERCENT_VBUS_MODE, 0.5);
 		leftDriveSlave1.set(SLAVE_MODE, LEFT_Drive_Master);
 		rightDriveSlave1.set(SLAVE_MODE, RIGHT_Drive_Master);
 	}
