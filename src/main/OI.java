@@ -1,6 +1,6 @@
 package main;
 
-import edu.wpi.first.wpilibj.XboxController;
+import lib.joystick.XboxController;
 
 public class OI implements Constants, HardwareAdapter {
 	

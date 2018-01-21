@@ -1,8 +1,7 @@
 package main;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.XboxController;
+import lib.joystick.XboxController;
 
 public interface HardwareAdapter extends Constants{
 	//OI
