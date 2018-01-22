@@ -12,6 +12,8 @@ public interface Constants {
 	public final int LEFT_Drive_Slave1 = 6;
 	public final int RIGHT_Drive_Master = 2;
 	public final int RIGHT_Drive_Slave1 = 5;
+    //*Climber motors*//
+	public final int CLIMBER_Motor = 7; 
 	
 	// JOYSTICK DEADBAND'S
 	public final double throttleDeadband = 0.03;
