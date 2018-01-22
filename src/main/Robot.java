@@ -39,6 +39,8 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		//sdb = new SmartDashboardInteractions();
 		
+		//robotState = 
+	
 	}
 	
 	@Override
