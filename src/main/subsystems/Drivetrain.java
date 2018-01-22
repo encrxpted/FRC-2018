@@ -22,7 +22,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	private double lastTime = 0.0;
 	public void driveVelocity(double throttle, double heading) {
 		setBrakeMode(BRAKE_MODE);
-		driveTrain.arcadeDrive(helper.handleOverPower(helper.handleDeadband(throttle, throttleDeadband)), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
+		driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 		double currentTime = Timer.getFPGATimestamp();
 		SmartDashboard.putNumber("Milliseconds between each call", currentTime-lastTime);
 		lastTime = currentTime;
