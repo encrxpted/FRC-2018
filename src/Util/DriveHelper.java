@@ -94,21 +94,24 @@ public class DriveHelper implements Constants{
     
     // changes we made
     private double lastThrottleValue = 0.0;
+    private int smoothingnum = 0;
     public double smoothThrottle(double throttle) {
     	// smoothTrottleDif currently = 0.1
     	double dif = throttle - lastThrottleValue;
     	if (dif >= smoothThrottleDif) {
-    		System.out.println("Smoothing");
+    		smoothingnum++;
+    		System.out.println("Smoothing " + smoothingnum + " | Throttle: " + throttle);
     		lastThrottleValue = throttle;
     		return throttle - dif;
     	} else {
+    		lastThrottleValue = throttle;
     		return throttle;
     	}
     }
     
     
     public double driveSmooth(double throttle) {
-    	double v = smoothThrottle(handleOverPower(handleDeadband(throttle, throttleDeadband)));
+    	double v = handleOverPower(handleDeadband(throttle, throttleDeadband));
     	return v;
     }
     // end of changes
