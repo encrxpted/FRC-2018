@@ -81,7 +81,8 @@ public class XboxController extends Joystick{
 	 */
 	public double getSmoothedMainX() {
 		//return Math.pow(super.getRawAxis(0), 3) * -1;
-		return -Math.sin(Math.PI/2 * super.getRawAxis(0));
+		//return -Math.sin(Math.PI/2 * super.getRawAxis(0));
+		return Math.pow(super.getRawAxis(0),4);
 	}
 	
 	/**
@@ -90,7 +91,8 @@ public class XboxController extends Joystick{
 	 */
 	public double getSmoothedMainY() {
 		//return Math.pow(super.getRawAxis(1), 5);
-		return Math.sin(Math.PI/2 * super.getRawAxis(1));
+		//return Math.sin(Math.PI/2 * super.getRawAxis(1));
+		return Math.pow(super.getRawAxis(1),4);
 	}
 	
 	/**
@@ -99,7 +101,8 @@ public class XboxController extends Joystick{
 	 */
 	public double getSmoothedAltX() {
 		//return Math.pow(super.getRawAxis(4), 3) * -1;
-		return -Math.sin(Math.PI/2 * super.getRawAxis(4));
+		//return -Math.sin(Math.PI/2 * super.getRawAxis(4));
+		return Math.pow(super.getRawAxis(4),4);
 	}
 	
 	/**
@@ -108,7 +111,8 @@ public class XboxController extends Joystick{
 	 */
 	public double getSmoothedAltY() {
 		//return Math.pow(super.getRawAxis(5), 3);
-		return Math.sin(Math.PI/2 * super.getRawAxis(5));
+		//return Math.sin(Math.PI/2 * super.getRawAxis(5));
+		return Math.pow(super.getRawAxis(5),4);
 	}
 		
 
