@@ -15,6 +15,9 @@ public interface Constants {
     //*Climber motors*//
 	public final int CLIMBER_Motor = 7; 
 	
+	// REV ROBOTICS SENSORS
+	public final int analogSensor = 0;
+	
 	// JOYSTICK DEADBAND'S
 	public final double throttleDeadband = 0.03;
 	public final double headingDeadband = 0.02;

@@ -2,6 +2,7 @@ package main;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import lib.joystick.XboxController;
+import Util.RevRoboticsAnalogPressureSensor;
 
 public interface HardwareAdapter extends Constants{
 	//OI
@@ -15,4 +16,7 @@ public interface HardwareAdapter extends Constants{
 	
 	//CIMBER
 	public static WPI_TalonSRX climberMotor = new WPI_TalonSRX(CLIMBER_Motor);
+	
+	//SENSORS
+	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
 }
