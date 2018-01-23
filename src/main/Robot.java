@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.subsystems.Drivetrain;
+import main.subsystems.Pneumatics;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 	
 	public static OI oi;
 	public static Drivetrain dt;
+	public static Pneumatics pn;
 	//public static SmartDashboardInteractions sdb;
 
 	Command autoCommand;

@@ -3,6 +3,9 @@ package main;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 public interface Constants {
 	//XBOX PORTS
 	public final int Xbox_Port = 0;
@@ -29,4 +32,14 @@ public interface Constants {
 	
 	//DRIVEHELPER
 	public final double smoothThrottleDif = 0.1; //Set to max difference you want
+	
+	//Shifting
+	public final int SHIFTER_EXT = 6;//(isCompRobot? 6:3);
+	public final int SHIFTER_RET = 3;//(isCompRobot? 3:6);
+	public final int PCM_Port = 1;
+	
+	// PNEUMATIC STATES
+	public final DoubleSolenoid.Value EXT = Value.kForward;
+	public final DoubleSolenoid.Value RET = Value.kReverse;
+	public final DoubleSolenoid.Value OFF = Value.kOff;
 }
