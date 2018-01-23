@@ -90,7 +90,7 @@ public class XboxController extends Joystick{
 	 */
 	public double getSmoothedMainY() {
 		//return Math.pow(super.getRawAxis(1), 5);
-		return -Math.sin(Math.PI/2 * super.getRawAxis(1));
+		return Math.sin(Math.PI/2 * super.getRawAxis(1));
 	}
 	
 	/**
