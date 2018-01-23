@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
 		//OI must be at end
 		dt = new Drivetrain();
 		oi = new OI();
+		pn = new Pneumatics();
 		//sdb = new SmartDashboardInteractions();
 		
 		//robotState = 

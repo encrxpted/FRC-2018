@@ -34,8 +34,8 @@ public interface Constants {
 	public final double smoothThrottleDif = 0.1; //Set to max difference you want
 	
 	//Shifting
-	public final int SHIFTER_EXT = 6;//(isCompRobot? 6:3);
-	public final int SHIFTER_RET = 3;//(isCompRobot? 3:6);
+	public final int SHIFTER_EXT = 0;
+	public final int SHIFTER_RET = 1;
 	public final int PCM_Port = 1;
 	
 	// PNEUMATIC STATES
