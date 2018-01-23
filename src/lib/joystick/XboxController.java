@@ -80,7 +80,9 @@ public class XboxController extends Joystick{
 	 * @return Cubed value of the X-axis.
 	 */
 	public double getSmoothedMainX() {
-		return Math.pow(super.getRawAxis(0), 3) * -1;
+		//return Math.pow(super.getRawAxis(0), 3) * -1;
+		double sincurve = -Math.sin(Math.PI/2 *super.getRawAxis(0));
+		return sincurve;
 	}
 	
 	/**
