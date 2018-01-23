@@ -108,7 +108,7 @@ public class XboxController extends Joystick{
 	 */
 	public double getSmoothedAltY() {
 		//return Math.pow(super.getRawAxis(5), 3);
-		return -Math.sin(Math.PI/2 * super.getRawAxis(5));
+		return Math.sin(Math.PI/2 * super.getRawAxis(5));
 	}
 		
 

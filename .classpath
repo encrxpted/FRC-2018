@@ -11,8 +11,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/naxv-mxp"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/wpini_lib"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/hhoyt_000/wpilib/java/current/lib/WPILib.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Lib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosha/wpilib/java/current/lib/WPILib.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="output" path="bin"/>

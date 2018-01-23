@@ -24,6 +24,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		setBrakeMode(BRAKE_MODE);
 		System.out.println("Throttle: " + throttle + " | Heading: " + heading);
 		driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
+		//driveTrain.tankDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 		double currentTime = Timer.getFPGATimestamp();
 		SmartDashboard.putNumber("Milliseconds between each call", currentTime-lastTime);
 		lastTime = currentTime;
