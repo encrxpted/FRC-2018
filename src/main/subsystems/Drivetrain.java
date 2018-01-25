@@ -20,11 +20,6 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	//SHIFTING
 	private static boolean highGearState = false;
 	
-	//THESE GO INTO CONSTANTS DEPENDING ON IF THIS CODE IS PUSHED
-	public final boolean ENCODERS_INVERTED = true;
-	public final int ENCODER_RESET_TIMEOUT = 10;
-	public final int ENCODER_DEFAULTS_TIMEOUT = 0;
-	public final int timeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.
 
 	public Drivetrain() {
 		setTalonDefaults();
@@ -92,7 +87,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	
 	public void resetSensors() {
 //		resetGyro(); 
-		resetEncoders(ENCODER_RESET_TIMEOUT);
+		resetEncoders(sensorTimeoutMs);
 	}
 	
 	@SuppressWarnings("unused")
@@ -103,8 +98,8 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		// "Units are 4X measurements where X units = X quadrature edges. Measured in change per 100ms."
 //		leftDriveMaster.configEncoderCodesPerRev(codesPerRev);
 //		rightDriveMaster.configEncoderCodesPerRev(codesPerRev);
-		leftDriveMaster.setSensorPhase(ENCODERS_INVERTED);
-		rightDriveMaster.setSensorPhase(ENCODERS_INVERTED);
+		leftDriveMaster.setSensorPhase(encodersInverted);
+		rightDriveMaster.setSensorPhase(encodersInverted);
 	}
 	
 	//TODO: CONVERT METHODS INTO NEW ONES

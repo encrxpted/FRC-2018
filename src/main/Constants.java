@@ -21,6 +21,10 @@ public interface Constants {
 	// DRIVEHELPER
 	public final double smoothThrottleDif = 0.1; //Set to max difference you want
 	
+	// SENSORS
+	public final boolean encodersInverted = true;
+	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.
+	
 	
 	/*************
 	 * CONSTANTS *
