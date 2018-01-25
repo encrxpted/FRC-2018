@@ -39,12 +39,11 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		//OI must be at end
 		dt = new Drivetrain();
-		oi = new OI();
 		pn = new Pneumatics();
 		//sdb = new SmartDashboardInteractions();
 		
 		//robotState = 
-	
+		oi = new OI();
 	}
 	
 	@Override
