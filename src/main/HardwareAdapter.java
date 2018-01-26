@@ -21,6 +21,11 @@ public interface HardwareAdapter extends Constants{
 	//CIMBER
 	public static WPI_TalonSRX climberMotor = new WPI_TalonSRX(CLIMBER_Motor);
 	
+	//INTAKE
+	public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
+	public static WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(RIGHT_Intake);
+	public static WPI_TalonSRX pivotIntakeMotor = new WPI_TalonSRX(PIVOT_Intake);
+	
 	//SENSORS
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
 	

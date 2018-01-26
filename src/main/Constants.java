@@ -60,6 +60,11 @@ public interface Constants {
     // CLIMBER TALONS
 	public final int CLIMBER_Motor = 7; 
 	
+	// INTAKE MOTORS	
+	public final int LEFT_Intake = 0;
+	public final int RIGHT_Intake = 0;
+	public final int PIVOT_Intake = 0;
+	
 	// SHIFTING
 	public final int SHIFTER_EXT = 1;
 	public final int SHIFTER_RET = 0;
