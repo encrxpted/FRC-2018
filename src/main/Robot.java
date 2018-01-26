@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
+		SmartDashboard.putNumber("Analog Sensor 1 value", (200*(HardwareAdapter.analogPressureSensor1.value()-0.5)/4));
 	}
 
 	@Override

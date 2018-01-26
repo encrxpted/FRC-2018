@@ -11,7 +11,7 @@ public class ShiftDown extends CommandGroup implements Constants{
     
     public  ShiftDown() {
     	addSequential(new Shift(EXT));
-    	addSequential(new WaitCommand(0.5));
+    	addSequential(new WaitCommand(0.1));
     	addSequential(new Shift(OFF));
     }
 }

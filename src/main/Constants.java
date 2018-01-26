@@ -56,7 +56,7 @@ public interface Constants {
 	public final int CLIMBER_Motor = 7; 
 	
 	// SHIFTING
-	public final int SHIFTER_EXT = 0;
-	public final int SHIFTER_RET = 1;
+	public final int SHIFTER_EXT = 1;
+	public final int SHIFTER_RET = 0;
 	public final int PCM_Port = 1;
 }

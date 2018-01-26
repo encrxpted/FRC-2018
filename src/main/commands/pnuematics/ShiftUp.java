@@ -12,7 +12,7 @@ public class ShiftUp extends CommandGroup implements Constants{
     
     public  ShiftUp() {
     	addSequential(new Shift(RET));
-    	addSequential(new WaitCommand(0.5));
+    	addSequential(new WaitCommand(0.1));
     	addSequential(new Shift(OFF));
     }
 }
