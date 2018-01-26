@@ -14,6 +14,9 @@ public interface Constants {
 	// REV ROBOTICS SENSORS
 	public final int analogSensor = 0;
 	
+	// FILE WRITING
+	public final String outputPath = "~/Output.txt";
+	
 	// JOYSTICK DEADBANDS
 	public final double throttleDeadband = 0.03;
 	public final double headingDeadband = 0.02;
