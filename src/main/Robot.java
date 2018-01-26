@@ -7,6 +7,7 @@
 
 package main;
 
+import Util.Logger;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -23,15 +24,11 @@ import main.subsystems.Pneumatics;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
-	public static enum RobotState {
-		Driving, Climbing, Neither
-	}
-	
+public class Robot extends TimedRobot implements Constants {
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
-	//public static SmartDashboardInteractions sdb;
+	public static Logger lg;
 
 	Command autoCommand;
 
@@ -40,15 +37,14 @@ public class Robot extends TimedRobot {
 		//OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
-		//sdb = new SmartDashboardInteractions();
-		
-		//robotState = 
+		lg = new Logger(outputPath);
 		oi = new OI();
+		//Other Utility Classes
 	}
 	
 	@Override
 	public void disabledInit() {
-
+		
 	}
 	
 	

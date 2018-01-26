@@ -2,7 +2,6 @@ package main;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
@@ -15,18 +14,11 @@ public interface Constants {
 	public final int analogSensor = 0;
 	
 	// FILE WRITING
-	public final String outputPath = "/home/lvuser/Output.txt";
+	public final String outputPath = "/home/lvuser/Test1.txt";
 	
 	// JOYSTICK DEADBANDS
-	public final double throttleDeadband = 0.03;
+	public final double throttleDeadband = 0.02;
 	public final double headingDeadband = 0.02;
-	
-	// DRIVEHELPER
-	public final double smoothThrottleDif = 0.1; //Set to max difference you want
-	
-	// SENSORS
-	public final boolean encodersInverted = true;
-	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.
 	
 	
 	/*************
@@ -48,7 +40,6 @@ public interface Constants {
 	 *********/
 	// XBOX PORTS
 	public final int Xbox_Port = 0;
-	public final int Xbox_Port2 = 1;
 	
 	
 	// DRIVETRAIN TALONS (CAN BUS)
@@ -56,9 +47,7 @@ public interface Constants {
 	public final int LEFT_Drive_Slave1 = 6;
 	public final int RIGHT_Drive_Master = 2;
 	public final int RIGHT_Drive_Slave1 = 5;
-	
-    // CLIMBER TALONS
-	public final int CLIMBER_Motor = 7; 
+
 	
 	// SHIFTING
 	public final int SHIFTER_EXT = 1;

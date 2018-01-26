@@ -15,115 +15,21 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
-	private double lastTime = 0.0;
 	
-	//SHIFTING
-	private static boolean highGearState = false;
-	
-
 	public Drivetrain() {
 		setTalonDefaults();
 	}
 	
 	//DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
-		double currentTime;
-
-		setBrakeMode(BRAKE_MODE);
-		System.out.println("Throttle: " + throttle + " | Heading: " + heading);
 		driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
-		currentTime = Timer.getFPGATimestamp();
-		SmartDashboard.putNumber("Milliseconds between each call", currentTime-lastTime);
-		lastTime = currentTime;
 	}
 	
-	/*************************
-	 * SENSOR OUTPUT METHODS *
-	 *************************/
-	//SET CONVERSION FACTOR AND WHEEL SIZE BEFORE USING THESE METHODS
-//	public int convertToEncoderTicks(double displacement) {//ft
-//		return (int) (((displacement / (wheelSize*Math.PI)) * conversionFactor));
-//	}
-//	public double getDistanceTraveledLeft() {//Feet
-//		return wheelSize*Math.PI*(getLeftEncoderPosition()/conversionFactor);
-//	}
-//	
-//	public double getDistanceTraveledRight() {//Feet
-//		//Removed - value and changed with reverseSensor() so that pid has correct feedback
-//		//System.out.println("r" +wheelSize*Math.PI*(getRightEncoderPosition()/conversionFactor));
-//		return wheelSize*Math.PI*(getRightEncoderPosition()/conversionFactor);
-//	}
-//	
-//	public double getDistanceAvg() {
-//		return (-getDistanceTraveledLeft() + getDistanceTraveledRight())/2; 
-//	}
-	
-	public double getLeftVelocity() {
-		return leftDriveMaster.getSensorCollection().getQuadratureVelocity();// / wheelEncoderMult;
-	}
-	
-	public double getRightVelocity() {
-		return rightDriveMaster.getSensorCollection().getQuadratureVelocity();// / wheelEncoderMult;
-	}
-	
-	@SuppressWarnings("unused")
-	private double getLeftEncoderPosition() {
-		return leftDriveMaster.getSensorCollection().getQuadraturePosition();
-	}
-	
-	@SuppressWarnings("unused")
-	private double getRightEncoderPosition() {
-		return rightDriveMaster.getSensorCollection().getQuadraturePosition();
-	}
-	
-	/**************************
-	 * SENSOR SUPPORT METHODS *
-	 **************************/
-	public void resetEncoders(int timeoutMs) {
-		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, timeoutMs); //Alex is gay
-		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, timeoutMs); //Alex is gay
-		//he said it, not me 
-		}
-	
-	public void resetSensors() {
-//		resetGyro(); 
-		resetEncoders(sensorTimeoutMs);
-	}
-	
-	@SuppressWarnings("unused")
-	private void setFeedBackDefaults(int timeoutMs) {
-		leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMs);
-		rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, timeoutMs);
-		//I don't think the coder per rev thing is needed anymore...
-		// "Units are 4X measurements where X units = X quadrature edges. Measured in change per 100ms."
-//		leftDriveMaster.configEncoderCodesPerRev(codesPerRev);
-//		rightDriveMaster.configEncoderCodesPerRev(codesPerRev);
-		leftDriveMaster.setSensorPhase(encodersInverted);
-		rightDriveMaster.setSensorPhase(encodersInverted);
-	}
-	
-	//TODO: CONVERT METHODS INTO NEW ONES
-//	private void setVoltageDefaults() {
-		// NO LONGER MEASURED IN VOLTS. MEASURES THROTTLE IN [-1, 1]
-//		leftDriveMaster.configNominalOutputVoltage(+0f, -0f);
-//		rightDriveMaster.configNominalOutputVoltage(+0f, -0f);
-//		leftDriveMaster.configPeakOutputVoltage(+12f, -12f);
-//		rightDriveMaster.configPeakOutputVoltage(+12f, -12f);
-//	}
-
-//	private void setRampRate(double ramp) {
-//		leftDriveMaster.setVoltageCompensationRampRate(ramp);
-//		rightDriveMaster.setVoltageCompensationRampRate(ramp);
-//	}
 
 	/*************************
 	 * DRIVE SUPPORT METHODS *
 	 *************************/
-	
-	public void changeGearing(){
-		highGearState = !highGearState;
-	}	
-	
+
 	private void reverseTalons(boolean isInverted) {
 		leftDriveMaster.setInverted(isInverted);
 		rightDriveMaster.setInverted(isInverted);
@@ -139,12 +45,6 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	}
 
 	private void setCtrlMode() {
-		/*
-		leftDriveMaster.set(PERCENT_VBUS_MODE, 0.5);     
-		rightDriveMaster.set(PERCENT_VBUS_MODE, 0.5);
-		leftDriveSlave1.set(SLAVE_MODE, LEFT_Drive_Master);
-		rightDriveSlave1.set(SLAVE_MODE, RIGHT_Drive_Master);
-		*/
 		leftDriveSlave1.follow(leftDriveMaster);
 		rightDriveSlave1.follow(rightDriveMaster);
 	}
