@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public interface HardwareAdapter extends Constants{
 	//OI
 	public static XboxController xbox = new XboxController(Xbox_Port);
+	public static XboxController xbox2 = new XboxController(Xbox_Port2);
 	
 	//DRIVETRAIN
 	public static WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(LEFT_Drive_Master);

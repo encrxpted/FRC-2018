@@ -48,6 +48,8 @@ public interface Constants {
 	 *********/
 	// XBOX PORTS
 	public final int Xbox_Port = 0;
+	public final int Xbox_Port2 = 1;
+	
 	
 	// DRIVETRAIN TALONS (CAN BUS)
 	public final int LEFT_Drive_Master = 3;
