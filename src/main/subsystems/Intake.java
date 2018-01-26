@@ -11,9 +11,12 @@ public class Intake extends Subsystem implements Constants, HardwareAdapter {
 	public static enum WheelStates {
 		In, Out, Off
 	}
+	public static enum PneumaticStates {
+		Opened, Closed
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new Drive());
+		
 	}
 }
