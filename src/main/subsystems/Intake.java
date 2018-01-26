@@ -2,7 +2,15 @@ package main.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-public class Intake extends Climber {
-	public static WPI_TalonSRX DriveMaster = new WPI_TalonSRX(intakeMaster);
+import edu.wpi.first.wpilibj.command.Subsystem;
+import main.Constants;
+import main.HardwareAdapter;
+import main.commands.drivetrain.Drive;
+
+public class Intake extends Subsystem implements Constants, HardwareAdapter {
 	
+	@Override
+	protected void initDefaultCommand() {
+		setDefaultCommand(new Drive());
+	}
 }
