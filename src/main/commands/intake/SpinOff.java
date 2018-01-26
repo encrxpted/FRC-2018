@@ -2,14 +2,17 @@ package main.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import main.Constants;
+import main.HardwareAdapter;
 
-public class SpinOff extends Command implements Constants{
+public class SpinOff extends Command implements Constants, HardwareAdapter{
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	leftIntakeMotor.set(-1.0);
+    	rightIntakeMotor.set(1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
