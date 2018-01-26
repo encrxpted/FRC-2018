@@ -32,4 +32,5 @@ public interface HardwareAdapter extends Constants{
 	//PNEUMATICS
 	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port, SHIFTER_EXT, SHIFTER_RET);
 	public static Compressor comp = new Compressor(PCM_Port);
+	public static DoubleSolenoid clawOpener = new DoubleSolenoid(PCM_Port, INTAKE_EXT, INTAKE_RET);
 }
