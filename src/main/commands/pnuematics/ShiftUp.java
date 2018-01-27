@@ -10,7 +10,7 @@ import main.Constants;
  */
 public class ShiftUp extends CommandGroup implements Constants{
     
-    public  ShiftUp() {
+    public ShiftUp() {
     	addSequential(new Shift(RET));
     	addSequential(new WaitCommand(0.1));
     	addSequential(new Shift(OFF));

@@ -66,12 +66,11 @@ public interface Constants {
 	
 	// INTAKE MOTORS	
 	public final int LEFT_Intake = 0;
-	public final int RIGHT_Intake = 0;
+	public final int RIGHT_Intake = 1;
+	
 	// INTAKE PNEUMATICS
 	public final int INTAKE_EXT = 3;
-	public final int INTAKE_RET = 2;
-	public final int ARM_RET = 2;
-	
+	public final int INTAKE_RET = 2;	
 	public final int TILT_EXT = 5;
 	public final int TILT_RET = 4;
 	

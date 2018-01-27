@@ -19,7 +19,6 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		tilter.set(OFF);
 		arm.set(EXT);
 		arm.set(OFF);
-		
 	}
 	
 
@@ -38,6 +37,10 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 	
 	public boolean getDown() {
 		return down;
+	}
+	
+	public void toggleArm(DoubleSolenoid.Value v) {
+		arm.set(v);
 	}
 	
 	/**
