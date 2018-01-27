@@ -14,6 +14,9 @@ public class Intake extends Subsystem implements Constants, HardwareAdapter {
 	public static enum PneumaticStates {
 		Opened, Closed
 	}
+	public static enum LiftStates {
+		Up, Down
+	}
 	
 	@Override
 	protected void initDefaultCommand() {
