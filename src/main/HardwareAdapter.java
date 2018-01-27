@@ -24,15 +24,12 @@ public interface HardwareAdapter extends Constants{
 	//INTAKE
 	public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
 	public static WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(RIGHT_Intake);
-	public static WPI_TalonSRX pivotIntakeMotor = new WPI_TalonSRX(PIVOT_Intake);
 	
 	//SENSORS
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
 	
 	//PNEUMATICS
 	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
-	public static DoubleSolenoid arm1 = new DoubleSolenoid(PCM_Port2, SHIFTER_EXT, SHIFTER_RET);
-	public static DoubleSolenoid arm2 = new DoubleSolenoid(PCM_Port3, SHIFTER_EXT, SHIFTER_RET);
 	public static DoubleSolenoid lift = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
 	public static Compressor comp = new Compressor(PCM_Port1);
 	public static DoubleSolenoid clawOpener = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);

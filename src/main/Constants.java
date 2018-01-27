@@ -67,23 +67,11 @@ public interface Constants {
 	// INTAKE MOTORS	
 	public final int LEFT_Intake = 0;
 	public final int RIGHT_Intake = 0;
-	public final int PIVOT_Intake = 0;
-	
-	// pneumatic arm #1
-	public final int Arm1_EXT = 1;
-	public final int Arm1_RET = 0;
-	public final int PCM_Port3 = 2;
-	
-	//pneumatic arm #2
-	public final int Arm2_EXT = 1;
-	public final int Arm2_RET = 0;
-	public final int PCM_Port2 = 3;
-
+	public final int INTAKE_EXT = 2;
+	public final int INTAKE_RET = 3;
 	
 	// SHIFTING
 	public final int SHIFTER_EXT = 1;
 	public final int SHIFTER_RET = 0;
 	public final int PCM_Port1 = 1;
-	public final int INTAKE_EXT = 2;
-	public final int INTAKE_RET = 3;
 }
