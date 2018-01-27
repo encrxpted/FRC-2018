@@ -2,6 +2,8 @@ package main.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.kauailabs.navx.frc.AHRS;
+
 import Util.DriveHelper;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,6 +21,9 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	
 	//SHIFTING
 	private static boolean highGearState = false;
+	
+	//GYRO
+	private static AHRS NavX;
 	
 
 	public Drivetrain() {
@@ -83,7 +88,16 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, timeoutMs); //Alex is gay
 		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, timeoutMs); //Alex is gay
 		//he said it, not me 
-		}
+	}
+	
+	public AHRS getGyro(){
+		return NavX;
+	}
+	
+	public void resetGyro() {
+		NavX.reset();
+		NavX.zeroYaw();
+	}
 	
 	public void resetSensors() {
 //		resetGyro(); 
