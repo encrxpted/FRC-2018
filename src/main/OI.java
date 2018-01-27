@@ -24,6 +24,8 @@ public class OI implements Constants, HardwareAdapter {
 		xbox.y.whenPressed(new SpinOut());
 		xbox.a.whenReleased(new SpinOff());
 		xbox.y.whenReleased(new SpinOff());
+		xbox.leftTrigger.whenPressed(new TiltUp());
+		xbox.rightTrigger.whenPressed(new TiltDown());
 	}
 
 }
