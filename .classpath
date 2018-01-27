@@ -17,5 +17,6 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/mindsensors-javadoc.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/mindsensors.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/niVisionWPI.jar"/>
+	<classpathentry kind="lib" path="C:/Users/rosha/wpilib/user/java/lib/navx_frc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
