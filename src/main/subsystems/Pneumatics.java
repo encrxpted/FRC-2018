@@ -15,8 +15,8 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		comp.setClosedLoopControl(true);
 		shifter.set(EXT);
 		shifter.set(OFF);
-		lift.set(EXT);
-		lift.set(OFF);
+		tilter.set(EXT);
+		tilter.set(OFF);
 		clawOpener.set(EXT);
 		clawOpener.set(OFF);
 		
