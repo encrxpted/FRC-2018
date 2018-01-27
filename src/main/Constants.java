@@ -70,6 +70,8 @@ public interface Constants {
 	// INTAKE PNEUMATICS
 	public final int INTAKE_EXT = 3;
 	public final int INTAKE_RET = 2;
+	public final int ARM_RET = 2;
+	
 	public final int TILT_EXT = 5;
 	public final int TILT_RET = 4;
 	
