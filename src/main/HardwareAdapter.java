@@ -30,7 +30,10 @@ public interface HardwareAdapter extends Constants{
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
 	
 	//PNEUMATICS
-	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port, SHIFTER_EXT, SHIFTER_RET);
-	public static Compressor comp = new Compressor(PCM_Port);
-	public static DoubleSolenoid clawOpener = new DoubleSolenoid(PCM_Port, INTAKE_EXT, INTAKE_RET);
+	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
+	public static DoubleSolenoid arm1 = new DoubleSolenoid(PCM_Port2, SHIFTER_EXT, SHIFTER_RET);
+	public static DoubleSolenoid arm2 = new DoubleSolenoid(PCM_Port3, SHIFTER_EXT, SHIFTER_RET);
+	public static DoubleSolenoid lift = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
+	public static Compressor comp = new Compressor(PCM_Port1);
+	public static DoubleSolenoid clawOpener = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
 }
