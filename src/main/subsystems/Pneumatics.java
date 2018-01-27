@@ -39,8 +39,14 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		return down;
 	}
 	
+	// Toggles Arm to open or closed
 	public void toggleArm(DoubleSolenoid.Value v) {
 		arm.set(v);
+	}
+	
+	// Changes the tilter to up or down
+	public void tilt (DoubleSolenoid.Value v) {
+		tilter.set(v);
 	}
 	
 	/**

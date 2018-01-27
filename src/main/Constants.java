@@ -54,7 +54,6 @@ public interface Constants {
 	public final int Xbox_Port = 0;
 	public final int Xbox_Port2 = 1;
 	
-	
 	// DRIVETRAIN TALONS (CAN BUS)
 	public final int LEFT_Drive_Master = 3;
 	public final int LEFT_Drive_Slave1 = 6;
@@ -68,6 +67,9 @@ public interface Constants {
 	public final int LEFT_Intake = 0;
 	public final int RIGHT_Intake = 1;
 	
+	// PNEUMATICS CONTROL MODULE
+	public final int PCM_Port1 = 1;
+	
 	// INTAKE PNEUMATICS
 	public final int INTAKE_EXT = 3;
 	public final int INTAKE_RET = 2;	
@@ -77,5 +79,4 @@ public interface Constants {
 	// SHIFTING
 	public final int SHIFTER_EXT = 1;
 	public final int SHIFTER_RET = 0;
-	public final int PCM_Port1 = 1;
 }
