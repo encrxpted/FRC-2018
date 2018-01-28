@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	 *************************/
 	
 	public void changeGearing(){
-		highGearState = !highGearState;
+		highGear = !highGear;
 	}
 	
 	public boolean highGear() {
