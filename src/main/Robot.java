@@ -8,12 +8,16 @@
 package main;
 
 import Util.Logger;
+import controllers.Play;
+import controllers.Record;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import lib.Loop;
+import lib.Looper;
 import main.subsystems.Drivetrain;
 import main.subsystems.Pneumatics;
 
@@ -29,22 +33,27 @@ public class Robot extends TimedRobot implements Constants {
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Logger lg;
-
+    private Looper recordPlayLoop;
 	Command autoCommand;
 
 	@Override
 	public void robotInit() {
-		//OI must be at end
+		//Subsystem must be before OI
 		dt = new Drivetrain();
 		pn = new Pneumatics();
-		lg = new Logger(outputPath);
 		oi = new OI();
 		//Other Utility Classes
+		//OI must be before other Utility Classes
+		lg = new Logger(outputPath);
+	    recordPlayLoop = new Looper(kLooperDt);
+	    recordPlayLoop.register(new Record());
+	    recordPlayLoop.register(new Play());
+	    recordPlayLoop.start();
 	}
 	
 	@Override
 	public void disabledInit() {
-		
+		recordPlayLoop.stop();		
 	}
 	
 	
@@ -66,6 +75,7 @@ public class Robot extends TimedRobot implements Constants {
 	@Override
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
+		recordPlayLoop.start();
 	}
 	@Override
 	public void teleopPeriodic() {

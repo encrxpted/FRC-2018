@@ -13,6 +13,8 @@ import main.commands.drivetrain.Drive;
 
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
+	private static boolean highGear = defaultHighGearState;
+	private driveTrainControlConfig controlModeConfig;
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
 	
@@ -38,10 +40,17 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		return rightDriveMaster.getMotorOutputVoltage();
 	}
 	
-
 	/*************************
 	 * DRIVE SUPPORT METHODS *
 	 *************************/
+	
+	public void changeGearing(){
+		highGearState = !highGearState;
+	}
+	
+	public boolean highGear() {
+		return highGear;
+	}
 
 	private void reverseTalons(boolean isInverted) {
 		leftDriveMaster.setInverted(isInverted);
@@ -69,6 +78,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		leftDriveMaster.enableVoltageCompensation(false);
 		rightDriveMaster.enableVoltageCompensation(false);
 		setCtrlMode();
+		controlModeConfig = driveTrainControlConfig.TalonDefault;
 	}
 	
 	public void setTankDefaults() {
@@ -77,6 +87,11 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		leftDriveMaster.configVoltageCompSaturation(voltageCompensationVoltage, 10);
 		rightDriveMaster.enableVoltageCompensation(true);
 		rightDriveMaster.configVoltageCompSaturation(voltageCompensationVoltage, 10);
+		controlModeConfig = driveTrainControlConfig.TankDefault;
+	}
+	
+	public driveTrainControlConfig getcontrolModeConfig() {
+		return controlModeConfig;
 	}
 
 	@Override

@@ -40,7 +40,16 @@ public interface Constants {
 	//TALON VOLTAGE COMPENSATION
 	public final double voltageCompensationVoltage = 12.0;
 	
-	
+	//LOOPER CONSTANTS
+	public final double kLooperDt = 0.01;
+
+	//DRIVETRAIN CONSTANTS
+	//false: default low gear - true: default high gear
+	public final boolean defaultHighGearState = false;
+	//Possible DriveTrain Control Configurations
+	public enum driveTrainControlConfig {
+		TalonDefault(), TankDefault()
+	}
 	/*********
 	 * PORTS *
 	 *********/

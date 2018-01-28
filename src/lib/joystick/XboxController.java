@@ -10,18 +10,18 @@ public class XboxController extends Joystick{
 	 * INSTANCE DATA *
 	 *****************/
 	// Buttons
-	public Button a;
-	public Button b;
-	public Button x;
-	public Button y;
-	public Button select;
-	public Button start;
+	public JoystickButton a;
+	public JoystickButton b;
+	public JoystickButton x;
+	public JoystickButton y;
+	public JoystickButton select;
+	public JoystickButton start;
 	// Thumb-stick buttons
-	public Button leftJoystickButton;
-	public Button rightJoystickButton;
+	public JoystickButton leftJoystickButton;
+	public JoystickButton rightJoystickButton;
 	// Bumpers
-	public Button leftBumper;
-	public Button rightBumper;
+	public JoystickButton leftBumper;
+	public JoystickButton rightBumper;
 	// Triggers
 	public Button leftTrigger;
 	public Button rightTrigger;
