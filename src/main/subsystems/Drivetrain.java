@@ -14,7 +14,7 @@ import main.commands.drivetrain.Drive;
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private static boolean highGearState = defaultHighGearState;
-	private driveTrainControlConfig controlModeConfig;
+	private static driveTrainControlConfig controlModeConfig;
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
 	
@@ -45,7 +45,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	 *************************/
 	
 	public void changeGearing(){
-		highGear = !highGear;
+		highGearState = !highGearState;
 	}
 	
 	public boolean highGear() {
