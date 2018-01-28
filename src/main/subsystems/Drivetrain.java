@@ -25,6 +25,19 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 	}
 	
+	public void driveVoltageTank(double leftVoltage, double rightVoltage) {
+		leftDriveMaster.set(leftVoltage/voltageCompensationVoltage);
+		rightDriveMaster.set(rightVoltage/voltageCompensationVoltage);
+	}
+	
+	public double getLeftVoltage() {
+		return leftDriveMaster.getMotorOutputVoltage();
+	}
+	
+	public double getRightVoltage() {
+		return rightDriveMaster.getMotorOutputVoltage();
+	}
+	
 
 	/*************************
 	 * DRIVE SUPPORT METHODS *
@@ -53,7 +66,17 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	public void setTalonDefaults() {
 		reverseTalons(false);
 		setBrakeMode(BRAKE_MODE);
+		leftDriveMaster.enableVoltageCompensation(false);
+		rightDriveMaster.enableVoltageCompensation(false);
 		setCtrlMode();
+	}
+	
+	public void setTankDefaults() {
+		setTalonDefaults();
+		leftDriveMaster.enableVoltageCompensation(true);
+		leftDriveMaster.configVoltageCompSaturation(voltageCompensationVoltage, 10);
+		rightDriveMaster.enableVoltageCompensation(true);
+		rightDriveMaster.configVoltageCompSaturation(voltageCompensationVoltage, 10);
 	}
 
 	@Override

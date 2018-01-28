@@ -10,16 +10,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public interface HardwareAdapter extends Constants{
 	//OI
 	public static XboxController xbox = new XboxController(Xbox_Port);
-	public static XboxController xbox2 = new XboxController(Xbox_Port2);
 	
 	//DRIVETRAIN
 	public static WPI_TalonSRX leftDriveMaster = new WPI_TalonSRX(LEFT_Drive_Master);
 	public static WPI_TalonSRX leftDriveSlave1 = new WPI_TalonSRX(LEFT_Drive_Slave1);
 	public static WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RIGHT_Drive_Master);
 	public static WPI_TalonSRX rightDriveSlave1 = new WPI_TalonSRX(RIGHT_Drive_Slave1);
-	
-	//CIMBER
-	public static WPI_TalonSRX climberMotor = new WPI_TalonSRX(CLIMBER_Motor);
 	
 	//SENSORS
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
