@@ -13,7 +13,7 @@ import main.commands.drivetrain.Drive;
 
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
-	private static boolean highGear = defaultHighGearState;
+	private static boolean highGearState = defaultHighGearState;
 	private driveTrainControlConfig controlModeConfig;
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
@@ -49,7 +49,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	}
 	
 	public boolean highGear() {
-		return highGear;
+		return highGearState;
 	}
 
 	private void reverseTalons(boolean isInverted) {
