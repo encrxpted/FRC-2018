@@ -21,6 +21,16 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		arm.set(OFF);
 	}
 	
+	public static enum ArmStates {
+		Opened, Closed, Off
+	}
+	
+	public static enum LiftStates {
+		Up, Down, Off
+	}
+	
+	public static ArmStates armStates = ArmStates.Off;
+	public static LiftStates liftStates = LiftStates.Off;
 
 	/*******************
 	 * COMMAND METHODS *
@@ -41,11 +51,17 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 	
 	// Toggles Arm to open or closed
 	public void toggleArm(DoubleSolenoid.Value v) {
+		if (v == EXT) armStates = ArmStates.Closed;
+		else if (v == RET) armStates = ArmStates.Opened;
+		else { armStates = ArmStates.Off; }
 		arm.set(v);
 	}
 	
 	// Changes the tilter to up or down
 	public void tilt (DoubleSolenoid.Value v) {
+		if (v == EXT) liftStates = LiftStates.Down;
+		else if (v == RET) liftStates = LiftStates.Up;
+		else { liftStates = LiftStates.Off; }
 		tilter.set(v);
 	}
 	
