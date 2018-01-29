@@ -67,6 +67,10 @@ public interface Constants {
 	public final int LEFT_Intake = 0;
 	public final int RIGHT_Intake = 1;
 	
+	// ELEVATOR MOTORS
+	public final int ELEVATOR_Bottom = 0;
+	public final int ELEVATOR_Top = 0;
+	
 	// PNEUMATICS CONTROL MODULE
 	public final int PCM_Port1 = 1;
 	
