@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.subsystems.Drivetrain;
+import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Intake it;
+	public static Elevator el;
 	//public static SmartDashboardInteractions sdb;
 
 	Command autoCommand;
@@ -43,6 +45,7 @@ public class Robot extends TimedRobot {
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		it = new Intake();
+		el = new Elevator();
 		//sdb = new SmartDashboardInteractions();
 		
 		//robotState = 
