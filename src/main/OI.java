@@ -2,6 +2,7 @@ package main;
 
 import lib.joystick.XboxController;
 import main.commands.elevator.MoveToScale;
+import main.commands.elevator.MoveToSwitch;
 import main.commands.intake.*;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.ArmOpen;
@@ -37,6 +38,7 @@ public class OI implements Constants, HardwareAdapter {
 			xbox.y.whenReleased(new SpinOff());
 			// Elevator
 			xbox.dpadright.whenPressed(new MoveToScale());
+			xbox.dpadleft.whenPressed(new MoveToSwitch());
 		} else {
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());
