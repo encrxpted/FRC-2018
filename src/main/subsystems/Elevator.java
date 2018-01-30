@@ -14,19 +14,22 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		// TODO Auto-generated method stub
 	}
 	public void MoveToScale() {
-		
-		
+		leftElevatorMotor.set(1.0);
+		rightElevatorMotor.set(1.0);
 		
 	}
 	public void MoveToSwich() {
-		
-		
+		leftElevatorMotor.set(1.0);
+		rightElevatorMotor.set(1.0);
 		
 	}
 	public void Movedown() {
-		
-		
+		leftElevatorMotor.set(1.0);
+		rightElevatorMotor.set(1.0);
 		
 	}
 	public void Moveup() {
+		leftElevatorMotor.set(1.0);
+		rightElevatorMotor.set(1.0);
+	}
 }
