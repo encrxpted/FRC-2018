@@ -22,20 +22,22 @@ public class OI implements Constants, HardwareAdapter {
 	
 	// important
 	public void check() {
-		// pneumatics
-		xbox.leftBumper.whenPressed(new ShiftUp());
-		xbox.leftBumper.whenReleased(new ShiftDown());
-		xbox.b.whenPressed(new ArmClose());
-		xbox.x.whenPressed(new ArmOpen());
-		xbox.leftTrigger.whenPressed(new TiltUp());
-		xbox.rightTrigger.whenPressed(new TiltDown());
-		// intake
-		xbox.a.whenPressed(new SpinIn());
-		xbox.y.whenPressed(new SpinOut());
-		xbox.a.whenReleased(new SpinOff());
-		xbox.y.whenReleased(new SpinOff());
-		// Elevator
-		xbox.dpadright.whenPressed(new MoveToScale());
+		if (OneControllerMode) {
+			// pneumatics
+			xbox.leftBumper.whenPressed(new ShiftUp());
+			xbox.leftBumper.whenReleased(new ShiftDown());
+			xbox.b.whenPressed(new ArmClose());
+			xbox.x.whenPressed(new ArmOpen());
+			xbox.leftTrigger.whenPressed(new TiltUp());
+			xbox.rightTrigger.whenPressed(new TiltDown());
+			// intake
+			xbox.a.whenPressed(new SpinIn());
+			xbox.y.whenPressed(new SpinOut());
+			xbox.a.whenReleased(new SpinOff());
+			xbox.y.whenReleased(new SpinOff());
+			// Elevator
+			xbox.dpadright.whenPressed(new MoveToScale());
+		}
 	}
 
 }
