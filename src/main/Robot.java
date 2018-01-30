@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
 import main.subsystems.Intake;
@@ -35,6 +36,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static Pneumatics pn;
 	public static Intake it;
 	public static Elevator el;
+	public static DriverAlerts da;
 	//public static SmartDashboardInteractions sdb;
 
 	Command autoCommand;
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		pn = new Pneumatics();
 		it = new Intake();
 		el = new Elevator();
+		da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
 		
 		//robotState = 

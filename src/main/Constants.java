@@ -33,6 +33,7 @@ public interface Constants {
 	// SENSORS
 	public final boolean encodersInverted = true;
 	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.
+	public final int driverAlertsPort = 0;
 	
 	
 	/*************
