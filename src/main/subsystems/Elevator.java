@@ -21,8 +21,8 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	public void setElevatorEncoderDefaults() {
-		leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-		rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		leftElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		rightElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
 	}
 	
 	/********************
