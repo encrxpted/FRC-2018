@@ -8,6 +8,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public static enum ElevatorStates {
 		MoveUp, MoveDown, Top, Bottom, Stopped
 	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
