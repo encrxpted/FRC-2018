@@ -16,7 +16,7 @@ public class RevRoboticsAnalogPressureSensor {
 
     public double value() {
         // taken from the datasheet
-        return 220 * (mAnalogInput.getVoltage() - 0.5) / 4;
+        return 250.0 * mAnalogInput.getVoltage() / 5.0 - 25.0;
     }
     
 }
