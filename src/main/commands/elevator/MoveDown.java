@@ -6,7 +6,7 @@ import main.HardwareAdapter;
 import main.Robot;
 
 public class MoveDown extends Command implements Constants, HardwareAdapter{	
-    public MoveDown(double power) {
+    public MoveDown() {
     	requires(Robot.el);
     }
 

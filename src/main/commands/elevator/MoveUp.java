@@ -9,7 +9,7 @@ import main.Robot;
  *
  */
 public class MoveUp extends Command implements Constants, HardwareAdapter{	
-    public MoveUp(double power) {
+    public MoveUp() {
     	requires(Robot.el);
     }
 
