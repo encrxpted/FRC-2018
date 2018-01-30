@@ -13,4 +13,5 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 	}
+	public void  MoveToScale() {
 }
