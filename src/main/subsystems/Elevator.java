@@ -7,9 +7,21 @@ import main.Constants;
 import main.HardwareAdapter;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
-	public static enum ElevatorStates {
-		MoveUp, MoveDown, Top, Bottom, Stopped
+	
+	public Elevator() {
+		setElevatorEncoderDefaults();
 	}
+	
+	public static enum ElevatorPosition {
+		Top, Bottom, Neither
+	}
+	
+	public static enum ElevatorState {
+		Up, Down, Off
+	}
+	
+	public static ElevatorPosition elevatorPosition = ElevatorPosition.Bottom;
+	public static ElevatorState elevatorState = ElevatorState.Off;
 	
 	/**************************
 	 * SENSOR SUPPORT METHODS *
@@ -17,19 +29,43 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	public void resetElevatorEncoders() {
 		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
-		rightElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10); 
 	}
 	
+	// "Instantiates" the encoders onto the respective talons
 	public void setElevatorEncoderDefaults() {
-		leftElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
-		rightElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 10);
+		leftElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+	}
+	
+	// Checks if the intake is at bottom
+	public boolean isArmAtBottom() {
+		if (stage1BottomSwitch.get() == true && stage2BottomSwitch.get() == true) 
+			return true;
+		else return false;
+	}
+	
+	// Checks if intake is at the top
+	public boolean isArmAtTop() {
+		if (stage1TopSwitch.get() == true && stage2TopSwitch.get() == true)
+			return true;
+		else return false;
+	}
+	
+	// Sets encoders to 0 if the arm is at the bottom (this helps to avoid offset)
+	public void zeroElevatorEncoders() {
+		if (isArmAtBottom() == true)
+			resetElevatorEncoders();
+	}
+	
+	// Gets the number of revolutions of the encoder
+	public double getElevatorRevs() {
+		return leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev;
 	}
 	
 	/********************
 	 * MOVEMENT METHODS *
 	 ********************/
 
-	public void moveToScale() {
+	/*public void moveToScale() {
 		leftElevatorMaster.set(1.0);
 		rightElevatorMaster.set(1.0);
 	}
@@ -37,7 +73,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public void moveToSwich() {
 		leftElevatorMaster.set(1.0);
 		rightElevatorMaster.set(1.0);
-	}
+	}*/
 	
 	public void moveDown() {
 		leftElevatorMaster.set(-1.0);

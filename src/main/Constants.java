@@ -16,7 +16,7 @@ public interface Constants {
 	// REV ROBOTICS SENSORS
 	public final int analogSensor = 0;
 	
-	// pneumatics
+	// PNEUMATICS
 	public final int armUp = 0;
 	public final int armDown = 0;
 	
@@ -48,6 +48,8 @@ public interface Constants {
 	public final ControlMode PERCENT_VBUS_MODE = ControlMode.PercentOutput;
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
 	
+	// QUAD SENSORS
+	public final int countsPerRev = 1024;
 	
 	/*********
 	 * PORTS *
@@ -89,5 +91,11 @@ public interface Constants {
 	//public final int SHIFTER_RET = 0;
 	public final int SHIFTER_EXT = 3;
 	public final int SHIFTER_RET = 2;
+	
+	// ELEVATOR SWITCHES
+	public final int STAGE1_Bottom = 0;
+	public final int STAGE1_Top = 1;
+	public final int STAGE2_Bottom = 2;
+	public final int STAGE2_Top = 3;
 
 }

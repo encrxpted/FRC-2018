@@ -31,6 +31,11 @@ public interface HardwareAdapter extends Constants{
 	
 	//SENSORS
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
+	public static DigitalInput stage1BottomSwitch = new DigitalInput(STAGE1_Bottom);
+	public static DigitalInput stage1TopSwitch = new DigitalInput(STAGE1_Top);
+	public static DigitalInput stage2BottomSwitch = new DigitalInput(STAGE2_Bottom);
+	public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
+
 	
 	//PNEUMATICS
 	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
