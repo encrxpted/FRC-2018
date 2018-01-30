@@ -1,6 +1,7 @@
 package main;
 
 import lib.joystick.XboxController;
+import main.commands.elevator.MoveToScale;
 import main.commands.intake.*;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.ArmOpen;
@@ -34,6 +35,7 @@ public class OI implements Constants, HardwareAdapter {
 		xbox.a.whenReleased(new SpinOff());
 		xbox.y.whenReleased(new SpinOff());
 		// Elevator
+		xbox.dpadright.whenPressed(new MoveToScale());
 	}
 
 }
