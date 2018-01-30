@@ -84,9 +84,9 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	/**************************
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
-	public void resetEncoders(int timeoutMs) {
-		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, timeoutMs); //Alex is gay
-		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, timeoutMs); //Alex is gay
+	public void resetEncoders() {
+		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, 10); //Alex is gay
+		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, 10); //Alex is gay
 		//he said it, not me 
 	}
 	
@@ -101,7 +101,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	
 	public void resetSensors() {
 //		resetGyro(); 
-		resetEncoders(sensorTimeoutMs);
+		resetEncoders();
 	}
 	
 	@SuppressWarnings("unused")
