@@ -11,10 +11,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/naxv-mxp"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/wpini_lib"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rosha/wpilib/java/current/lib/WPILib.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Programming Team/wpilib/java/current/lib/WPILib.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/niVisionWPI.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/rosha/wpilib/user/java/lib/navx_frc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Programming Team/wpilib/user/java/lib/navx_frc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
