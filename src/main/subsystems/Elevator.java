@@ -83,13 +83,17 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}*/
 	
 	public void moveDown() {
-		leftElevatorMaster.set(-0.1);
-		rightElevatorMaster.set(0.1);
+		if (!isArmAtBottom()) {
+			leftElevatorMaster.set(-0.1);
+			rightElevatorMaster.set(0.1);
+		}
 	}
 	
 	public void moveUp() {
-		leftElevatorMaster.set(0.1);
-		rightElevatorMaster.set(-0.1);
+		if (!isArmAtTop()) {
+			leftElevatorMaster.set(0.1);
+			rightElevatorMaster.set(-0.1);
+		}
 	}
 	
 	@Override
