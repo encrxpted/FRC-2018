@@ -48,8 +48,10 @@ public interface Constants {
 	public final ControlMode PERCENT_VBUS_MODE = ControlMode.PercentOutput;
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
 	
-	// QUAD SENSORS
+	// QUAD SENSORS STUFF
 	public final int countsPerRev = 1024;
+	public final double spindleDiameter = 2; //placeholder
+	public final double spindleCircum = Math.PI * spindleDiameter;
 	
 	/*********
 	 * PORTS *

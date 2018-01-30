@@ -27,7 +27,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
 	
-	public void resetElevatorEncoders() {
+	public void resetElevatorEncoder() {
 		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
@@ -51,15 +51,22 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	// Sets encoders to 0 if the arm is at the bottom (this helps to avoid offset)
-	public void zeroElevatorEncoders() {
+	public void zeroElevatorEncoder() {
 		if (isArmAtBottom() == true)
-			resetElevatorEncoders();
+			resetElevatorEncoder();
 	}
 	
 	// Gets the number of revolutions of the encoder
 	public double getElevatorRevs() {
 		return leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev;
 	}
+	
+	// Get the distance the elevator has travelled
+	public double getDistanceTravelled() {
+		return getElevatorRevs() * spindleCircum;
+	}
+	
+	
 	
 	/********************
 	 * MOVEMENT METHODS *

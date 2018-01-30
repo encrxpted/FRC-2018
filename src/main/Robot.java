@@ -25,7 +25,7 @@ import main.subsystems.Pneumatics;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static enum RobotState {
 		Driving, Climbing, Neither
 	}
@@ -81,6 +81,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
+		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 	}
 
 	@Override
