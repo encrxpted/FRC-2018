@@ -32,9 +32,7 @@ public interface Constants {
 	
 	// SENSORS
 	public final boolean encodersInverted = true;
-	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.
-	public final int driverAlertsPort = 0;
-	
+	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.	
 	
 	/*************
 	 * CONSTANTS *
@@ -95,10 +93,12 @@ public interface Constants {
 	public final int SHIFTER_EXT = 3;
 	public final int SHIFTER_RET = 2;
 	
-	// ELEVATOR SWITCHES
+	// SWITCHES
 	public final int STAGE1_Bottom = 0;
 	public final int STAGE1_Top = 1;
 	public final int STAGE2_Bottom = 2;
 	public final int STAGE2_Top = 3;
+	public final int driverAlertsPort = 0;
+	public final int INTAKE_Switch = 5;
 
 }

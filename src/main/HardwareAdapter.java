@@ -36,6 +36,7 @@ public interface HardwareAdapter extends Constants{
 	public static DigitalInput stage2BottomSwitch = new DigitalInput(STAGE2_Bottom);
 	public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
 	public static DigitalInput driverAlerts = new DigitalInput(driverAlertsPort);
+	public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
 
 	
 	//PNEUMATICS
