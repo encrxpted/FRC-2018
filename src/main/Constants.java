@@ -58,6 +58,9 @@ public interface Constants {
 	public final double switchHeight = 24;
 	public final double lowScaleHeight = 65;
 	public final double highscaleheight = 86;
+	public final double DefaultElevatorSpeed = 0.8;
+	public final double slowElevatorSpeed = 0.2;
+	public final double nearSetpoint = 12;
 	
 	
 	/*********

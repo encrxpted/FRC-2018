@@ -80,10 +80,30 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		else return false;
 	}
 	
+	// Returns whether or not the elevator is close to set position
+	private boolean isIntakeNearPos(double pos) {
+		if (getDistanceFromPos(pos) < nearSetpoint && getDistanceFromPos(pos) > -1* nearSetpoint) {
+			return true;
+		}
+		else return false;
+	}
+	
 	
 	/********************
 	 * MOVEMENT METHODS *
 	 ********************/
+	
+	private void moveToPos(int pos) {
+		if(isIntakeAtPos(pos)) {
+			leftElevatorMaster.set(0);
+		}
+		else if (isIntakeNearPos(pos)) {
+			leftElevatorMaster.set(slowElevatorSpeed);
+		}
+		else {
+			leftElevatorMaster.set(DefaultElevatorSpeed);
+		}
+	}
 
 	/*private void moveToScale() {
 		leftElevatorMaster.set(1.0);
@@ -94,10 +114,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		leftElevatorMaster.set(1.0);
 		rightElevatorMaster.set(1.0);
 	}*/
-	
-	public void driveToPos(double pos) {
-	}
-	
+
 	private void moveDown() {
 		if (!isArmAtBottom()) {
 			leftElevatorMaster.set(-0.1);
@@ -108,7 +125,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private void moveUp() {
 		if (!isArmAtTop()) {
 			leftElevatorMaster.set(0.1);
-			rightElevatorMaster.set(-0.1);
+			rightElevatorMaster.set(-0.1); {
 		}
 	}
 	
