@@ -88,6 +88,11 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		else return false;
 	}
 	
+	private boolean isIntakeBelowPos(double pos) {
+		if (getDistanceFromPos(pos) < 0) return true;
+		else return false;
+	}
+	
 	
 	/********************
 	 * MOVEMENT METHODS *
@@ -100,10 +105,12 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			leftElevatorMaster.set(0);
 		}
 		else if (isIntakeNearPos(pos)) {
-			leftElevatorMaster.set(slowElevatorSpeed);
+			if (isIntakeBelowPos(pos)) leftElevatorMaster.set(slowElevatorSpeed);
+			else leftElevatorMaster.set(-1 * slowElevatorSpeed);
 		}
 		else {
-			leftElevatorMaster.set(defaultElevatorSpeed);
+			if (isIntakeBelowPos(pos)) leftElevatorMaster.set(defaultElevatorSpeed);
+			else leftElevatorMaster.set(defaultElevatorSpeed * -1); 
 		}
 	}
 
