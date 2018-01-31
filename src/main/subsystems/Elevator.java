@@ -88,8 +88,9 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		else return false;
 	}
 	
+	// Returns if the intake is currently below the desired position or not
 	private boolean isIntakeBelowPos(double pos) {
-		if (getDistanceFromPos(pos) < 0) return true;
+		if (getDistanceFromPos(pos) > 0) return true;
 		else return false;
 	}
 	
@@ -124,23 +125,29 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		rightElevatorMaster.set(1.0);
 	}*/
 
-	private void moveDown() {
-		if (isArmAtTop()) {
+	public void moveDown() {
+		if (isArmAtBottom()) {
 			leftElevatorMaster.set(0);
 		}
 		else if (isIntakeNearPos(0)) {
-			leftElevatorMaster.set(slowElevatorSpeed);
+			leftElevatorMaster.set(-1 * slowElevatorSpeed);
 		}
 		else {
-			leftElevatorMaster.set(defaultElevatorSpeed);
+			leftElevatorMaster.set(-1 * defaultElevatorSpeed);
 		}
 		//rightElevatorMaster.set(0.1);
 	}
 	
-	private void moveUp() {
-		if (isArmAtBottom()) {
+	public void moveUp() {
+		if (isArmAtTop()) {
 			leftElevatorMaster.set(0);
 			//rightElevatorMaster.set(-0.1);
+		}
+		else if(isIntakeNearPos(elevatorHeight)) {
+			leftElevatorMaster.set(slowElevatorSpeed);
+		}
+		else {
+			leftElevatorMaster.set(defaultElevatorSpeed);
 		}
 	}
 	

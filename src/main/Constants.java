@@ -53,11 +53,10 @@ public interface Constants {
 	// ELEVATOR LENGTHS
 	public final double spindleDiameter = 2; //placeholder
 	public final double spindleCircum = Math.PI * spindleDiameter;
-	public final double elevatorHeight = 86;
+	public final double elevatorHeight = 86; //these are all in inches
 	public final double elevatorTolerance = 2;
 	public final double switchHeight = 24;
-	public final double lowScaleHeight = 65;
-	public final double highScaleHeight = 86;
+	public final double scaleHeight = 70; //this can vary- idk what to do with this one...
 	public final double nearSetpoint = 12;
 	
 	// ELEVATOR SPEEDS
