@@ -5,6 +5,7 @@ import lib.joystick.XboxController;
 import Util.RevRoboticsAnalogPressureSensor;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public interface HardwareAdapter extends Constants{
@@ -17,6 +18,9 @@ public interface HardwareAdapter extends Constants{
 	public static WPI_TalonSRX leftDriveSlave1 = new WPI_TalonSRX(LEFT_Drive_Slave1);
 	public static WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RIGHT_Drive_Master);
 	public static WPI_TalonSRX rightDriveSlave1 = new WPI_TalonSRX(RIGHT_Drive_Slave1);
+	public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
+	public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
+
 	
 	//CIMBER
 	public static WPI_TalonSRX climberMotor = new WPI_TalonSRX(CLIMBER_Motor);
@@ -35,7 +39,7 @@ public interface HardwareAdapter extends Constants{
 	public static DigitalInput stage1TopSwitch = new DigitalInput(STAGE1_Top);
 	public static DigitalInput stage2BottomSwitch = new DigitalInput(STAGE2_Bottom);
 	public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
-	public static DigitalInput driverAlerts = new DigitalInput(driverAlertsPort);
+	public static DigitalOutput driverAlerts = new DigitalOutput(driverAlertsPort);
 	public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
 
 	

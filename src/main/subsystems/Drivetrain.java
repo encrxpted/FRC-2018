@@ -161,6 +161,9 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		*/
 		leftDriveSlave1.follow(leftDriveMaster);
 		rightDriveSlave1.follow(rightDriveMaster);
+		leftDriveSlave2.follow(leftDriveMaster);
+		rightDriveSlave2.follow(rightDriveMaster);
+
 	}
 	
 

@@ -64,6 +64,8 @@ public interface Constants {
 	public final int LEFT_Drive_Slave1 = 6;
 	public final int RIGHT_Drive_Master = 2;
 	public final int RIGHT_Drive_Slave1 = 5;
+	public final int LEFT_Drive_Slave2 = 10;
+	public final int RIGHT_Drive_Slave2 = 11;
 	
     // CLIMBER TALONS
 	public final int CLIMBER_Motor = 7; 
