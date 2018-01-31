@@ -103,4 +103,8 @@ public interface Constants {
 	public final int driverAlertsPort = 0;
 	public final int INTAKE_Switch = 5;
 
+	//Driver Alert
+		public final double alertOnTime = 0.125;
+		public final double alertOffTime = 0.125;
+	
 }
