@@ -112,11 +112,12 @@ public interface Constants {
 	public final int STAGE1_Top = 1;
 	public final int STAGE2_Bottom = 2;
 	public final int STAGE2_Top = 3;
-	public final int driverAlertsPort = 0;
 	public final int INTAKE_Switch = 5;
 
 	//Driver Alert
-		public final double alertOnTime = 0.125;
-		public final double alertOffTime = 0.125;
+	public final double alertOnTime = 0.125;
+	public final double alertOffTime = 0.125;
+	public final int driverAlertsPort = 0;
+
 	
 }
