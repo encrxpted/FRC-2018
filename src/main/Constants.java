@@ -50,17 +50,19 @@ public interface Constants {
 	// QUAD SENSORS STUFF
 	public final int countsPerRev = 1024;
 	
-	// ELEVATOR STUFF
+	// ELEVATOR LENGTHS
 	public final double spindleDiameter = 2; //placeholder
 	public final double spindleCircum = Math.PI * spindleDiameter;
 	public final double elevatorHeight = 86;
 	public final double elevatorTolerance = 2;
 	public final double switchHeight = 24;
 	public final double lowScaleHeight = 65;
-	public final double highscaleheight = 86;
+	public final double highScaleHeight = 86;
+	public final double nearSetpoint = 12;
+	
+	// ELEVATOR SPEEDS
 	public final double DefaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
-	public final double nearSetpoint = 12;
 	
 	
 	/*********

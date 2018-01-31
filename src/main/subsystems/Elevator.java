@@ -52,7 +52,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	// Sets encoders to 0 if the arm is at the bottom (this helps to avoid offset)
-	private void zeroElevatorEncoder() {
+	public void zeroElevatorEncoder() {
 		if (isArmAtBottom() == true)
 			resetElevatorEncoder();
 	}
@@ -93,7 +93,9 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * MOVEMENT METHODS *
 	 ********************/
 	
-	private void moveToPos(int pos) {
+	// Moves fast to a position if far away, slows down when it gets closer, and stops when it reaches
+	// the position within a tolerance.
+	public void moveToPos(double pos) {
 		if(isIntakeAtPos(pos)) {
 			leftElevatorMaster.set(0);
 		}
@@ -118,14 +120,14 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private void moveDown() {
 		if (!isArmAtBottom()) {
 			leftElevatorMaster.set(-0.1);
-			rightElevatorMaster.set(0.1);
+			//rightElevatorMaster.set(0.1);
 		}
 	}
 	
 	private void moveUp() {
 		if (!isArmAtTop()) {
 			leftElevatorMaster.set(0.1);
-			rightElevatorMaster.set(-0.1); {
+			//rightElevatorMaster.set(-0.1);
 		}
 	}
 	

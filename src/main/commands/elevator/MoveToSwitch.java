@@ -11,7 +11,7 @@ import main.Robot;
 
 public class MoveToSwitch extends CommandGroup implements Constants, HardwareAdapter {
 	public void MoveToSwich() {
-		requires(Robot.it);
+		requires(Robot.el);
 	}
 	
     // Called just before this Command runs the first time
@@ -20,7 +20,8 @@ public class MoveToSwitch extends CommandGroup implements Constants, HardwareAda
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    
+    	Robot.el.zeroElevatorEncoder();
+    	Robot.el.moveToPos(switchHeight);
     }
 
     // Make this return true when this Command no longer needs to run execute()
