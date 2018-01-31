@@ -10,86 +10,102 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	public Elevator() {
 		setElevatorEncoderDefaults();
+		resetElevatorEncoder();
 	}
-	
-	public static enum ElevatorPosition {
+	/*
+	private static enum ElevatorPosition {
 		Top, Bottom, Neither
 	}
 	
-	public static enum ElevatorState {
+	private static enum ElevatorState {
 		Up, Down, Off
-	}
+	}*/
 	
-	public static ElevatorPosition elevatorPosition = ElevatorPosition.Bottom;
-	public static ElevatorState elevatorState = ElevatorState.Off;
+	//private static ElevatorPosition elevatorPosition = ElevatorPosition.Bottom;
+	//private static ElevatorState elevatorState = ElevatorState.Off;
 	
 	/**************************
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
 	
-	public void resetElevatorEncoder() {
+	private void resetElevatorEncoder() {
 		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
-	// "Instantiates" the encoders onto the respective talons
-	public void setElevatorEncoderDefaults() {
+	// "Instantiates" the encoders onto the talon
+	private void setElevatorEncoderDefaults() {
 		leftElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 	
 	// Checks if the intake is at bottom
-	public boolean isArmAtBottom() {
+	private boolean isArmAtBottom() {
 		if (stage1BottomSwitch.get() == true && stage2BottomSwitch.get() == true) 
 			return true;
 		else return false;
 	}
 	
 	// Checks if intake is at the top
-	public boolean isArmAtTop() {
+	private boolean isArmAtTop() {
 		if (stage1TopSwitch.get() == true && stage2TopSwitch.get() == true)
 			return true;
 		else return false;
 	}
 	
 	// Sets encoders to 0 if the arm is at the bottom (this helps to avoid offset)
-	public void zeroElevatorEncoder() {
+	private void zeroElevatorEncoder() {
 		if (isArmAtBottom() == true)
 			resetElevatorEncoder();
 	}
 	
 	// Gets the number of revolutions of the encoder
-	public double getElevatorRevs() {
+	private double getElevatorRevs() {
 		return leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev;
 	}
 	
 	// Get the distance the elevator has travelled
-	public double getDistanceTravelled() {
+	private double getDistanceTravelled() {
 		return getElevatorRevs() * spindleCircum;
 	}
 	
+	// Returns distance from a set position
+	private double getDistanceFromPos(double pos) {
+		return pos - getDistanceTravelled();
+	}
+	
+	// Returns whether or not the intake has reached the set position
+	private boolean isIntakeAtPos(double pos) {
+		if (getDistanceFromPos(pos) < elevatorTolerance && getDistanceFromPos(pos) > -1 * elevatorTolerance) {
+			return true;
+		}
+		else return false;
+	}
 	
 	
 	/********************
 	 * MOVEMENT METHODS *
 	 ********************/
 
-	/*public void moveToScale() {
+	/*private void moveToScale() {
 		leftElevatorMaster.set(1.0);
 		rightElevatorMaster.set(1.0);
 	}
 	
-	public void moveToSwich() {
+	private void moveToSwich() {
 		leftElevatorMaster.set(1.0);
 		rightElevatorMaster.set(1.0);
 	}*/
 	
-	public void moveDown() {
+	public void driveToPos(double pos) {
+	}
+	
+	private void moveDown() {
 		if (!isArmAtBottom()) {
 			leftElevatorMaster.set(-0.1);
 			rightElevatorMaster.set(0.1);
 		}
 	}
 	
-	public void moveUp() {
+	private void moveUp() {
 		if (!isArmAtTop()) {
 			leftElevatorMaster.set(0.1);
 			rightElevatorMaster.set(-0.1);
