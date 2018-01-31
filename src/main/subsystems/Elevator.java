@@ -72,7 +72,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		return pos - getDistanceTravelled();
 	}
 	
-	// Returns whether or not the intake has reached the set position
+	// Returns whether or not the intake has reached the set position. Pos is in inches
 	private boolean isIntakeAtPos(double pos) {
 		if (getDistanceFromPos(pos) < elevatorTolerance && getDistanceFromPos(pos) > -1 * elevatorTolerance) {
 			return true;
@@ -103,7 +103,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			leftElevatorMaster.set(slowElevatorSpeed);
 		}
 		else {
-			leftElevatorMaster.set(DefaultElevatorSpeed);
+			leftElevatorMaster.set(defaultElevatorSpeed);
 		}
 	}
 
@@ -118,15 +118,21 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}*/
 
 	private void moveDown() {
-		if (!isArmAtBottom()) {
-			leftElevatorMaster.set(-0.1);
-			//rightElevatorMaster.set(0.1);
+		if (isArmAtTop()) {
+			leftElevatorMaster.set(0);
 		}
+		else if (isIntakeNearPos(0)) {
+			leftElevatorMaster.set(slowElevatorSpeed);
+		}
+		else {
+			leftElevatorMaster.set(defaultElevatorSpeed);
+		}
+		//rightElevatorMaster.set(0.1);
 	}
 	
 	private void moveUp() {
-		if (!isArmAtTop()) {
-			leftElevatorMaster.set(0.1);
+		if (isArmAtBottom()) {
+			leftElevatorMaster.set(0);
 			//rightElevatorMaster.set(-0.1);
 		}
 	}

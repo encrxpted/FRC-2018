@@ -61,7 +61,7 @@ public interface Constants {
 	public final double nearSetpoint = 12;
 	
 	// ELEVATOR SPEEDS
-	public final double DefaultElevatorSpeed = 0.8;
+	public final double defaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
 	
 	
