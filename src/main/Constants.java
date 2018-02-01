@@ -48,7 +48,7 @@ public interface Constants {
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
 	
 	// QUAD SENSORS STUFF
-	public final int countsPerRev = 1024;
+	public final int countsPerRev = 4096; // what is this actually supposed to be?
 	
 	// ELEVATOR LENGTHS
 	public final double spindleDiameter = 2; //placeholder
