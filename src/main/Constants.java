@@ -83,19 +83,19 @@ public interface Constants {
 	public final int LEFT_Drive_Slave1 = 6;
 	public final int RIGHT_Drive_Master = 2;
 	public final int RIGHT_Drive_Slave1 = 5;
-	public final int LEFT_Drive_Slave2 = 10;
-	public final int RIGHT_Drive_Slave2 = 11;
+	public final int LEFT_Drive_Slave2 = 9;
+	public final int RIGHT_Drive_Slave2 = 4;
 	
     // CLIMBER TALONS
-	public final int CLIMBER_Motor = 7; 
+	public final int CLIMBER_Motor = 1; 
 	
 	// INTAKE MOTORS	
 	public final int LEFT_Intake = 0;
-	public final int RIGHT_Intake = 1;
+	public final int RIGHT_Intake = 10;
 	
 	// ELEVATOR MOTORS
 	public final int LEFT_Elevator_Master = 8;
-	public final int RIGHT_Elevator_Master = 9;
+	public final int RIGHT_Elevator_Master = 7;
 	
 	// PNEUMATICS CONTROL MODULE
 	public final int PCM_Port1 = 1;
