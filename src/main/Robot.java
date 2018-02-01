@@ -74,6 +74,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		el.check();
 	}
 
 	@Override
@@ -85,6 +86,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
+		
+		el.check();
 	}
 
 	@Override

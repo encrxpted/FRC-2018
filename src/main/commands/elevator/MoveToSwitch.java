@@ -20,7 +20,6 @@ public class MoveToSwitch extends CommandGroup implements Constants, HardwareAda
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.el.zeroElevatorEncoder();
     	Robot.el.moveToPos(switchHeight);
     }
 

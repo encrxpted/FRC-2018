@@ -52,7 +52,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	// Sets encoders to 0 if the arm is at the bottom (this helps to avoid offset)
-	public void zeroElevatorEncoder() {
+	public void check() {
 		if (isArmAtBottom() == true)
 			resetElevatorEncoder();
 	}
