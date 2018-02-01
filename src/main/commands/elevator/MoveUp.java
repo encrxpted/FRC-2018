@@ -19,6 +19,7 @@ public class MoveUp extends Command implements Constants, HardwareAdapter{
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("D-Pad Up Pressed");
     	Robot.el.moveUp();
     }
 

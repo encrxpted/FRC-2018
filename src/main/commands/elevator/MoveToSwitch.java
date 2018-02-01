@@ -20,6 +20,7 @@ public class MoveToSwitch extends CommandGroup implements Constants, HardwareAda
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("D-Pad Left Pressed");
     	Robot.el.moveToPos(switchHeight);
     }
 

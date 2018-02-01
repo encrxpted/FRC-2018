@@ -16,6 +16,7 @@ public class MoveDown extends Command implements Constants, HardwareAdapter{
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("D-Pad Down Pressed");
     	Robot.el.moveDown();
     }
 
