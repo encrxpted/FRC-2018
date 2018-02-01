@@ -25,7 +25,7 @@ public class MoveToSwitch extends CommandGroup implements Constants, HardwareAda
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+    	return Robot.el.isIntakeAtPos(switchHeight);
     }
 
     // Called once after isFinished returns true
