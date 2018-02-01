@@ -68,6 +68,7 @@ public interface Constants {
 	public final double peakSpeedReverse = -1;
 	public final double nomSpeedReverse = 0;
 	public final double nomSpeedForward = 0;
+	// TEST FOR MAX SPEED OF MOTOR
 	
 	
 	/*********
