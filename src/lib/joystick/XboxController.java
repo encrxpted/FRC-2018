@@ -26,10 +26,10 @@ public class XboxController<dpadleft> extends Joystick{
 	public Button leftTrigger;
 	public Button rightTrigger;
     //  D-PAD
-	public Button dpadup;
+	/*public Button dpadup;
 	public Button dpaddown;
 	public Button dpadleft;
-	public Button dpadright;
+	public Button dpadright;*/
 	/**
 	 * @param port of the controller.
 	 */
@@ -45,10 +45,10 @@ public class XboxController<dpadleft> extends Joystick{
 		start = new JoystickButton(this, 8);
 		leftJoystickButton = new JoystickButton(this, 9);
 		rightJoystickButton = new JoystickButton(this, 10);
-		dpadup =new JoystickButton(this, 12);
+		/*dpadup =new JoystickButton(this, 12);
 		dpaddown =new JoystickButton(this, 13);
 		dpadleft =new JoystickButton(this, 14);
-		dpadright =new JoystickButton(this, 15);
+		dpadright =new JoystickButton(this, 15);*/
 		leftTrigger = new AnalogButton(this, 2, 0.1);
 		rightTrigger = new AnalogButton(this, 3, 0.1);
 		

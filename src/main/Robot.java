@@ -46,9 +46,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
-		it = new Intake();
-		el = new Elevator();
-		da = new DriverAlerts();
+		//it = new Intake();
+		///el = new Elevator();
+		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
 		
 		//robotState = 
@@ -74,7 +74,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		el.check();
+		//el.check();
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 		
-		el.check();
+		//el.check();
 	}
 
 	@Override

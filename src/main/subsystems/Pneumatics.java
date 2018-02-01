@@ -15,10 +15,10 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		comp.setClosedLoopControl(true);
 		shifter.set(EXT);
 		shifter.set(OFF);
-		tilter.set(EXT);
+		/*tilter.set(EXT);
 		tilter.set(OFF);
 		arm.set(EXT);
-		arm.set(OFF);
+		arm.set(OFF);*/
 	}
 	
 	public static enum ArmStates {

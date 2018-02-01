@@ -29,7 +29,7 @@ public class OI implements Constants, HardwareAdapter {
 			// pneumatics
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());
-			xbox.b.whenPressed(new ArmClose());
+			/*xbox.b.whenPressed(new ArmClose());
 			xbox.x.whenPressed(new ArmOpen());
 			xbox.leftTrigger.whenPressed(new TiltUp());
 			xbox.rightTrigger.whenPressed(new TiltDown());
@@ -38,11 +38,12 @@ public class OI implements Constants, HardwareAdapter {
 			xbox.y.whenPressed(new SpinOut());
 			xbox.a.whenReleased(new SpinOff());
 			xbox.y.whenReleased(new SpinOff());
-			// Elevator
+			// Elevator */
+			/*
 			xbox.dpadright.whenPressed(new MoveToScale());
 			xbox.dpadleft.whenPressed(new MoveToSwitch());
 			xbox.dpadup.whenPressed(new MoveUp());
-			xbox.dpaddown.whenPressed(new MoveDown());
+			xbox.dpaddown.whenPressed(new MoveDown());*/
 		} else {
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());

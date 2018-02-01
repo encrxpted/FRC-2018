@@ -101,18 +101,18 @@ public interface Constants {
 	public final int PCM_Port1 = 1;
 	
 	// INTAKE PNEUMATICS
-	//public final int INTAKE_EXT = 3;
-	//public final int INTAKE_RET = 2;	
-	public final int INTAKE_EXT = 1;
-	public final int INTAKE_RET = 0;
+	public final int INTAKE_EXT = 3;
+	public final int INTAKE_RET = 2;	
+//	public final int INTAKE_EXT = 1;
+//	public final int INTAKE_RET = 0;
 	public final int TILT_EXT = 5;
 	public final int TILT_RET = 4;
 	
 	// SHIFTING
-	//public final int SHIFTER_EXT = 1;
-	//public final int SHIFTER_RET = 0;
-	public final int SHIFTER_EXT = 3;
-	public final int SHIFTER_RET = 2;
+	public final int SHIFTER_EXT = 1;
+	public final int SHIFTER_RET = 0;
+//	public final int SHIFTER_EXT = 3;
+//	public final int SHIFTER_RET = 2;
 	
 	// SWITCHES
 	public final int STAGE1_Bottom = 0;
@@ -124,7 +124,7 @@ public interface Constants {
 	//Driver Alert
 	public final double alertOnTime = 0.125;
 	public final double alertOffTime = 0.125;
-	public final int driverAlertsPort = 0;
+	public final int driverAlertsPort = 10;
 
 	
 }
