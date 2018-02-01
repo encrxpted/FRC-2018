@@ -63,6 +63,12 @@ public interface Constants {
 	public final double defaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
 	
+	// MOTION MAGIC ELEVATOR STUFF
+	public final double peakSpeedForward = 1;
+	public final double peakSpeedReverse = -1;
+	public final double nomSpeedReverse = 0;
+	public final double nomSpeedForward = 0;
+	
 	
 	/*********
 	 * PORTS *

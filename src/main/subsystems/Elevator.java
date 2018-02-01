@@ -10,7 +10,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	public Elevator() {
 		setElevatorEncoderDefaults();
-		resetElevatorEncoder();
+		setMotionMagicDefaults();
 	}
 	/*
 	private static enum ElevatorPosition {
@@ -24,6 +24,37 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	//private static ElevatorPosition elevatorPosition = ElevatorPosition.Bottom;
 	//private static ElevatorState elevatorState = ElevatorState.Off;
 	
+	
+	/************************
+	 * MOTION MAGIC METHODS *
+	 ************************/
+	private void setStatusFrames() {
+		//something goes here but idk what
+	}
+	
+	// Sets max/min output of talon (with percent Vbus mode)... I think...
+	private void setPercentVBusDefaults() {
+		leftElevatorMaster.configNominalOutputForward(nomSpeedForward, 10);
+		leftElevatorMaster.configNominalOutputReverse(nomSpeedReverse, 10);
+		leftElevatorMaster.configPeakOutputForward(peakSpeedForward, 10);
+		leftElevatorMaster.configPeakOutputReverse(peakSpeedReverse, 10);
+	}
+	
+	private void setAccelAndVeloDefaults() {
+		//something goes here.
+	}
+	
+	private void setPIDValues() {
+		//I think something is supposed to go here too.
+	}
+	
+	private void setMotionMagicDefaults() {
+		setStatusFrames();
+		setPercentVBusDefaults();
+		setAccelAndVeloDefaults();
+		setPIDValues();
+	}
+	
 	/**************************
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
@@ -32,9 +63,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
-	// "Instantiates" the encoders onto the talon
+	// "Instantiates" the encoders onto the talon + sets things
 	private void setElevatorEncoderDefaults() {
 		leftElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		resetElevatorEncoder();
 	}
 	
 	// Checks if the intake is at bottom
