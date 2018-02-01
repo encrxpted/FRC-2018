@@ -142,10 +142,9 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		leftDriveMaster.setInverted(isInverted);
 		rightDriveMaster.setInverted(isInverted);
 		leftDriveSlave1.setInverted(isInverted);
-		leftDriveSlave2.setInverted(isInverted);
+		leftDriveSlave2.setInverted(!isInverted);
 		rightDriveSlave1.setInverted(isInverted);
-		rightDriveSlave2.setInverted(isInverted);
-
+		rightDriveSlave2.setInverted(!isInverted);
 	}
 
 	private void setBrakeMode(NeutralMode mode) {
