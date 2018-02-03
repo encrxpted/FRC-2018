@@ -58,7 +58,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		pn = new Pneumatics();
 		it = new Intake();
 		CameraServer.getInstance().startAutomaticCapture();
-		//s/el = new Elevator();
+		el = new Elevator();
 		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
 		
@@ -101,7 +101,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
-		
+		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
+		SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
 		//el.check();
 	}
 

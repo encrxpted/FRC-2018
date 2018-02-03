@@ -83,13 +83,13 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	// Checks if the intake is at bottom
-	private boolean isArmAtBottom() {
+	public boolean isArmAtBottom() {
 		if (stage1BottomSwitch.get() && stage2BottomSwitch.get()) return true;
 		else return false;
 	}
 	
 	// Checks if intake is at the top
-	private boolean isArmAtTop() {
+	public boolean isArmAtTop() {
 		if (stage1TopSwitch.get() && stage2TopSwitch.get())
 			return true;
 		else return false;
