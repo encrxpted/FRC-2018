@@ -1,6 +1,7 @@
 package main;
 
 import lib.joystick.XboxController;
+import main.Robot;
 import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
@@ -19,13 +20,27 @@ public class OI implements Constants, HardwareAdapter {
 		check();
 	}
 	
+	public static boolean ControllerMode = true;
+	
 	public static XboxController getXbox() {
 		return xbox; 
 	}
 	
+    public static boolean OneController(){
+    	ControllerMode = true;
+    	return ControllerMode;
+    }
+    
+    public static boolean TwoController(){
+    	ControllerMode = false;
+    	return ControllerMode;
+    }
+    
+	
+	
 	// important
 	public void check() {
-		if (OneControllerMode) {
+		if (ControllerMode) {
 			// pneumatics
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());

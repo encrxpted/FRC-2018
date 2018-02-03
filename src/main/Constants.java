@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public interface Constants {
 	
-	public static final boolean OneControllerMode = true;
-	
 	/*************
 	 * VARIABLES *
 	 *************/

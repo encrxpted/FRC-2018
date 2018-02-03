@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.elevator.MoveToScale;
 import main.subsystems.DriverAlerts;
@@ -34,6 +35,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Driving, Climbing, Neither
 	}
 	
+	Command teleopCommand;
+	SendableChooser teleopChooser;
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
@@ -47,6 +50,10 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void robotInit() {
 		//OI must be at end
+		teleopChooser = new SendableChooser();
+		teleopChooser.addDefault("Default program", OI.OneController());
+		teleopChooser.addObject("Experimental program", OI.TwoController());
+		SmartDashboard.putData("Teleop Mode Chooser", teleopChooser);
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		it = new Intake();
@@ -83,6 +90,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void teleopInit() {
+		teleopCommand = (Command) teleopChooser.getSelected();
+		teleopCommand.start();
 		if (autoCommand != null) autoCommand.cancel();
 	} 
 	@Override

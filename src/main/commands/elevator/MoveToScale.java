@@ -24,6 +24,7 @@ public class MoveToScale extends CommandGroup implements Constants, HardwareAdap
         return true;
     }
 
+
     // Called once after isFinished returns true
     protected void end() {
     }
