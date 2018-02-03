@@ -8,11 +8,13 @@
 package main;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import main.commands.elevator.MoveToScale;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		it = new Intake();
+		CameraServer.getInstance().startAutomaticCapture();
 		//s/el = new Elevator();
 		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
@@ -84,7 +87,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	} 
 	@Override
 	public void teleopPeriodic() {
+		// smartdashboard stuff goes here
 		Scheduler.getInstance().run();
+		
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 		
