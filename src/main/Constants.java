@@ -90,7 +90,7 @@ public interface Constants {
 	public final int CLIMBER_Motor = 1; 
 	
 	// INTAKE MOTORS	
-	public final int LEFT_Intake = 0;
+	public final int LEFT_Intake = 1;
 	public final int RIGHT_Intake = 10;
 	
 	// ELEVATOR MOTORS
@@ -103,16 +103,12 @@ public interface Constants {
 	// INTAKE PNEUMATICS
 	public final int INTAKE_EXT = 3;
 	public final int INTAKE_RET = 2;	
-//	public final int INTAKE_EXT = 1;
-//	public final int INTAKE_RET = 0;
 	public final int TILT_EXT = 5;
 	public final int TILT_RET = 4;
 	
 	// SHIFTING
 	public final int SHIFTER_EXT = 1;
 	public final int SHIFTER_RET = 0;
-//	public final int SHIFTER_EXT = 3;
-//	public final int SHIFTER_RET = 2;
 	
 	// SWITCHES
 	public final int STAGE1_Bottom = 0;

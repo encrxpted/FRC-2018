@@ -46,8 +46,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
-		//it = new Intake();
-		///el = new Elevator();
+		it = new Intake();
+		//s/el = new Elevator();
 		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
 		
