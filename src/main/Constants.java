@@ -56,14 +56,14 @@ public interface Constants {
 	// XBOX PORTS
 	public final int Xbox_Port = 0;
 	
-	
 	// DRIVETRAIN TALONS (CAN BUS)
 	public final int LEFT_Drive_Master = 3;
 	public final int LEFT_Drive_Slave1 = 6;
 	public final int RIGHT_Drive_Master = 2;
 	public final int RIGHT_Drive_Slave1 = 5;
+	public final int LEFT_Drive_Slave2 = 9;
+	public final int RIGHT_Drive_Slave2 = 4;
 
-	
 	// SHIFTING
 	public final int SHIFTER_EXT = 1;
 	public final int SHIFTER_RET = 0;
