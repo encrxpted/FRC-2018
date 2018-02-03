@@ -48,15 +48,15 @@ public interface Constants {
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
 	
 	// QUAD SENSORS STUFF
-	public final int countsPerRev = 4096; // what is this actually supposed to be?
+	public final double countsPerRev = 4096; // what is this actually supposed to be?
 	
 	// ELEVATOR LENGTHS
 	public final double spindleDiameter = 2; //placeholder
 	public final double spindleCircum = Math.PI * spindleDiameter;
-	public final double elevatorHeight = 86; //these are all in inches
+	public final double elevatorHeight = 86;  
 	public final double elevatorTolerance = 2;
 	public final double switchHeight = 24;
-	public final double scaleHeight = 70; //this can vary- idk what to do with this one...
+	public final double scaleHeight = 70; 
 	public final double nearSetpoint = 12;
 	
 	// ELEVATOR SPEEDS
@@ -68,7 +68,7 @@ public interface Constants {
 	public final double peakSpeedReverse = -1;
 	public final double nomSpeedReverse = 0;
 	public final double nomSpeedForward = 0;
-	// TEST FOR MAX SPEED OF MOTOR
+	// TEST FOR MAX SPEED OF MOTOR IN NATIVE UNITS
 	
 	
 	/*********

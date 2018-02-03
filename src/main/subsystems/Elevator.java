@@ -1,12 +1,15 @@
 package main.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import Util.EncoderHelper;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import main.Constants;
 import main.HardwareAdapter;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
+	private EncoderHelper encoderHelper = new EncoderHelper();
 	
 	public Elevator() {
 		setElevatorEncoderDefaults();
@@ -50,6 +53,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		//I think something is supposed to go here too.
 	}
 	
+	private void setMotionMagicMode(double pos) {
+		leftElevatorMaster.set(ControlMode.MotionMagic, pos);
+	}
+	
 	private void setMotionMagicDefaults() {
 		setStatusFrames();
 		setPercentVBusDefaults();
@@ -60,6 +67,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	/**************************
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
+	
+	private void inchesToElevatorEncoderTicks(double inches) {
+		encoderHelper.inchesToEncoderTicks(inches, spindleCircum, countsPerRev);
+	}
 	
 	private void resetElevatorEncoder() {
 		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
@@ -73,8 +84,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	// Checks if the intake is at bottom
 	private boolean isArmAtBottom() {
-		if (stage1BottomSwitch.get() && stage2BottomSwitch.get()) 
-			return true;
+		if (stage1BottomSwitch.get() && stage2BottomSwitch.get()) return true;
 		else return false;
 	}
 	
