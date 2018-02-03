@@ -20,13 +20,13 @@ public class OI implements Constants, HardwareAdapter {
 		check();
 	}
 	
-	public static boolean ControllerMode = true;
+	public static boolean OneControllerMode = true;
 	
 	public static XboxController getXbox() {
 		return xbox; 
 	}
 	
-    public static boolean OneController(){
+    /*public static boolean OneController(){
     	ControllerMode = true;
     	return ControllerMode;
     }
@@ -34,13 +34,13 @@ public class OI implements Constants, HardwareAdapter {
     public static boolean TwoController(){
     	ControllerMode = false;
     	return ControllerMode;
-    }
+    }*/
     
 	
 	
 	// important
 	public void check() {
-		if (ControllerMode) {
+		if (OneControllerMode) {
 			// pneumatics
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());

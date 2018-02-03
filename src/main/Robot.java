@@ -50,10 +50,10 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void robotInit() {
 		//OI must be at end
-		teleopChooser = new SendableChooser();
-		teleopChooser.addDefault("Default program", OI.OneController());
-		teleopChooser.addObject("Experimental program", OI.TwoController());
-		SmartDashboard.putData("Teleop Mode Chooser", teleopChooser);
+		//teleopChooser = new SendableChooser();
+		//teleopChooser.addDefault("Default program", OI.OneController());
+		//teleopChooser.addObject("Experimental program", OI.TwoController());
+		//SmartDashboard.putData("Teleop Mode Chooser", teleopChooser);
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		it = new Intake();
