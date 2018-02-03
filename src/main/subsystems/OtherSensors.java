@@ -18,10 +18,10 @@ import main.commands.driveAlerts.AlertDriver;
 		}
 		
 		public void check() {
-			gearSwitchCheck();
+			Elevator();
 		}
 		
-		private void gearSwitchCheck() {
+		private void Elevator() {
 			
 			//System.out.println(gearSwitchCurrentState);
 			if(elevatorLastState != elevatorCurrentState) flashLights.start();
@@ -30,17 +30,44 @@ import main.commands.driveAlerts.AlertDriver;
 			elevatorLastState = elevatorCurrentState;
 		}
 		
+			private boolean IntakeLastState;
+			private boolean IntakeCurrentState;
+			//private InternalButton alertDriverButton = new InternalButton(); //Note to Self: Internal buttons crash robot code!
 		
 		@Override
 		protected void initDefaultCommand() {
 		}
 
-		public boolean isElevatorLastState() {
+		public boolean isIntakeLastState() {
 			return elevatorLastState;
 		}
 
-		public void setElevatorLastState(boolean elevatorLastState) {
+		public void setIntakeLastState(boolean elevatorLastState) {
 			this.elevatorLastState = elevatorLastState;
+		}
+		public void check1() {
+			Intake();
+		}
+		
+		private void Intake() {
+			
+			//System.out.println(gearSwitchCurrentState);
+			if(IntakeLastState != IntakeCurrentState) flashLights.start();
+			//alertDriverButton.setPressed(gearSwitchCurrentState != gearSwitchLastState);
+			//alertDriverButton.whenPressed(new AlertDriver());
+			IntakeLastState = IntakeCurrentState;
+		}
+		
+		
+		protected void initDefaultCommand1() {
+		}
+
+		public boolean isElevatorLastState() {
+			return IntakeLastState;
+		}
+
+		public void setElevatorLastState(boolean elevatorLastState) {
+			this.IntakeLastState = elevatorLastState;
 		}
 
 	}
