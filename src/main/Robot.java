@@ -18,6 +18,7 @@ import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
+import main.subsystems.OtherSensors;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -80,7 +81,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
-	}
+	} 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
