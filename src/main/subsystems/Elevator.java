@@ -9,7 +9,7 @@ import main.Constants;
 import main.HardwareAdapter;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
-	/*private EncoderHelper encoderHelper = new EncoderHelper();
+	private EncoderHelper encoderHelper = new EncoderHelper();
 	
 	public Elevator() {
 		setElevatorEncoderDefaults();
@@ -33,7 +33,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 ************************
 	 * This is to make a trapezoidal motion profile for the elevator... Hopefully it will work.
 	 */
-	/*private void setStatusFrames() {
+	private void setStatusFrames() {
 		//something goes here but idk what
 	}
 	
@@ -68,7 +68,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
 	
-	/*private void inchesToElevatorEncoderTicks(double inches) {
+	private void inchesToElevatorEncoderTicks(double inches) {
 		encoderHelper.inchesToEncoderTicks(inches, spindleCircum, countsPerRev);
 	}
 	
@@ -99,6 +99,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public void check() {
 		if (isArmAtBottom())
 			resetElevatorEncoder();
+	}
+	
+	public double getElevatorVelocity() {
+		return leftElevatorMaster.getSensorCollection().getQuadratureVelocity();
 	}
 	
 	// Gets the number of revolutions of the encoder
@@ -145,7 +149,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	// Moves fast to a position if far away, slows down when it gets closer, and stops when it reaches
 	// the position within a tolerance.
-	/*public void moveToPos(double pos) {
+	public void moveToPos(double pos) {
 //		if(isIntakeAtPos(pos)) {
 //			leftElevatorMaster.set(0);
 //		}
@@ -159,17 +163,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		}
 	}
 
-	/*private void moveToScale() {
-		leftElevatorMaster.set(1.0);
-		rightElevatorMaster.set(1.0);
-	}
-	
-	private void moveToSwich() {
-		leftElevatorMaster.set(1.0);
-		rightElevatorMaster.set(1.0);
-	}*/
-
-	/*public void moveDown() {
+	public void moveDown() {
 		if (isArmAtBottom()) {
 			leftElevatorMaster.set(0);
 		}
@@ -193,7 +187,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		else {
 			leftElevatorMaster.set(defaultElevatorSpeed);
 		}
-	}*/
+	}
 	
 	public void up() {
 		leftElevatorMaster.set(0.8);
