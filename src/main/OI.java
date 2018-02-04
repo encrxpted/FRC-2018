@@ -21,7 +21,7 @@ public class OI implements Constants, HardwareAdapter {
 		check();
 	}
 	
-	public static boolean OneControllerMode = true;
+	public static boolean OneControllerMode = false;
 	
 	public static XboxController getXbox() {
 		return xbox; 
@@ -65,17 +65,21 @@ public class OI implements Constants, HardwareAdapter {
 			xbox.leftTrigger.whenReleased(new StopElevator());
 			xbox.rightTrigger.whenReleased(new StopElevator());
 		} else {
-			xbox.leftBumper.whenPressed(new ShiftUp());
-			xbox.leftBumper.whenReleased(new ShiftDown());
+			//xbox.leftBumper.whenPressed(new ShiftUp());
+			//xbox.leftBumper.whenReleased(new ShiftDown());
 			
-			xbox2.leftTrigger.whenPressed(new TiltUp());
-			xbox2.rightTrigger.whenPressed(new TiltDown());
+			//xbox2.leftTrigger.whenPressed(new TiltUp());
+			//xbox2.rightTrigger.whenPressed(new TiltDown());
 			xbox2.a.whenPressed(new SpinIn());
 			xbox2.y.whenPressed(new SpinOut());
 			xbox2.a.whenReleased(new SpinOff());
 			xbox2.y.whenReleased(new SpinOff());
-			xbox2.b.whenPressed(new ArmClose());
-			xbox2.x.whenPressed(new ArmOpen());
+			//xbox2.b.whenPressed(new ArmClose());
+			//xbox2.x.whenPressed(new ArmOpen());
+			xbox2.leftTrigger.whenPressed(new MoveUp());
+			xbox2.rightTrigger.whenPressed(new MoveDown());
+			xbox2.leftTrigger.whenReleased(new StopElevator());
+			xbox2.rightTrigger.whenReleased(new StopElevator());
 		}
 	}
 
