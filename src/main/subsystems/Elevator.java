@@ -78,7 +78,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	// "Instantiates" the encoders onto the talon + sets things
 	private void setElevatorEncoderDefaults() {
-		leftElevatorMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		leftElevatorMaster.configSelectedFeedbackSensor(encoder, 0, 0);
 		resetElevatorEncoder();
 	}
 	
