@@ -81,8 +81,8 @@ public interface Constants {
 	public final int LEFT_Drive_Slave1 = 6;
 	public final int RIGHT_Drive_Master = 2;
 	public final int RIGHT_Drive_Slave1 = 5;
-	public final int LEFT_Drive_Slave2 = 9;
-	public final int RIGHT_Drive_Slave2 = 4;
+	//public final int LEFT_Drive_Slave2 = 9;
+	//public final int RIGHT_Drive_Slave2 = 4;
 	
 	// INTAKE MOTORS	
 	public final int LEFT_Intake = 1;
