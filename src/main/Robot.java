@@ -49,6 +49,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void robotInit() {
+		HardwareAdapter.init();
+		
 		//OI must be at end
 		dt = new Drivetrain();
 		//pn = new Pneumatics();
@@ -98,6 +100,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
 		//SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
 		//el.check();
+		SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ", HardwareAdapter.ultra.getRangeMM());
 	}
 
 	@Override
