@@ -6,6 +6,7 @@ import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
+import main.commands.elevator.StopElevator;
 import main.commands.intake.*;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.ArmOpen;
@@ -17,7 +18,7 @@ import main.commands.pnuematics.TiltUp;
 public class OI implements Constants, HardwareAdapter {
 	
 	public OI() {
-		//check();
+		check();
 	}
 	
 	public static boolean OneControllerMode = true;
@@ -42,12 +43,12 @@ public class OI implements Constants, HardwareAdapter {
 	public void check() {
 		if (OneControllerMode) {
 			// pneumatics
-			xbox.leftBumper.whenPressed(new ShiftUp());
-			xbox.leftBumper.whenReleased(new ShiftDown());
-			/*xbox.b.whenPressed(new ArmClose());
-			xbox.x.whenPressed(new ArmOpen());
-			xbox.leftTrigger.whenPressed(new TiltUp());
-			xbox.rightTrigger.whenPressed(new TiltDown());*/
+			//xbox.leftBumper.whenPressed(new ShiftUp());
+			//xbox.leftBumper.whenReleased(new ShiftDown());
+			//xbox.b.whenPressed(new ArmClose());
+			//xbox.x.whenPressed(new ArmOpen());
+			//xbox.leftTrigger.whenPressed(new TiltUp());
+			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
 			xbox.a.whenPressed(new SpinIn());
 			xbox.y.whenPressed(new SpinOut());
@@ -59,6 +60,10 @@ public class OI implements Constants, HardwareAdapter {
 			xbox.dpadleft.whenPressed(new MoveToSwitch());
 			xbox.dpadup.whenPressed(new MoveUp());
 			xbox.dpaddown.whenPressed(new MoveDown());*/
+			xbox.leftTrigger.whenPressed(new MoveUp());
+			xbox.rightTrigger.whenPressed(new MoveDown());
+			xbox.leftTrigger.whenReleased(new StopElevator());
+			xbox.rightTrigger.whenReleased(new StopElevator());
 		} else {
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());
