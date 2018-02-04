@@ -1,12 +1,12 @@
 package main;
 
 import lib.joystick.XboxController;
+
 import main.Robot;
 import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
-import main.commands.elevator.StopElevator;
 import main.commands.intake.*;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.ArmOpen;
@@ -62,8 +62,6 @@ public class OI implements Constants, HardwareAdapter {
 			xbox.dpaddown.whenPressed(new MoveDown());*/
 			xbox.leftTrigger.whenPressed(new MoveUp());
 			xbox.rightTrigger.whenPressed(new MoveDown());
-			xbox.leftTrigger.whenReleased(new StopElevator());
-			xbox.rightTrigger.whenReleased(new StopElevator());
 		} else {
 			//xbox.leftBumper.whenPressed(new ShiftUp());
 			//xbox.leftBumper.whenReleased(new ShiftDown());
@@ -78,8 +76,7 @@ public class OI implements Constants, HardwareAdapter {
 			//xbox2.x.whenPressed(new ArmOpen());
 			xbox2.leftTrigger.whenPressed(new MoveUp());
 			xbox2.rightTrigger.whenPressed(new MoveDown());
-			xbox2.leftTrigger.whenReleased(new StopElevator());
-			xbox2.rightTrigger.whenReleased(new StopElevator());
+
 		}
 	}
 
