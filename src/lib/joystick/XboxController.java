@@ -4,32 +4,21 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-public class XboxController<dpadleft> extends Joystick{
+public class XboxController extends Joystick{
 	
 	/*****************
 	 * INSTANCE DATA *
 	 *****************/
 	// Buttons
-	public Button a;
-	public Button b;
-	public Button x;
-	public Button y;
-	public Button select;
-	public Button start;
+	public Button a, b, x, y, select, start;
 	// Thumb-stick buttons
-	public Button leftJoystickButton;
-	public Button rightJoystickButton;
+	public Button leftJoystickButton, rightJoystickButton;
 	// Bumpers
-	public Button leftBumper;
-	public Button rightBumper;
+	public Button leftBumper, rightBumper;
 	// Triggers
-	public Button leftTrigger;
-	public Button rightTrigger;
-    //  D-PAD
-	/*public Button dpadup;
-	public Button dpaddown;
-	public Button dpadleft;
-	public Button dpadright;*/
+	public Button leftTrigger, rightTrigger;
+    //  D-pad
+	public Button dpadup, dpaddown, dpadleft, dpadright;
 	/**
 	 * @param port of the controller.
 	 */
@@ -45,10 +34,10 @@ public class XboxController<dpadleft> extends Joystick{
 		start = new JoystickButton(this, 8);
 		leftJoystickButton = new JoystickButton(this, 9);
 		rightJoystickButton = new JoystickButton(this, 10);
-		/*dpadup =new JoystickButton(this, 12);
-		dpaddown =new JoystickButton(this, 13);
-		dpadleft =new JoystickButton(this, 14);
-		dpadright =new JoystickButton(this, 15);*/
+		dpadup=new DpadButton(this, DpadButton.UP);
+		dpaddown=new DpadButton(this, DpadButton.DOWN);
+		dpadleft=new DpadButton(this, DpadButton.LEFT);
+		dpadright=new DpadButton(this, DpadButton.RIGHT);
 		leftTrigger = new AnalogButton(this, 2, 0.1);
 		rightTrigger = new AnalogButton(this, 3, 0.1);
 		
@@ -118,6 +107,4 @@ public class XboxController<dpadleft> extends Joystick{
 		//return Math.pow(super.getRawAxis(5), 3);
 		return Math.sin(Math.PI/2 * super.getRawAxis(5));
 	}
-		
-
 }
