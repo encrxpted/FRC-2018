@@ -85,7 +85,7 @@ public interface Constants {
 	//public final int RIGHT_Drive_Slave2 = 4;
 	
 	// INTAKE MOTORS	
-	public final int LEFT_Intake = 1;
+	public final int LEFT_Intake = 11;
 	public final int RIGHT_Intake = 10;
 	
 	// ELEVATOR MOTORS

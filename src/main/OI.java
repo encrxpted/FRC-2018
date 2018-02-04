@@ -17,7 +17,7 @@ import main.commands.pnuematics.TiltUp;
 public class OI implements Constants, HardwareAdapter {
 	
 	public OI() {
-		check();
+		//check();
 	}
 	
 	public static boolean OneControllerMode = true;

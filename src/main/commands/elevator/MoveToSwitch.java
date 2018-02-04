@@ -22,12 +22,13 @@ public class MoveToSwitch extends CommandGroup implements Constants, HardwareAda
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	System.out.println("D-Pad Left Pressed");
-    	Robot.el.moveToPos(switchHeight);
+    	//Robot.el.moveToPos(switchHeight);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Robot.el.isIntakeAtPos(switchHeight);
+    	//return Robot.el.isIntakeAtPos(switchHeight);
+    	return true;
     }
 
     // Called once after isFinished returns true

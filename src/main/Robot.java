@@ -36,7 +36,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	}
 	
 	Command teleopCommand;
-	SendableChooser teleopChooser;
+	//SendableChooser teleopChooser;
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
@@ -50,15 +50,11 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void robotInit() {
 		//OI must be at end
-		//teleopChooser = new SendableChooser();
-		//teleopChooser.addDefault("Default program", OI.OneController());
-		//teleopChooser.addObject("Experimental program", OI.TwoController());
-		//SmartDashboard.putData("Teleop Mode Chooser", teleopChooser);
 		dt = new Drivetrain();
-		pn = new Pneumatics();
-		it = new Intake();
-		CameraServer.getInstance().startAutomaticCapture();
-		el = new Elevator();
+		//pn = new Pneumatics();
+		//it = new Intake();
+		//CameraServer.getInstance().startAutomaticCapture();
+		//el = new Elevator();
 		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
 		
@@ -90,8 +86,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void teleopInit() {
-		teleopCommand = (Command) teleopChooser.getSelected();
-		teleopCommand.start();
 		if (autoCommand != null) autoCommand.cancel();
 	} 
 	@Override
@@ -100,9 +94,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
-		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
-		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
-		SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
+		//SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
+		//SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
+		//SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
 		//el.check();
 	}
 
