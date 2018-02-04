@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 public interface HardwareAdapter extends Constants{
 	//OI
@@ -37,11 +38,16 @@ public interface HardwareAdapter extends Constants{
 	public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
 	public static DigitalOutput driverAlerts = new DigitalOutput(driverAlertsPort);
 	public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
-
+	public static Ultrasonic ultra=new Ultrasonic(ULTRA_PING, ULTRA_ECHO);
 	
 	//PNEUMATICS
 	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
 	public static DoubleSolenoid tilter = new DoubleSolenoid(PCM_Port1, TILT_EXT, TILT_RET);
 	public static Compressor comp = new Compressor(PCM_Port1);
 	public static DoubleSolenoid arm = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
+	
+	// init method
+	public static void init() {
+		ultra.setAutomaticMode(true);
+	}
 }
