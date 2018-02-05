@@ -6,25 +6,19 @@ import main.OI;
 import main.Robot;
 
 public class Play implements Loop, Constants {
-private double playCount = 0;
+private boolean initialized = false;
 	
 	@Override
 	public void onStart() {
-		playCount = 0;
+		initialized = false;
 	}
 
 	@Override
 	public void onLoop() {
-		if(OI.playOn() && Robot.dt.highGear()) {
-			if(playCount == 0)	
+		if(OI.playOn()) {
+			if(!initialized)
 				initialize();
-			else
-				playCount++;
 			execute();
-		}
-		else if(OI.playOn() && !Robot.dt.highGear()) {
-			System.out.println("Error: Must be in High Gear while playing.");
-			playCount = 0;
 		}
 		else
 			end();
@@ -32,11 +26,12 @@ private double playCount = 0;
 	
 	@Override
 	public void onStop() {
-		playCount = 0;
+		initialized = false;
 	}
 	
 	//Helper Methods
 	private void initialize() {
+		initialized = true;
 		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TankDefault)
 			Robot.dt.setTankDefaults();
 	}

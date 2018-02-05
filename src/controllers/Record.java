@@ -6,25 +6,19 @@ import main.OI;
 import main.Robot;
 
 public class Record implements Loop, Constants {
-	private double recordCount = 0;
+	private boolean initialized = false;
 	
 	@Override
 	public void onStart() {
-		recordCount = 0;
+		initialized = false;
 	}
 
 	@Override
 	public void onLoop() {
-		if(OI.recordOn() && Robot.dt.highGear()) {
-			if(recordCount == 0)	
+		if(OI.recordOn()) {
+			if(!initialized)
 				initialize();
-			else
-				recordCount++;
 			execute();
-		}
-		else if(OI.recordOn() && !Robot.dt.highGear()) {
-			System.out.println("Error: Must be in High Gear while recording.");
-			recordCount = 0;
 		}
 		else
 			end();
@@ -32,11 +26,12 @@ public class Record implements Loop, Constants {
 	
 	@Override
 	public void onStop() {
-		recordCount = 0;
+		initialized = false;
 	}
 	
 	//Helper Methods
 	private void initialize() {
+		initialized = true;
 		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TankDefault)
 			Robot.dt.setTankDefaults();
 	}
