@@ -7,16 +7,14 @@
 
 package main;
 
+import java.util.List;
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import lib.Loop;
 import lib.Looper;
 import main.subsystems.Drivetrain;
 import main.subsystems.Pneumatics;
@@ -28,22 +26,25 @@ import main.subsystems.Pneumatics;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot implements Constants {
+public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
+	public static List<ImprovedSubsystem> subsystems;
 	public static Logger lg;
     private Looper enabledLooper;
 	Command autoCommand;
 	
 	public Robot() {
+		subsystems.add(dt);
+		subsystems.add(pn);
 	}
 
 	@Override
 	public void robotInit() {
-		//Subsystem must be before OI
-		dt = new Drivetrain();
-		pn = new Pneumatics();
+		//Instantiate Subsystems, Must come before OI
+		for(ImprovedSubsystem s: subsystems)
+			s.newInstance();
 		oi = new OI();
 		//Other Utility Classes
 		//OI must be before other Utility Classes
@@ -95,11 +96,12 @@ public class Robot extends TimedRobot implements Constants {
 
 	@Override
 	public void testPeriodic() {
+		allPeriodic();
 	}
 	
 	public void allPeriodic() {
 		enabledLooper.outputToSmartDashboard();
-		dt.check();
-		pn.check();
+		for(ImprovedSubsystem s: subsystems)
+			s.check();
 	}
 }

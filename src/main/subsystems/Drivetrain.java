@@ -1,17 +1,15 @@
 package main.subsystems;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import Util.DriveHelper;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.Constants;
 import main.HardwareAdapter;
+import main.ImprovedSubsystem;
 import main.commands.drivetrain.Drive;
 
-public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
+public class Drivetrain extends ImprovedSubsystem implements Constants, HardwareAdapter {
+	public static Drivetrain instance;
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private static boolean highGearState = defaultHighGearState;
 	private static driveTrainControlConfig controlModeConfig;
@@ -100,12 +98,29 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		return controlModeConfig;
 	}
 	
-	public void check() {		
-	}
-
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Drive());
+	}
+
+	@Override
+	public void zeroSensors() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Drivetrain newInstance() {
+		if (instance == null) {
+			instance = new Drivetrain();
+		}
+		return instance;
 	}
 	
 }

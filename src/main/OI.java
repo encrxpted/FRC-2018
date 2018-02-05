@@ -4,7 +4,7 @@ import lib.joystick.XboxController;
 import main.commands.pnuematics.ShiftDown;
 import main.commands.pnuematics.ShiftUp;
 
-public class OI implements Constants, HardwareAdapter {
+public class OI extends PlayableOI implements Constants, HardwareAdapter {
 	
 	public OI() {
 		check();

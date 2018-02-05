@@ -1,12 +1,12 @@
 package main.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import main.Constants;
 import main.HardwareAdapter;
-import main.Robot;
+import main.ImprovedSubsystem;
 
-public class Pneumatics extends Subsystem implements Constants, HardwareAdapter {
+public class Pneumatics extends ImprovedSubsystem implements Constants, HardwareAdapter {
+	public static Pneumatics instance;
 	private boolean down = false;
 	/**
 	 * Constructor
@@ -52,10 +52,30 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 			comp.stop();
 	}
 
-	public void check() {
-	}
-	
 	public void initDefaultCommand() {
 		setDefaultCommand(null);
+	}
+
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void zeroSensors() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Pneumatics newInstance() {
+		if (instance == null) {
+			instance = new Pneumatics();
+		}
+		return instance;
 	}
 }
