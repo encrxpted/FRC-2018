@@ -66,6 +66,7 @@ private boolean initialized = false;
 	private void end() {
 		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TalonDefault)
 			Robot.dt.setTalonDefaults();
+		Robot.oi.setInternalControl(false);
 	}
 }
 
