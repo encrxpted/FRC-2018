@@ -16,25 +16,30 @@ public class Logger implements Constants {
 	private BufferedWriter bw;
 	private BufferedReader br;
 	
-	public Logger(String path) {
+	public Logger(String path, boolean singleFileMode) {
     	try {
     		file = new File(path);
-    		if(!file.exists()){
+    		if(file.exists() && singleFileMode){
+    			file.delete();
     			file.createNewFile();
     		}
+    		if(!file.exists())
+    			file.createNewFile();
 			fw = new FileWriter(file);
 			fr = new FileReader(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	bw = new BufferedWriter(fw);
-    	br = new BufferedReader(br);
+    	if(fw != null) bw = new BufferedWriter(fw);
+    	if(fr != null) br = new BufferedReader(br);
 	}
 	
 	public void writeLine(String line) {
 		try {
-			bw.write(line);
-			bw.newLine();
+			if(bw != null) {
+				bw.write(line);
+				bw.newLine();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +47,8 @@ public class Logger implements Constants {
 	
 	public String readLine() {
 		try {
-			return br.readLine();
+			if(br != null) return br.readLine();
+			else return null;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return e.toString();
@@ -51,10 +57,10 @@ public class Logger implements Constants {
 	
 	public void close() {
 		try {
-			fw.close();
-			fr.close();
-			bw.close();
-			br.close();
+			if(fw != null) fw.close();
+			if(fr != null) fr.close();
+			if(bw != null) bw.close();
+			if(br != null) br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		

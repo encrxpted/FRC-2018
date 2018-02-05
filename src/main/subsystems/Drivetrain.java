@@ -99,6 +99,9 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	public driveTrainControlConfig getcontrolModeConfig() {
 		return controlModeConfig;
 	}
+	
+	public void check() {		
+	}
 
 	@Override
 	protected void initDefaultCommand() {

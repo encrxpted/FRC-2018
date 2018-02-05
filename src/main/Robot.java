@@ -33,8 +33,11 @@ public class Robot extends TimedRobot implements Constants {
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Logger lg;
-    private Looper recordPlayLoop;
+    private Looper enabledLooper;
 	Command autoCommand;
+	
+	public Robot() {
+	}
 
 	@Override
 	public void robotInit() {
@@ -44,47 +47,59 @@ public class Robot extends TimedRobot implements Constants {
 		oi = new OI();
 		//Other Utility Classes
 		//OI must be before other Utility Classes
-		lg = new Logger(outputPath);
-	    recordPlayLoop = new Looper(kLooperDt);
-	    recordPlayLoop.register(new Record());
-	    recordPlayLoop.register(new Play());
-	    recordPlayLoop.start();
+		lg = new Logger(outputPath, true);
+		enabledLooper = new Looper(kLooperDt);
+        enabledLooper.register(new Record());
+        enabledLooper.register(new Play());
 	}
 	
 	@Override
 	public void disabledInit() {
-		recordPlayLoop.stop();		
+		enabledLooper.stop();		
+		lg.close();
 	}
 	
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		allPeriodic();
 	}
 
 	@Override
 	public void autonomousInit() {
 		if(autoCommand != null) autoCommand.start();
+		enabledLooper.start();
+		lg = new Logger(outputPath,  true);
 	}
 
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		allPeriodic();
 	}
 
 	@Override
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
-		recordPlayLoop.start();
+		enabledLooper.start();
+		lg = new Logger(outputPath, true);
 	}
+	
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
+		allPeriodic();
 	}
 
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
+	}
+	
+	public void allPeriodic() {
+		enabledLooper.outputToSmartDashboard();
+		dt.check();
+		pn.check();
 	}
 }
