@@ -1,7 +1,7 @@
 package controllers;
 
-import lib.Loop;
 import lib.joystick.XboxController;
+import loopController.Loop;
 import main.Constants;
 import main.OI;
 import main.Robot;
@@ -40,11 +40,9 @@ public class Record implements Loop, Constants {
 	private void execute() {
 		XboxController controller = OI.getXbox();
 		Robot.dt.driveVelocity(OI.getXbox().getSmoothedMainY(), OI.getXbox().getSmoothedAltX());
-		Robot.lg.writeLine(Robot.dt.getLeftVoltage() + "," + Robot.dt.getRightVoltage() + "," + controller.a
-							+ "," + controller.b + "," + controller.leftBumper + "," + controller.leftJoystickButton
-							+ "," + controller.leftTrigger + "," + controller.rightBumper + "," + controller.rightJoystickButton
-							+ "," + controller.rightTrigger + "," + controller.select + "," + controller.start 
-							+ "," + controller.x + "," + controller.y);
+		Robot.lg.writeLine(Robot.dt.getLeftVoltage() + "," + Robot.dt.getRightVoltage() + "," + controller.a + "," + controller.b + "," + controller.x 
+				 + "," + controller.y + "," + controller.leftBumper + "," + controller.rightBumper + "," + controller.select + "," + controller.start
+				 + "," + controller.leftJoystickPress + "," + controller.rightJoystickPress + "," + controller.leftTrigger + "," + controller.rightTrigger);
 	}
 	
 	private void end() {

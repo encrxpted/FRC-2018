@@ -11,11 +11,12 @@ import java.util.List;
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import lib.Looper;
+import interfacesAndAbstracts.ImprovedRobot;
+import interfacesAndAbstracts.InterfaceableClass;
+import loopController.Looper;
 import main.subsystems.Drivetrain;
 import main.subsystems.Pneumatics;
 
@@ -26,28 +27,31 @@ import main.subsystems.Pneumatics;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot implements Constants, HardwareAdapter {
+public class Robot extends ImprovedRobot {
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
-	public static List<ImprovedSubsystem> subsystems;
+	public static List<InterfaceableClass> systems;
 	public static Logger lg;
     private Looper enabledLooper;
 	Command autoCommand;
 	
+	//TODO Recording Multiple Files
+	//TODO Putting everything on SmartDashboard
 	public Robot() {
-		subsystems.add(dt);
-		subsystems.add(pn);
+		systems.add(dt);
+		systems.add(pn);
+		//OI must be the last class added, this will make it the last class to be instantiated
+		//This is needed in order to ensure classes are defined in the correct order and null errors do not occur
+		systems.add(oi);
 	}
 
 	@Override
 	public void robotInit() {
-		//Instantiate Subsystems, Must come before OI
-		for(ImprovedSubsystem s: subsystems)
+		//Instantiate Robot Systems
+		for(InterfaceableClass s: systems)
 			s.newInstance();
-		oi = new OI();
 		//Other Utility Classes
-		//OI must be before other Utility Classes
 		lg = new Logger(outputPath, true);
 		enabledLooper = new Looper(kLooperDt);
         enabledLooper.register(new Record());
@@ -101,7 +105,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	
 	public void allPeriodic() {
 		enabledLooper.outputToSmartDashboard();
-		for(ImprovedSubsystem s: subsystems)
+		for(InterfaceableClass s: systems)
 			s.check();
 	}
 }

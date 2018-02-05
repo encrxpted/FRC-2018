@@ -1,13 +1,18 @@
 package main;
 
+import interfacesAndAbstracts.InterfaceableClass;
+import interfacesAndAbstracts.RobotClass;
 import lib.joystick.XboxController;
 import main.commands.pnuematics.ShiftDown;
 import main.commands.pnuematics.ShiftUp;
 
-public class OI extends PlayableOI implements Constants, HardwareAdapter {
+public class OI extends RobotClass {
+	OI instance;
 	
 	public OI() {
-		check();
+		xbox.setInternalControl(false);
+		xbox.leftBumper.whenPressed(new ShiftUp());
+		xbox.leftBumper.whenReleased(new ShiftDown());		
 	}
 	
 	public static XboxController getXbox() {
@@ -15,8 +20,18 @@ public class OI extends PlayableOI implements Constants, HardwareAdapter {
 	}
 	
 	public void check() {
-		xbox.leftBumper.whenPressed(new ShiftUp());
-		xbox.leftBumper.whenReleased(new ShiftDown());
+		xbox.check();		
+	}
+	
+	public void setButtonValues(boolean a, boolean b, boolean x, boolean y, boolean leftBumper, boolean rightBumper,
+			boolean select, boolean start, boolean leftJoystickPress, boolean rightJoystickPress,
+			boolean leftTrigger, boolean rightTrigger) {
+		xbox.setInternalControl(true);
+		xbox.setButtonStatus(a, b, x, y, leftBumper, rightBumper, select, start, leftJoystickPress, rightJoystickPress, leftTrigger, rightTrigger);
+	}
+	
+	public void setInternalControl(boolean internalControl) {
+		xbox.setInternalControl(internalControl);
 	}
 	
 	public static boolean recordOn() {
@@ -27,5 +42,12 @@ public class OI extends PlayableOI implements Constants, HardwareAdapter {
 		return xbox.b.get();
 	}
 
+	@Override
+	public InterfaceableClass newInstance() {
+		if (instance == null) {
+			instance = new OI();
+		}
+		return instance;
+	}
 }
  

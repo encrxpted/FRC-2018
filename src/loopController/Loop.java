@@ -1,4 +1,4 @@
-package lib;
+package loopController;
 
 /**
  * Interface for loops, which are routine that run periodically in the robot

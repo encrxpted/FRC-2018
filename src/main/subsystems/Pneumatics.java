@@ -1,11 +1,9 @@
 package main.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import main.Constants;
-import main.HardwareAdapter;
-import main.ImprovedSubsystem;
+import interfacesAndAbstracts.RobotSubsystem;
 
-public class Pneumatics extends ImprovedSubsystem implements Constants, HardwareAdapter {
+public class Pneumatics extends RobotSubsystem {
 	public static Pneumatics instance;
 	private boolean down = false;
 	/**
