@@ -1,6 +1,7 @@
 package interfacesAndAbstracts;
 
-public abstract interface InterfaceableClass {
-	public abstract InterfaceableClass newInstance();
+public interface InterfaceableClass {
+	//TODO Add way to force InterfaceableClasses
+	//to implement the newInstance method
 	public abstract void check();
 }

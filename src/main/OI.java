@@ -1,13 +1,12 @@
 package main;
 
-import interfacesAndAbstracts.InterfaceableClass;
 import interfacesAndAbstracts.RobotClass;
 import lib.joystick.XboxController;
 import main.commands.pnuematics.ShiftDown;
 import main.commands.pnuematics.ShiftUp;
 
 public class OI extends RobotClass {
-	OI instance;
+	private static OI instance;
 	
 	public OI() {
 		xbox.setInternalControl(false);
@@ -20,7 +19,7 @@ public class OI extends RobotClass {
 	}
 	
 	public void check() {
-		xbox.check();		
+		xbox.check();	
 	}
 	
 	public void setButtonValues(boolean a, boolean b, boolean x, boolean y, boolean leftBumper, boolean rightBumper,
@@ -42,8 +41,7 @@ public class OI extends RobotClass {
 		return xbox.b.get();
 	}
 
-	@Override
-	public InterfaceableClass newInstance() {
+	public static OI newInstance() {
 		if (instance == null) {
 			instance = new OI();
 		}

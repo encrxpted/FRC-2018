@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import interfacesAndAbstracts.RobotSubsystem;
 
 public class Pneumatics extends RobotSubsystem {
-	public static Pneumatics instance;
+	private static Pneumatics instance;
 	private boolean down = false;
 	/**
 	 * Constructor
@@ -68,9 +68,7 @@ public class Pneumatics extends RobotSubsystem {
 		
 	}
 
-
-	@Override
-	public Pneumatics newInstance() {
+	public static Pneumatics newInstance() {
 		if (instance == null) {
 			instance = new Pneumatics();
 		}

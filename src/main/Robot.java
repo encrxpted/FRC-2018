@@ -7,7 +7,6 @@
 
 package main;
 
-import java.util.List;
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
@@ -15,8 +14,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import interfacesAndAbstracts.ImprovedRobot;
-import interfacesAndAbstracts.InterfaceableClass;
 import loopController.Looper;
+import main.commands.controllerCommands.StartPlay;
+import main.commands.controllerCommands.StartRecord;
 import main.subsystems.Drivetrain;
 import main.subsystems.Pneumatics;
 
@@ -31,7 +31,6 @@ public class Robot extends ImprovedRobot {
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
-	public static List<InterfaceableClass> systems;
 	public static Logger lg;
     private Looper enabledLooper;
 	Command autoCommand;
@@ -39,23 +38,24 @@ public class Robot extends ImprovedRobot {
 	//TODO Recording Multiple Files
 	//TODO Putting everything on SmartDashboard
 	public Robot() {
-		systems.add(dt);
-		systems.add(pn);
 		//OI must be the last class added, this will make it the last class to be instantiated
 		//This is needed in order to ensure classes are defined in the correct order and null errors do not occur
-		systems.add(oi);
 	}
 
 	@Override
 	public void robotInit() {
 		//Instantiate Robot Systems
-		for(InterfaceableClass s: systems)
-			s.newInstance();
+		dt = Drivetrain.newInstance();
+		pn = Pneumatics.newInstance();
+		oi = OI.newInstance();
 		//Other Utility Classes
 		lg = new Logger(outputPath, true);
 		enabledLooper = new Looper(kLooperDt);
         enabledLooper.register(new Record());
-        enabledLooper.register(new Play());
+        enabledLooper.register(new Play()); 
+        //SmartDashboard
+        SmartDashboard.putData("Record", new StartRecord());
+        SmartDashboard.putData("Play", new StartPlay());
 	}
 	
 	@Override
@@ -105,7 +105,8 @@ public class Robot extends ImprovedRobot {
 	
 	public void allPeriodic() {
 		enabledLooper.outputToSmartDashboard();
-		for(InterfaceableClass s: systems)
-			s.check();
+		dt.check();
+		pn.check();
+		oi.check();
 	}
 }

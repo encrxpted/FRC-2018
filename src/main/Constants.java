@@ -14,7 +14,7 @@ public interface Constants {
 	public final int analogSensor = 0;
 	
 	// FILE WRITING
-	public final String outputPath = "/home/lvuser/Test1.txt";
+	public final String outputPath = "/home/lvuser/Test2.txt";
 	
 	// JOYSTICK DEADBANDS
 	public final double throttleDeadband = 0.02;
@@ -41,7 +41,7 @@ public interface Constants {
 	public final double voltageCompensationVoltage = 12.0;
 	
 	//LOOPER CONSTANTS
-	public final double kLooperDt = 0.005;
+	public final double kLooperDt = 0.05;//0.005;
 
 	//DRIVETRAIN CONSTANTS
 	//false: default low gear - true: default high gear

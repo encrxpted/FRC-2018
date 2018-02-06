@@ -27,11 +27,11 @@ public class Logger implements Constants {
     			file.createNewFile();
 			fw = new FileWriter(file);
 			fr = new FileReader(file);
+			bw = new BufferedWriter(fw);
+	    	br = new BufferedReader(fr);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	if(fw != null) bw = new BufferedWriter(fw);
-    	if(fr != null) br = new BufferedReader(br);
 	}
 	
 	public void writeLine(String line) {

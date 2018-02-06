@@ -7,7 +7,7 @@ import interfacesAndAbstracts.RobotSubsystem;
 import main.commands.drivetrain.Drive;
 
 public class Drivetrain extends RobotSubsystem {
-	public static Drivetrain instance;
+	private static Drivetrain instance;
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private static boolean highGearState = defaultHighGearState;
 	private static driveTrainControlConfig controlModeConfig;
@@ -20,12 +20,16 @@ public class Drivetrain extends RobotSubsystem {
 	
 	//DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
-		driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
+		if(controlModeConfig == driveTrainControlConfig.TalonDefault) {
+			driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
+		}
 	}
 	
 	public void driveVoltageTank(double leftVoltage, double rightVoltage) {
-		leftDriveMaster.set(leftVoltage/voltageCompensationVoltage);
-		rightDriveMaster.set(rightVoltage/voltageCompensationVoltage);
+		if(controlModeConfig == driveTrainControlConfig.TankDefault) {
+			leftDriveMaster.set(leftVoltage/voltageCompensationVoltage);
+			rightDriveMaster.set(rightVoltage/voltageCompensationVoltage);
+		}
 	}
 	
 	public double getLeftVoltage() {
@@ -73,22 +77,38 @@ public class Drivetrain extends RobotSubsystem {
 		rightDriveSlave2.follow(rightDriveMaster);
 	}
 	
+	private void setVoltageComp(boolean set, double voltage, int timeout) {
+		leftDriveMaster.enableVoltageCompensation(set);
+		leftDriveSlave1.enableVoltageCompensation(set);
+		leftDriveSlave2.enableVoltageCompensation(set);
+		rightDriveMaster.enableVoltageCompensation(set);
+		rightDriveSlave1.enableVoltageCompensation(set);
+		rightDriveSlave2.enableVoltageCompensation(set);
+
+		if(set == true) {
+			leftDriveMaster.configVoltageCompSaturation(voltage, timeout);
+			leftDriveSlave1.configVoltageCompSaturation(voltage, timeout);
+			leftDriveSlave2.configVoltageCompSaturation(voltage, timeout);
+			rightDriveMaster.configVoltageCompSaturation(voltage, timeout);
+			rightDriveSlave1.configVoltageCompSaturation(voltage, timeout);
+			rightDriveSlave2.configVoltageCompSaturation(voltage, timeout);
+		}
+	}
+	
 
 	public void setTalonDefaults() {
 		reverseTalons(false);
 		setBrakeMode(BRAKE_MODE);
-		leftDriveMaster.enableVoltageCompensation(false);
-		rightDriveMaster.enableVoltageCompensation(false);
 		setCtrlMode();
+		setVoltageComp(false, 0.0, 0);
 		controlModeConfig = driveTrainControlConfig.TalonDefault;
 	}
 	
 	public void setTankDefaults() {
-		setTalonDefaults();
-		leftDriveMaster.enableVoltageCompensation(true);
-		leftDriveMaster.configVoltageCompSaturation(voltageCompensationVoltage, 10);
-		rightDriveMaster.enableVoltageCompensation(true);
-		rightDriveMaster.configVoltageCompSaturation(voltageCompensationVoltage, 10);
+		reverseTalons(false);
+		setBrakeMode(BRAKE_MODE);
+		setCtrlMode();
+		setVoltageComp(true, voltageCompensationVoltage, 10);
 		controlModeConfig = driveTrainControlConfig.TankDefault;
 	}
 	
@@ -112,14 +132,12 @@ public class Drivetrain extends RobotSubsystem {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public Drivetrain newInstance() {
+	
+	public static Drivetrain newInstance() {
 		if (instance == null) {
 			instance = new Drivetrain();
 		}
 		return instance;
 	}
-	
 }
 

@@ -2,16 +2,15 @@
 package main.commands.pnuematics;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Command;
-import main.Constants;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 
 /**
  *
  */
-public class Shift extends Command implements Constants{
-
+public class Shift extends ImprovedCommand {
 	private DoubleSolenoid.Value v;
+	
     public Shift(DoubleSolenoid.Value v) {
     	requires(Robot.pn);
     	this.v = v;

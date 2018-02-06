@@ -3,11 +3,17 @@ package controllers;
 
 import loopController.Loop;
 import main.Constants;
-import main.OI;
 import main.Robot;
 
 public class Play implements Loop, Constants {
-private boolean initialized = false;
+	private boolean initialized = false;
+	private static boolean playOK = false;
+	
+	public static void okToPlay(boolean okToPlay) {
+		playOK = okToPlay;
+		if(playOK) System.out.println("Ok To Play");
+		else System.out.println("Not Ok To Play");
+	}
 	
 	@Override
 	public void onStart() {
@@ -16,7 +22,7 @@ private boolean initialized = false;
 
 	@Override
 	public void onLoop() {
-		if(OI.playOn()) {
+		if(playOK) {
 			if(!initialized)
 				initialize();
 			execute();
@@ -32,12 +38,14 @@ private boolean initialized = false;
 	
 	//Helper Methods
 	private void initialize() {
+		System.out.println("Play Start");
 		initialized = true;
 		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TankDefault)
 			Robot.dt.setTankDefaults();
 	}
 	
 	private void execute() {
+		System.out.println("Running play");
 		String line = "";
 		if((line = Robot.lg.readLine()) != null) {
 			String[] robotState = line.split(",");

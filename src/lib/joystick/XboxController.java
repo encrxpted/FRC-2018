@@ -46,6 +46,7 @@ public class XboxController extends InterfaceableXboxController {
 	
 	public XboxController(int port) {
 		super(port);
+		//Buttons
 		aButton = new JoystickButton(this, 1);
 		bButton = new JoystickButton(this, 2);
 		xButton = new JoystickButton(this, 3);
@@ -58,6 +59,19 @@ public class XboxController extends InterfaceableXboxController {
 		rightJoystickPressButton = new JoystickButton(this, 10);
 		leftTriggerButton = new AnalogButton(this, 2, 0.1);
 		rightTriggerButton = new AnalogButton(this, 3, 0.1);
+		//InternalButtons
+		a = new InternalButton();
+		b = new InternalButton();
+		x = new InternalButton();
+		y = new InternalButton();
+		leftBumper = new InternalButton();
+		rightBumper = new InternalButton();
+		select = new InternalButton();
+		start = new InternalButton();
+		leftJoystickPress = new InternalButton();
+		rightJoystickPress = new InternalButton();
+		leftTrigger = new InternalButton();
+		rightTrigger = new InternalButton();
 	}
 	
 	@Override

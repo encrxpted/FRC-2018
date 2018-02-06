@@ -24,12 +24,20 @@ public class AdvJoystick extends InterfaceableJoystick {
 	
 	public AdvJoystick(int port) {
 		super(port);
+		//Buttons
 		triggerButton = new JoystickButton(this, 1);
 		thumbButton = new JoystickButton(this, 2);
 		threeButton = new JoystickButton(this, 3);
 		fourButton = new JoystickButton(this, 4);
 		fiveButton = new JoystickButton(this, 5);
 		sixButton = new JoystickButton(this, 6);
+		//Internal Buttons
+		trigger = new InternalButton();
+		thumb = new InternalButton();
+		three = new InternalButton();
+		four = new InternalButton();
+		five = new InternalButton();
+		six = new InternalButton();
 	}
 	
 	@Override
