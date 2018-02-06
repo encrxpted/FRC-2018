@@ -19,12 +19,12 @@ public interface HardwareAdapter extends Constants{
 	public static WPI_TalonSRX leftDriveSlave1 = new WPI_TalonSRX(LEFT_Drive_Slave1);
 	public static WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RIGHT_Drive_Master);
 	public static WPI_TalonSRX rightDriveSlave1 = new WPI_TalonSRX(RIGHT_Drive_Slave1);
-	//public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
-	//public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
+	public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
+	public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
 	
 	//INTAKE
-	public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
-	public static WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(RIGHT_Intake);
+	//public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
+	//public static WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(RIGHT_Intake);
 	
 	//ELEVATOR
 	public static WPI_TalonSRX leftElevatorMaster = new WPI_TalonSRX(LEFT_Elevator_Master);
@@ -34,10 +34,10 @@ public interface HardwareAdapter extends Constants{
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
 	public static DigitalInput stage1BottomSwitch = new DigitalInput(STAGE1_Bottom);
 	public static DigitalInput stage1TopSwitch = new DigitalInput(STAGE1_Top);
-	public static DigitalInput stage2BottomSwitch = new DigitalInput(STAGE2_Bottom);
-	public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
+	//public static DigitalInput stage2BottomSwitch = new DigitalInput(STAGE2_Bottom);
+	//public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
 	public static DigitalOutput driverAlerts = new DigitalOutput(driverAlertsPort);
-	public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
+	//public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
 	public static Ultrasonic ultra=new Ultrasonic(ULTRA_PING, ULTRA_ECHO);
 	
 	//PNEUMATICS

@@ -8,6 +8,7 @@
 package main;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import Util.SmartDashboardInteractions;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,7 +20,6 @@ import main.commands.elevator.MoveToScale;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
-import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 import main.subsystems.OtherSensors;
 
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
-	public static Intake it;
+	//public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
 	//public static SmartDashboardInteractions sdb;
@@ -53,8 +53,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		
 		//OI must be at end
 		dt = new Drivetrain();
-		//pn = new Pneumatics();
-		it = new Intake();
+		pn = new Pneumatics();
+		//it = new Intake();
 		//CameraServer.getInstance().startAutomaticCapture();
 		el = new Elevator();
 		//da = new DriverAlerts();
@@ -96,11 +96,11 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
-		//SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
-		//SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
-		//SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
+		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
+		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
+		SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
 		//el.check();
-		SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ", HardwareAdapter.ultra.getRangeMM());
+		//SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ", HardwareAdapter.ultra.getRangeMM());
 		SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
 	}
 

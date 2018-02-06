@@ -7,7 +7,6 @@ import main.Robot;
 
 public class MoveToScale extends CommandGroup implements Constants, HardwareAdapter {
 	public MoveToScale() {
-		requires(Robot.it);
 	}
 	
     // Called just before this Command runs the first time
@@ -16,7 +15,6 @@ public class MoveToScale extends CommandGroup implements Constants, HardwareAdap
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("D-Pad Right Pressed");
     }
 
     // Make this return true when this Command no longer needs to run execute()

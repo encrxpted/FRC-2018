@@ -142,18 +142,18 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		leftDriveMaster.setInverted(isInverted);
 		rightDriveMaster.setInverted(isInverted);
 		leftDriveSlave1.setInverted(isInverted);
-		//leftDriveSlave2.setInverted(!isInverted);
+		leftDriveSlave2.setInverted(!isInverted);
 		rightDriveSlave1.setInverted(isInverted);
-		//rightDriveSlave2.setInverted(!isInverted);
+		rightDriveSlave2.setInverted(!isInverted);
 	}
 
 	private void setBrakeMode(NeutralMode mode) {
 		leftDriveMaster.setNeutralMode(mode);
 		leftDriveSlave1.setNeutralMode(mode);
-		//leftDriveSlave2.setNeutralMode(mode);
+		leftDriveSlave2.setNeutralMode(mode);
 		rightDriveMaster.setNeutralMode(mode);
 		rightDriveSlave1.setNeutralMode(mode);
-		//rightDriveSlave2.setNeutralMode(mode);
+		rightDriveSlave2.setNeutralMode(mode);
 	}
 
 	private void setCtrlMode() {
@@ -165,8 +165,8 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		*/
 		leftDriveSlave1.follow(leftDriveMaster);
 		rightDriveSlave1.follow(rightDriveMaster);
-		//leftDriveSlave2.follow(leftDriveMaster);
-		//rightDriveSlave2.follow(rightDriveMaster);
+		leftDriveSlave2.follow(leftDriveMaster);
+		rightDriveSlave2.follow(rightDriveMaster);
 	}
 	
 

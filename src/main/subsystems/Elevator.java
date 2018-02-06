@@ -13,7 +13,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	public Elevator() {
 		setElevatorEncoderDefaults();
-		setMotionMagicDefaults();
+		//setMotionMagicDefaults();
 	}
 	/*
 	private static enum ElevatorPosition {
@@ -84,13 +84,13 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	// Checks if the intake is at bottom
 	public boolean isArmAtBottom() {
-		if (stage1BottomSwitch.get() && stage2BottomSwitch.get()) return true;
+		if (stage1BottomSwitch.get() /*&& stage2BottomSwitch.get()*/) return true;
 		else return false;
 	}
 	
 	// Checks if intake is at the top
 	public boolean isArmAtTop() {
-		if (stage1TopSwitch.get() && stage2TopSwitch.get())
+		if (stage1TopSwitch.get() /*&& stage2TopSwitch.get()*/)
 			return true;
 		else return false;
 	}
@@ -190,11 +190,11 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	public void up() {
-		leftElevatorMaster.set(1);
+		leftElevatorMaster.set(1.0);
 	}
 	
 	public void down() {
-		leftElevatorMaster.set(-1);
+		leftElevatorMaster.set(-1.0);
 	}
 	
 	public void stop() {

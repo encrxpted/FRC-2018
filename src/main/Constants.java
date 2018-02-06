@@ -87,8 +87,8 @@ public interface Constants {
 	public final int LEFT_Drive_Slave1 = 6;
 	public final int RIGHT_Drive_Master = 2;
 	public final int RIGHT_Drive_Slave1 = 5;
-	//public final int LEFT_Drive_Slave2 = 9;
-	//public final int RIGHT_Drive_Slave2 = 4;
+	public final int LEFT_Drive_Slave2 = 9;
+	public final int RIGHT_Drive_Slave2 = 4;
 	
 	// INTAKE MOTORS	
 	public final int LEFT_Intake = 11;
@@ -113,8 +113,8 @@ public interface Constants {
 	
 	// SWITCHES
 	public final int STAGE1_Bottom = 0;
-	public final int STAGE1_Top = 1;
-	public final int STAGE2_Bottom = 2;
+	public final int STAGE1_Top = 2;
+	public final int STAGE2_Bottom = 1;
 	public final int STAGE2_Top = 3;
 	public final int INTAKE_Switch = 5;
 
