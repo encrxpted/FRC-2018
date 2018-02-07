@@ -13,6 +13,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	//max velocity was 95944u/100ms	
 	public Elevator() {
 		setElevatorEncoderDefaults();
+		setBrakeMode();
 	}
 	/*
 	private static enum ElevatorPosition {
@@ -58,6 +59,13 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public void moveToPosPID(double pos) {
 		setMotionMagicDefaults();
 		leftElevatorMaster.set(ControlMode.MotionMagic, encoderHelper.encoderTicksToInches(pos, countsPerRev, spindleCircum));
+	}
+	
+	/*************************
+	 * TALON SUPPORT METHODS *
+	 ************************/
+	private void setBrakeMode() {
+		leftElevatorMaster.setNeutralMode(BRAKE_MODE);
 	}
 	
 	/**************************
