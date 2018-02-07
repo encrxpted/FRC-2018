@@ -58,7 +58,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	public void moveToPosPID(double pos) {
 		setMotionMagicDefaults();
-		leftElevatorMaster.set(ControlMode.MotionMagic, encoderHelper.encoderTicksToInches(pos, countsPerRev, spindleCircum));
+		leftElevatorMaster.set(ControlMode.MotionMagic, pos);
 	}
 	
 	/*************************
