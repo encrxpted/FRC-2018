@@ -47,11 +47,16 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	private void setAccelAndVeloDefaults() {
-		leftElevatorMaster.configMotionCruiseVelocity(125000, 10);
+		leftElevatorMaster.configMotionCruiseVelocity(cruiseVelocity, 10);
+		leftElevatorMaster.configMotionAcceleration(acceleration, 10);
 	}
 	
 	private void setPIDValues() {
-		//I think something is supposed to go here too.
+		leftElevatorMaster.selectProfileSlot(elevatorIdx, pidIdx);
+		leftElevatorMaster.config_kF(elevatorIdx, fGain, 10);
+		leftElevatorMaster.config_kP(elevatorIdx, elevator_kP, 10);
+		leftElevatorMaster.config_kI(elevatorIdx, elevator_kI, 10);
+		leftElevatorMaster.config_kD(elevatorIdx, elevator_kD, 10);
 	}
 	
 	private void setMotionMagicMode(double pos) {

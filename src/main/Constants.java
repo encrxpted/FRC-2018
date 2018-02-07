@@ -62,13 +62,20 @@ public interface Constants {
 	// ELEVATOR SPEEDS
 	public final double defaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
+	public final int cruiseVelocity = 125000; //native units of encoder per 100 ms
+	public final int acceleration = 62500; //native units of encoder per 100 ms per second
 	
 	// MOTION MAGIC ELEVATOR STUFF
+	public final int elevatorIdx = 0;
+	public final int pidIdx = 0;
+	public final double fGain = 0.01066 ;// 1023/max speed
+	public final double elevator_kP = 0;
+	public final double elevator_kI = 0;
+	public final double elevator_kD = 0;
 	public final double peakSpeedForward = 1;
 	public final double peakSpeedReverse = -1;
 	public final double nomSpeedReverse = 0;
 	public final double nomSpeedForward = 0;
-	// TEST FOR MAX SPEED OF MOTOR IN NATIVE UNITS
 	
 	
 	/*********
