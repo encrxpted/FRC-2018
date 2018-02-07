@@ -56,6 +56,10 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void robotInit() {
+		//create auto command
+		//autonomousCommand = new SodaDelivery();
+		
+		
 		HardwareAdapter.init();
 		//camera
 		CameraServer.getInstance().startAutomaticCapture();
