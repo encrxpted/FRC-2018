@@ -22,17 +22,19 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public final double switchHeight = 24; //set this in encoder units today...
 	public final double scaleHeight = 70; 
 	public final double nearSetpoint = 12;
+	public final double nearSetpointDown = 36;
 		
 	// ELEVATOR SPEEDS
-	public final double defaultElevatorSpeed = 0.8;
+	public final double defaultElevatorSpeed = 1;
 	public final double slowElevatorSpeed = 0.2;
-	public final int cruiseVelocity = 125000; //native units of encoder per 100 ms
-	public final int acceleration = 62500; //native units of encoder per 100 ms per second
+	public final double maxVelocity = 95944;
+	public final int cruiseVelocity = 12500; //native units of encoder per 100 ms
+	public final int acceleration = 6250; //native units of encoder per 100 ms per second
 	
 	// MOTION MAGIC ELEVATOR STUFF
 	public final int elevatorIdx = 0;
 	public final int pidIdx = 0;
-	public final double fGain = 0.01066 ;// 1023/max speed
+	public final double fGain = 1023 / cruiseVelocity ;// 1023/max speed
 	public final double elevator_kP = 0;
 	public final double elevator_kI = 0;
 	public final double elevator_kD = 0;
@@ -141,8 +143,8 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	// Returns whether or not the elevator is close to set position
-	private boolean isIntakeNearPos(double pos) {
-		if (getDistanceFromPos(pos) < nearSetpoint && getDistanceFromPos(pos) > -1* nearSetpoint) {
+	private boolean isIntakeNearPos(double pos, double near) {
+		if (getDistanceFromPos(pos) < near && getDistanceFromPos(pos) > -1* near) {
 			return true;
 		}
 		else return false;
@@ -203,7 +205,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 //		if(isIntakeAtPos(pos)) {
 //			leftElevatorMaster.set(0);
 //		}
-		if (isIntakeNearPos(pos)) {
+		if (isIntakeNearPos(pos, nearSetpoint)) {
 			if (isIntakeBelowPos(pos)) leftElevatorMaster.set(slowElevatorSpeed);
 			else leftElevatorMaster.set(-1 * slowElevatorSpeed);
 		}
@@ -217,8 +219,8 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		if (isArmAtBottom()) {
 			leftElevatorMaster.set(PERCENT_VBUS_MODE, 0);
 		}
-		else if (isIntakeNearPos(0)) {
-			leftElevatorMaster.set(getDistanceTravelled() * (1/12));
+		else if (isIntakeNearPos(0, nearSetpointDown)) {
+			leftElevatorMaster.set(getDistanceTravelled() * (-1/12));
 		}
 		else {
 			leftElevatorMaster.set(-1 * defaultElevatorSpeed);
@@ -231,7 +233,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			leftElevatorMaster.set(0);
 			//rightElevatorMaster.set(-0.1);
 		}
-		else if(isIntakeNearPos(elevatorHeight)) {
+		else if(isIntakeNearPos(elevatorHeight, nearSetpoint)) {
 			leftElevatorMaster.set(slowElevatorSpeed);
 		}
 		else {
