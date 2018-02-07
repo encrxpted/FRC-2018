@@ -25,7 +25,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public final double nearSetpointDown = 36;
 		
 	// ELEVATOR SPEEDS
-	public final double defaultElevatorSpeed = 1;
+	public final double defaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
 	public final double maxVelocity = 95944;
 	public final int cruiseVelocity = 12500; //native units of encoder per 100 ms
@@ -220,7 +220,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			leftElevatorMaster.set(PERCENT_VBUS_MODE, 0);
 		}
 		else if (isIntakeNearPos(0, nearSetpointDown)) {
-			leftElevatorMaster.set(getDistanceTravelled() * (-1/12));
+			leftElevatorMaster.set(getDistanceTravelled() * (-1/36));
 		}
 		else {
 			leftElevatorMaster.set(-1 * defaultElevatorSpeed);
