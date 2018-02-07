@@ -7,18 +7,18 @@ import main.Robot;
 
 public class SpinOut extends Command implements Constants, HardwareAdapter {
 	
-	public SpinOut() {
+	/*public SpinOut() {
 		requires(Robot.it);
-	}
+	}*/
 	
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /*// Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.it.spinOut();
-    }
+    }*/
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

@@ -10,6 +10,7 @@ package main;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import Util.SmartDashboardInteractions;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -17,6 +18,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.elevator.MoveToScale;
+import main.commands.joystickselector.JoyStick1;
+import main.commands.joystickselector.JoyStick2;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -34,8 +37,10 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static enum RobotState {
 		Driving, Climbing, Neither
 	}
-	
+	//robot modes
 	Command teleopCommand;
+	SendableChooser teleopChooser;
+	
 	//SendableChooser teleopChooser;
 	public static OI oi;
 	public static Drivetrain dt;
@@ -50,7 +55,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void robotInit() {
 		HardwareAdapter.init();
-		
+		//camera
+		CameraServer.getInstance().startAutomaticCapture();
 		//OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
@@ -59,10 +65,16 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		el = new Elevator();
 		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
-		
 		//robotState = 
 		oi = new OI();
+		
+		//teleop modes
+		teleopChooser = new SendableChooser();
+		teleopChooser.addDefault("default mode", new JoyStick1());
+		teleopChooser.addObject("alternate mode", new JoyStick2());
+		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 	}
+
 	
 	@Override
 	public void disabledInit() {
@@ -89,10 +101,13 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
+		teleopCommand = (Command) teleopChooser.getSelected();
+		teleopCommand.start();
 	} 
 	@Override
 	public void teleopPeriodic() {
 		// smartdashboard stuff goes here
+		oi.check();
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
