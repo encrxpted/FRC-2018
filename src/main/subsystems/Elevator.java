@@ -3,6 +3,7 @@ package main.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import Util.DriveHelper;
 import Util.EncoderHelper;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import main.Constants;
@@ -25,7 +26,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public final double nearSetpointDown = 36;
 		
 	// ELEVATOR SPEEDS
-	public final double defaultElevatorSpeed = 1;
+	public final double defaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
 	public final double maxVelocity = 95944;
 	public final int cruiseVelocity = 12500; //native units of encoder per 100 ms
@@ -38,10 +39,9 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public final double elevator_kP = 0;
 	public final double elevator_kI = 0;
 	public final double elevator_kD = 0;
-	
-	private double distanceFromBottom;
-		
+			
 	private EncoderHelper encoderHelper = new EncoderHelper();
+	private DriveHelper driveHelper = new DriveHelper(7.5);
 	//max velocity was 95944u/100ms	
 	public Elevator() {
 		setElevatorEncoderDefaults();
@@ -199,6 +199,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * MOVEMENT METHODS *
 	 ********************/
 	
+	public void moveWithJoystick(double throttle) {
+		leftElevatorMaster.set(driveHelper.driveSmooth(throttle));
+	}
+	
 	// Moves fast to a position if far away, slows down when it gets closer, and stops when it reaches
 	// the position within a tolerance.
 	public void moveToPos(double pos) {
@@ -220,7 +224,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			leftElevatorMaster.set(PERCENT_VBUS_MODE, 0);
 		}
 		else if (isIntakeNearPos(0, nearSetpointDown)) {
-			leftElevatorMaster.set(getDistanceTravelled() * (-1/12));
+			leftElevatorMaster.set(getDistanceTravelled() * (-1/36));
 		}
 		else {
 			leftElevatorMaster.set(-1 * defaultElevatorSpeed);
