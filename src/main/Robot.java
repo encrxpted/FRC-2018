@@ -117,6 +117,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//el.check();
 		//SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ", HardwareAdapter.ultra.getRangeMM());
 		SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
+		SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());
 	}
 
 	@Override

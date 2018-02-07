@@ -10,8 +10,7 @@ import main.HardwareAdapter;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private EncoderHelper encoderHelper = new EncoderHelper();
-	//max velocity was 95944u/100ms
-	
+	//max velocity was 95944u/100ms	
 	public Elevator() {
 		setElevatorEncoderDefaults();
 		//setMotionMagicDefaults();
@@ -115,6 +114,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	// Gets the number of revolutions of the encoder
 	private double getElevatorRevs() {
 		return leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev;
+	}
+	
+	public double getTicksTravelled() {
+		return leftElevatorMaster.getSensorCollection().getQuadraturePosition();
 	}
 	
 	// Get the distance the elevator has travelled
