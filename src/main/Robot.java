@@ -50,7 +50,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static DriverAlerts da;
 	//public static SmartDashboardInteractions sdb;
 
+	// auto modes
 	Command autoCommand;
+	SendableChooser autoChooser;
 
 	@Override
 	public void robotInit() {
@@ -72,6 +74,11 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		teleopChooser = new SendableChooser();
 		teleopChooser.addDefault("default mode", new JoyStick1());
 		teleopChooser.addObject("alternate mode", new JoyStick2());
+		
+		//auto modes
+		autoChooser = new SendableChooser();
+		autoChooser.addDefault("default mode", new JoyStick1());
+		autoChooser.addObject("alternate mode", new JoyStick2());
 		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 	}
 
@@ -89,6 +96,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void autonomousInit() {
 		if(autoCommand != null) autoCommand.start();
+		autoCommand = (Command) teleopChooser.getSelected();
+		autoCommand.start();
 	}
 
 

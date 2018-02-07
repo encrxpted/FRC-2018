@@ -9,6 +9,9 @@ import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
 import main.commands.elevator.StopElevator;
+import main.commands.intake.SpinIn;
+import main.commands.intake.SpinOff;
+import main.commands.intake.SpinOut;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.ArmOpen;
 import main.commands.pnuematics.ShiftDown;
@@ -67,17 +70,17 @@ public class OI implements Constants, HardwareAdapter {
 			xbox.rightTrigger.whenReleased(new StopElevator());
 			
 		} else {
-			//xbox.leftBumper.whenPressed(new ShiftUp());
-			//xbox.leftBumper.whenReleased(new ShiftDown());
+			xbox.leftBumper.whenPressed(new ShiftUp());
+			xbox.leftBumper.whenReleased(new ShiftDown());
 			
-			//xbox2.leftTrigger.whenPressed(new TiltUp());
-			//xbox2.rightTrigger.whenPressed(new TiltDown());
-//			xbox2.a.whenPressed(new SpinIn());
-//			xbox2.y.whenPressed(new SpinOut());
-//			xbox2.a.whenReleased(new SpinOff());
-//			xbox2.y.whenReleased(new SpinOff());
-			//xbox2.b.whenPressed(new ArmClose());
-			//xbox2.x.whenPressed(new ArmOpen());
+			xbox2.leftTrigger.whenPressed(new TiltUp());
+			xbox2.rightTrigger.whenPressed(new TiltDown());
+			xbox2.a.whenPressed(new SpinIn());
+			xbox2.y.whenPressed(new SpinOut());
+			xbox2.a.whenReleased(new SpinOff());
+			xbox2.y.whenReleased(new SpinOff());
+			xbox2.b.whenPressed(new ArmClose());
+			xbox2.x.whenPressed(new ArmOpen());
 			xbox2.leftTrigger.whenPressed(new MoveUp());
 			xbox2.rightTrigger.whenPressed(new MoveDown());
 
