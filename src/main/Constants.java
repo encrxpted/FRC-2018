@@ -41,7 +41,7 @@ public interface Constants {
 	public final double voltageCompensationVoltage = 12.0;
 	
 	//LOOPER CONSTANTS
-	public final double kLooperDt = 0.05;//0.005;
+	public final double kLooperDt = 0.005;
 
 	//DRIVETRAIN CONSTANTS
 	//false: default low gear - true: default high gear

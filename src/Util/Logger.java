@@ -25,10 +25,12 @@ public class Logger implements Constants {
     		}
     		if(!file.exists())
     			file.createNewFile();
-			fw = new FileWriter(file);
-			fr = new FileReader(file);
-			bw = new BufferedWriter(fw);
-	    	br = new BufferedReader(fr);
+    		if(file != null) {
+    			fw = new FileWriter(file);
+    			fr = new FileReader(file);
+    		}
+    		if(fw != null) bw = new BufferedWriter(fw);
+    		if(fr != null) br = new BufferedReader(fr);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,6 +57,19 @@ public class Logger implements Constants {
 		}
 	}
 	
+	public void open() {
+		if(file != null) {
+			try {
+				fw = new FileWriter(file);
+				fr = new FileReader(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(fw != null) bw = new BufferedWriter(fw);
+		if(fr != null) br = new BufferedReader(fr);
+	}
+	
 	public void close() {
 		try {
 			if(fw != null) fw.close();
@@ -64,5 +79,10 @@ public class Logger implements Constants {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	public void reset() {
+		close();
+		open();
 	}
 }
