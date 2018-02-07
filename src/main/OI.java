@@ -31,6 +31,10 @@ public class OI implements Constants, HardwareAdapter {
 		return xbox; 
 	}
 	
+	public static XboxController getXbox2() {
+		return xbox2;
+	}
+	
     public static boolean OneController(){
     	ControllerMode = true;
     	return ControllerMode;
