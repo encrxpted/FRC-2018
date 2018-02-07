@@ -51,7 +51,7 @@ public interface Constants {
 	public final FeedbackDevice encoder = FeedbackDevice.CTRE_MagEncoder_Relative;
 	
 	// ELEVATOR LENGTHS
-	public final double spindleDiameter = 2; //placeholder
+	/*public final double spindleDiameter = 2; //placeholder
 	public final double spindleCircum = Math.PI * spindleDiameter;
 	public final double elevatorHeight = 86;  
 	public final double elevatorTolerance = 2;
@@ -71,7 +71,7 @@ public interface Constants {
 	public final double fGain = 0.01066 ;// 1023/max speed
 	public final double elevator_kP = 0;
 	public final double elevator_kI = 0;
-	public final double elevator_kD = 0;
+	public final double elevator_kD = 0;*/
 	
 	
 	/*********

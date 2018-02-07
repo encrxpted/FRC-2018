@@ -9,6 +9,29 @@ import main.Constants;
 import main.HardwareAdapter;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
+	// ELEVATOR LENGTHS
+		public final double spindleDiameter = 2; //placeholder
+		public final double spindleCircum = Math.PI * spindleDiameter;
+		public final double elevatorHeight = 86;  
+		public final double elevatorTolerance = 2;
+		public final double switchHeight = 24; //set this in encoder units today...
+		public final double scaleHeight = 70; 
+		public final double nearSetpoint = 12;
+		
+		// ELEVATOR SPEEDS
+		public final double defaultElevatorSpeed = 0.8;
+		public final double slowElevatorSpeed = 0.2;
+		public final int cruiseVelocity = 125000; //native units of encoder per 100 ms
+		public final int acceleration = 62500; //native units of encoder per 100 ms per second
+		
+		// MOTION MAGIC ELEVATOR STUFF
+		public final int elevatorIdx = 0;
+		public final int pidIdx = 0;
+		public final double fGain = 0.01066 ;// 1023/max speed
+		public final double elevator_kP = 0;
+		public final double elevator_kI = 0;
+		public final double elevator_kD = 0;
+		
 	private EncoderHelper encoderHelper = new EncoderHelper();
 	//max velocity was 95944u/100ms	
 	public Elevator() {
