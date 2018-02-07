@@ -10,6 +10,7 @@ import main.HardwareAdapter;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private EncoderHelper encoderHelper = new EncoderHelper();
+	//max velocity was 95944u/100ms
 	
 	public Elevator() {
 		setElevatorEncoderDefaults();
@@ -46,7 +47,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	private void setAccelAndVeloDefaults() {
-		//something goes here.
+		leftElevatorMaster.configMotionCruiseVelocity(125000, 10);
 	}
 	
 	private void setPIDValues() {
@@ -80,6 +81,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private void setElevatorEncoderDefaults() {
 		leftElevatorMaster.configSelectedFeedbackSensor(encoder, 0, 0);
 		resetElevatorEncoder();
+		leftElevatorMaster.setSensorPhase(false);
 	}
 	
 	// Checks if the intake is at bottom
