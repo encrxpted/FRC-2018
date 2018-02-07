@@ -10,6 +10,8 @@ import main.HardwareAdapter;
 import main.Robot;
 
 public class MoveToSwitch extends CommandGroup implements Constants, HardwareAdapter {
+	public final double switchHeight = 24; //set this in encoder units today...
+
 	public void MoveToSwich() {
 		requires(Robot.el);
 	}
@@ -26,7 +28,7 @@ public class MoveToSwitch extends CommandGroup implements Constants, HardwareAda
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//return Robot.el.isIntakeAtPos(switchHeight);
+    	return Robot.el.isIntakeAtPos(switchHeight);
     	return true;
     }
 
