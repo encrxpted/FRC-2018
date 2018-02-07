@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import main.commands.autonomous.Auto1;
+import main.commands.autonomous.Auto2;
 import main.commands.elevator.MoveToScale;
 import main.commands.joystickselector.JoyStick1;
 import main.commands.joystickselector.JoyStick2;
@@ -81,8 +83,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		
 		//auto modes
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("default mode", new JoyStick1());
-		autoChooser.addObject("alternate mode", new JoyStick2());
+		autoChooser.addDefault("default mode", new Auto1());
+		autoChooser.addObject("alternate mode", new Auto2());
 		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 	}
 

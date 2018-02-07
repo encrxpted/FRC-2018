@@ -38,7 +38,7 @@ public interface HardwareAdapter extends Constants{
 	//public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
 	public static DigitalOutput driverAlerts = new DigitalOutput(driverAlertsPort);
 	//public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
-	public static Ultrasonic ultra=new Ultrasonic(ULTRA_PING, ULTRA_ECHO);
+	public static Ultrasonic ultra1 = new Ultrasonic(ULTRA_PING, ULTRA_ECHO);
 	
 	//PNEUMATICS
 	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
@@ -48,6 +48,6 @@ public interface HardwareAdapter extends Constants{
 	
 	// init method
 	public static void init() {
-		ultra.setAutomaticMode(true);
+		ultra1.setAutomaticMode(true);
 	}
 }
