@@ -3,6 +3,7 @@ package main.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
+import Util.DriveHelper;
 import Util.EncoderHelper;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import main.Constants;
@@ -38,10 +39,9 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public final double elevator_kP = 0;
 	public final double elevator_kI = 0;
 	public final double elevator_kD = 0;
-	
-	private double distanceFromBottom;
-		
+			
 	private EncoderHelper encoderHelper = new EncoderHelper();
+	private DriveHelper driveHelper = new DriveHelper(7.5);
 	//max velocity was 95944u/100ms	
 	public Elevator() {
 		setElevatorEncoderDefaults();
@@ -198,6 +198,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	/********************
 	 * MOVEMENT METHODS *
 	 ********************/
+	
+	public void moveWithJoystick(double throttle) {
+		leftElevatorMaster.set(driveHelper.driveSmooth(throttle));
+	}
 	
 	// Moves fast to a position if far away, slows down when it gets closer, and stops when it reaches
 	// the position within a tolerance.
