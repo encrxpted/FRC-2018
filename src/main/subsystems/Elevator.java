@@ -13,7 +13,6 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	//max velocity was 95944u/100ms	
 	public Elevator() {
 		setElevatorEncoderDefaults();
-		//setMotionMagicDefaults();
 	}
 	/*
 	private static enum ElevatorPosition {
@@ -36,15 +35,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private void setStatusFrames() {
 		//something goes here but idk what
 	}
-	
-	// Sets max/min output of talon (with percent Vbus mode)... I think...
-	private void setPercentVBusDefaults() {
-		leftElevatorMaster.configNominalOutputForward(nomSpeedForward, 10);
-		leftElevatorMaster.configNominalOutputReverse(nomSpeedReverse, 10);
-		leftElevatorMaster.configPeakOutputForward(peakSpeedForward, 10);
-		leftElevatorMaster.configPeakOutputReverse(peakSpeedReverse, 10);
-	}
-	
+		
 	private void setAccelAndVeloDefaults() {
 		leftElevatorMaster.configMotionCruiseVelocity(cruiseVelocity, 10);
 		leftElevatorMaster.configMotionAcceleration(acceleration, 10);
@@ -58,15 +49,15 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		leftElevatorMaster.config_kD(elevatorIdx, elevator_kD, 10);
 	}
 	
-	private void setMotionMagicMode(double pos) {
-		leftElevatorMaster.set(ControlMode.MotionMagic, pos);
-	}
-	
 	private void setMotionMagicDefaults() {
-		setStatusFrames();
-		setPercentVBusDefaults();
+		setStatusFrames();;
 		setAccelAndVeloDefaults();
 		setPIDValues();
+	}
+	
+	public void moveToPosPID(double pos) {
+		setMotionMagicDefaults();
+		leftElevatorMaster.set(ControlMode.MotionMagic, encoderHelper.encoderTicksToInches(pos, countsPerRev, spindleCircum));
 	}
 	
 	/**************************

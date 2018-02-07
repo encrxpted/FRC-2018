@@ -15,14 +15,13 @@ public class MoveToSwitch extends CommandGroup implements Constants, HardwareAda
 	}
 	
     // Called just before this Command runs the first time
-    /*public void initialize() {
-    	Robot.el.setMotionMagicMode(switchHeight);
-    }*/
+    public void initialize() {
+    	Robot.el.moveToPosPID(switchHeight);
+    }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	System.out.println("D-Pad Left Pressed");
-    	//Robot.el.moveToPos(switchHeight);
     }
 
     // Make this return true when this Command no longer needs to run execute()

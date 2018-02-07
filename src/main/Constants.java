@@ -72,10 +72,6 @@ public interface Constants {
 	public final double elevator_kP = 0;
 	public final double elevator_kI = 0;
 	public final double elevator_kD = 0;
-	public final double peakSpeedForward = 1;
-	public final double peakSpeedReverse = -1;
-	public final double nomSpeedReverse = 0;
-	public final double nomSpeedForward = 0;
 	
 	
 	/*********
