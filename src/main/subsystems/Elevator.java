@@ -36,6 +36,8 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	public final double elevator_kP = 0;
 	public final double elevator_kI = 0;
 	public final double elevator_kD = 0;
+	
+	private double distanceFromBottom;
 		
 	private EncoderHelper encoderHelper = new EncoderHelper();
 	//max velocity was 95944u/100ms	
@@ -95,14 +97,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private void setBrakeMode() {
 		leftElevatorMaster.setNeutralMode(BRAKE_MODE);
 	}
-	
+
 	/**************************
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
-	
-	private double inchesToElevatorEncoderTicks(double inches) {
-		return encoderHelper.inchesToEncoderTicks(inches, spindleCircum, countsPerRev);
-	}
 	
 	private void resetElevatorEncoder() {
 		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
@@ -134,6 +132,32 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			resetElevatorEncoder();
 	}
 	
+	// Returns whether or not the intake has reached the set position. Pos is in inches
+	public boolean isIntakeAtPos(double pos) {
+		if (getDistanceFromPos(pos) < elevatorTolerance && getDistanceFromPos(pos) > -1 * elevatorTolerance) {
+			return true;
+		}
+		else return false;
+	}
+	
+	// Returns whether or not the elevator is close to set position
+	private boolean isIntakeNearPos(double pos) {
+		if (getDistanceFromPos(pos) < nearSetpoint && getDistanceFromPos(pos) > -1* nearSetpoint) {
+			return true;
+		}
+		else return false;
+	}
+	
+	// Returns if the intake is currently below the desired position or not
+	private boolean isIntakeBelowPos(double pos) {
+		if (getDistanceFromPos(pos) > 0) return true;
+		else return false;
+	}
+	
+	/**********************
+	 * ENC OUTPUT METHODS *
+	 **********************/
+	
 	public double getElevatorVelocity() {
 		return leftElevatorMaster.getSensorCollection().getQuadratureVelocity();
 	}
@@ -157,28 +181,17 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		return pos - getDistanceTravelled();
 	}
 	
-	// Returns whether or not the intake has reached the set position. Pos is in inches
-	public boolean isIntakeAtPos(double pos) {
-		if (getDistanceFromPos(pos) < elevatorTolerance && getDistanceFromPos(pos) > -1 * elevatorTolerance) {
-			return true;
-		}
-		else return false;
+	/**********************
+	 * CONVERSION METHODS *
+	 **********************/
+	
+	private double encoderTicksToInches(double ticks) {
+		return encoderHelper.encoderTicksToInches(ticks, countsPerRev, spindleCircum);
 	}
 	
-	// Returns whether or not the elevator is close to set position
-	private boolean isIntakeNearPos(double pos) {
-		if (getDistanceFromPos(pos) < nearSetpoint && getDistanceFromPos(pos) > -1* nearSetpoint) {
-			return true;
-		}
-		else return false;
+	private double inchesToElevatorEncoderTicks(double inches) {
+		return encoderHelper.inchesToEncoderTicks(inches, spindleCircum, countsPerRev);
 	}
-	
-	// Returns if the intake is currently below the desired position or not
-	private boolean isIntakeBelowPos(double pos) {
-		if (getDistanceFromPos(pos) > 0) return true;
-		else return false;
-	}
-	
 	
 	/********************
 	 * MOVEMENT METHODS *
@@ -202,10 +215,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 
 	public void moveDown() {
 		if (isArmAtBottom()) {
-			leftElevatorMaster.set(0);
+			leftElevatorMaster.set(PERCENT_VBUS_MODE, 0);
 		}
 		else if (isIntakeNearPos(0)) {
-			leftElevatorMaster.set(-1 * slowElevatorSpeed);
+			leftElevatorMaster.set(getDistanceTravelled() * (1/12));
 		}
 		else {
 			leftElevatorMaster.set(-1 * defaultElevatorSpeed);
@@ -225,6 +238,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			leftElevatorMaster.set(defaultElevatorSpeed);
 		}
 	}
+	
+	/*****************
+	 * DUMMY METHODS *
+	 *****************/
 	
 	public void up() {
 		leftElevatorMaster.set(1.0);
