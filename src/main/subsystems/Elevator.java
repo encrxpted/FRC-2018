@@ -252,6 +252,6 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new MoveWithJoystick());
+		//setDefaultCommand(new MoveWithJoystick());
 	}
 }
