@@ -51,7 +51,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	//public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
-	public static TfMini mini;
+	//public static TfMini mini;
 	//public static SmartDashboardInteractions sdb;
 
 	// auto modes
@@ -62,7 +62,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public void robotInit() {
 		//create auto command
 		//autonomousCommand = new SodaDelivery()
-		mini = new TfMini();
+		//mini = new TfMini();
 		
 		//camera
 		CameraServer.getInstance().startAutomaticCapture();
@@ -81,12 +81,13 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		teleopChooser = new SendableChooser();
 		teleopChooser.addDefault("default mode", new JoyStick1());
 		teleopChooser.addObject("alternate mode", new JoyStick2());
+		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 		
 		//auto modes
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("default mode", new Auto1());
 		autoChooser.addObject("alternate mode", new Auto2());
-		SmartDashboard.putData("teleop mode chooser", teleopChooser);
+		SmartDashboard.putData("teleop mode chooser", autoChooser);
 	}
 
 	
@@ -103,7 +104,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void autonomousInit() {
 		if(autoCommand != null) autoCommand.start();
-		autoCommand = (Command) teleopChooser.getSelected();
+		autoCommand = (Command) autoChooser.getSelected();
 		autoCommand.start();
 	}
 
@@ -125,7 +126,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		// smartdashboard stuff goes here
 		oi.check();
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Lazers ;)", mini.getValue());
+		//SmartDashboard.putNumber("Lazers ;)", mini.getValue());
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
