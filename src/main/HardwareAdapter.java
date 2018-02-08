@@ -23,7 +23,7 @@ public interface HardwareAdapter extends Constants{
 	public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
 	
 	//INTAKE
-	//public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
+	public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
 	//public static WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(RIGHT_Intake);
 	
 	//ELEVATOR

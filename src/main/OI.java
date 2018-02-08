@@ -58,10 +58,10 @@ public class OI implements Constants, HardwareAdapter {
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
-//			xbox.a.whenPressed(new SpinIn());
-//			xbox.y.whenPressed(new SpinOut());
-//			xbox.a.whenReleased(new SpinOff());
-//			xbox.y.whenReleased(new SpinOff());
+			xbox.a.whenPressed(new SpinIn());
+			xbox.y.whenPressed(new SpinOut());
+			xbox.a.whenReleased(new SpinOff());
+			xbox.y.whenReleased(new SpinOff());
 			// Elevator
 			/*xbox.dpadright.whenPressed(new MoveToScale());
 			xbox.dpadleft.whenPressed(new MoveToSwitch());

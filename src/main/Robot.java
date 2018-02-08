@@ -26,6 +26,7 @@ import main.commands.joystickselector.JoyStick2;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
+import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 import main.subsystems.OtherSensors;
 
@@ -48,7 +49,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
-	//public static Intake it;
+	public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
 	//public static TfMini mini;
@@ -69,7 +70,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
-		//it = new Intake();
+		it = new Intake();
 		//CameraServer.getInstance().startAutomaticCapture();
 		el = new Elevator();
 		//da = new DriverAlerts();

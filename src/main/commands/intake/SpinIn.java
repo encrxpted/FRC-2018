@@ -7,7 +7,7 @@ import main.Robot;
 
 public class SpinIn extends Command implements Constants, HardwareAdapter {
 	
-	/*public SpinIn() {
+	public SpinIn() {
 		requires(Robot.it);
 	}
 	
@@ -20,7 +20,6 @@ public class SpinIn extends Command implements Constants, HardwareAdapter {
     	Robot.it.spinIn();
     }
 
-*/
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return true;
