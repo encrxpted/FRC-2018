@@ -8,6 +8,10 @@ import main.Robot;
 
 public class MoveWithJoystick extends Command implements Constants, HardwareAdapter {
 	
+	public MoveWithJoystick() {
+		requires(Robot.el);
+	}
+	
 	protected void execute() {
 		Robot.el.moveWithJoystick(OI.getXbox().getSmoothedMainX());
 	}
