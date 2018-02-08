@@ -8,12 +8,13 @@ import Util.EncoderHelper;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import main.Constants;
 import main.HardwareAdapter;
+import main.commands.elevator.MoveWithJoystick;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	// TODO: GET CRUISE VELOCITY FOR ELEVATOR
 	// GET F-GAIN
 	// TEST ERROR AND CALCULATE P
-	// TEST FOR COASTING
+	// TEST FOR COASTING- BRAKE MODE WORKS GREAT
 	
 	// ELEVATOR LENGTHS
 	public final double spindleDiameter = 2; //placeholder
@@ -28,9 +29,9 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	// ELEVATOR SPEEDS
 	public final double defaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
-	public final double maxVelocity = 95944;
-	public final int cruiseVelocity = 12500; //native units of encoder per 100 ms
-	public final int acceleration = 6250; //native units of encoder per 100 ms per second
+	public final int maxVelocity = 95944; //GET THIS VALUE PLEASE
+	public final int cruiseVelocity = maxVelocity * 3/4; 
+	public final int acceleration = 6250; //native units of encoder per 100 ms per second- PLACEHOLDER
 	
 	// MOTION MAGIC ELEVATOR STUFF
 	public final int elevatorIdx = 0;
@@ -42,23 +43,12 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 			
 	private EncoderHelper encoderHelper = new EncoderHelper();
 	private DriveHelper driveHelper = new DriveHelper(7.5);
+	
 	//max velocity was 95944u/100ms	
 	public Elevator() {
 		setElevatorEncoderDefaults();
 		setBrakeMode();
 	}
-	/*
-	private static enum ElevatorPosition {
-		Top, Bottom, Neither
-	}
-	
-	private static enum ElevatorState {
-		Up, Down, Off
-	}*/
-	
-	//private static ElevatorPosition elevatorPosition = ElevatorPosition.Bottom;
-	//private static ElevatorState elevatorState = ElevatorState.Off;
-	
 	
 	/************************
 	 * MOTION MAGIC METHODS *
@@ -83,15 +73,11 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	private void setMotionMagicDefaults() {
-		setStatusFrames();;
+		setStatusFrames();
 		setAccelAndVeloDefaults();
 		setPIDValues();
 	}
-	
-	public void moveToPosPID(double pos) {
-		setMotionMagicDefaults();
-		leftElevatorMaster.set(ControlMode.MotionMagic, inchesToElevatorEncoderTicks(pos));
-	}
+
 	
 	/*************************
 	 * TALON SUPPORT METHODS *
@@ -199,6 +185,11 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * MOVEMENT METHODS *
 	 ********************/
 	
+	public void moveToPosPID(double pos) {
+		setMotionMagicDefaults();
+		leftElevatorMaster.set(ControlMode.MotionMagic, inchesToElevatorEncoderTicks(pos));
+	}
+	
 	public void moveWithJoystick(double throttle) {
 		leftElevatorMaster.set(driveHelper.driveSmooth(throttle));
 	}
@@ -229,13 +220,11 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		else {
 			leftElevatorMaster.set(-1 * defaultElevatorSpeed);
 		}
-		//rightElevatorMaster.set(0.1);
 	}
 	
 	public void moveUp() {
 		if (isArmAtTop()) {
 			leftElevatorMaster.set(0);
-			//rightElevatorMaster.set(-0.1);
 		}
 		else if(isIntakeNearPos(elevatorHeight, nearSetpoint)) {
 			leftElevatorMaster.set(slowElevatorSpeed);
@@ -259,11 +248,10 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	public void stop() {
 		leftElevatorMaster.set(0);
-
 	}
 	
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new MoveWithJoystick());
 	}
 }
