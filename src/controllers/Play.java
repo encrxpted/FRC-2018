@@ -19,6 +19,7 @@ public class Play implements Loop, Constants {
 	@Override
 	public void onStart() {
 		initialized = false;
+		finished = false;
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class Play implements Loop, Constants {
 	
 	@Override
 	public void onStop() {
-		initialized = false;
+		end();
 	}
 	
 	//Helper Methods
@@ -67,7 +68,10 @@ public class Play implements Loop, Constants {
 				boolean rightJoystickPress = Boolean.parseBoolean(robotState[11]);
 				boolean leftTrigger = Boolean.parseBoolean(robotState[12]);
 				boolean rightTrigger = Boolean.parseBoolean(robotState[13]);
-			
+				System.out.println(leftVoltage + "," + rightVoltage + "," + a + "," + b
+				+ "," + x+ "," + y+ "," + leftBumper+ "," + rightBumper+ "," + select
+				+ "," + start+ "," + leftJoystickPress+ "," + rightJoystickPress 
+				+ "," + leftTrigger+ "," + rightTrigger);
 				Robot.dt.driveVoltageTank(leftVoltage, rightVoltage);
 				Robot.oi.setButtonValues(a, b, x, y, leftBumper, rightBumper, select, start, leftJoystickPress, rightJoystickPress, leftTrigger, rightTrigger);
 			}
@@ -76,14 +80,19 @@ public class Play implements Loop, Constants {
 				finished = true;
 			}
 		}
-		else
+		else {
 			end();
+			System.out.println("Definately done now.");
+		}
 	}
 	
 	private void end() {
-		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TalonDefault)
-			Robot.dt.setTalonDefaults();
-		Robot.oi.setInternalControl(false);
+		if(finished) {
+			if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TalonDefault)
+				Robot.dt.setTalonDefaults();
+			Robot.oi.setInternalControl(false);
+			initialized = false;
+		}
 	}
 	
 	public static boolean isFinished() {

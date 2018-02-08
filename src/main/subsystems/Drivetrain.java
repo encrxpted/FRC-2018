@@ -26,10 +26,10 @@ public class Drivetrain extends RobotSubsystem {
 	}
 	
 	public void driveVoltageTank(double leftVoltage, double rightVoltage) {
-		if(controlModeConfig == driveTrainControlConfig.TankDefault) {
+		//if(controlModeConfig == driveTrainControlConfig.TankDefault) {
 			leftDriveMaster.set(leftVoltage/voltageCompensationVoltage);
 			rightDriveMaster.set(rightVoltage/voltageCompensationVoltage);
-		}
+		//}
 	}
 	
 	public double getLeftVoltage() {

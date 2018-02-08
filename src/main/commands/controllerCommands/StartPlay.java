@@ -9,7 +9,6 @@ public class StartPlay extends ImprovedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Play.reset();
     	Play.okToPlay(true);
     }
 
@@ -25,6 +24,7 @@ public class StartPlay extends ImprovedCommand {
     // Called once after isFinished returns true
     protected void end() {
     	Play.okToPlay(false);
+    	Play.reset();
     }
 
     // Called when another command which requires one or more of the same
