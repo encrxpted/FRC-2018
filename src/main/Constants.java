@@ -78,9 +78,6 @@ public interface Constants {
 	 * PORTS *
 	 *********/
 	
-	// Sensors
-	public final int ULTRA_PING=4, ULTRA_ECHO=5;
-	
 	// XBOX PORTS
 	public final int Xbox_Port = 0;
 	public final int Xbox_Port2 = 1;

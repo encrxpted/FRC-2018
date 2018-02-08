@@ -4,9 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import main.OI;
 import main.Robot;
 
-public class DriveFoward extends Command {
+public class DriveForward extends Command {
 	private double dist = 0;
-    public void DriveForward(double dist) {
+	
+    public DriveForward(double dist) {
     	requires(Robot.dt);
     	this.dist = dist;
     }
@@ -17,7 +18,7 @@ public class DriveFoward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	Robot.dt.driveDistance(dist);
+    	// updates as execution continues... add driveDistance
     }
     
     protected boolean isFinished() {

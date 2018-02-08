@@ -9,6 +9,7 @@ package main;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import Util.SmartDashboardInteractions;
+import Util.TfMini;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	//public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
+	public static TfMini mini;
 	//public static SmartDashboardInteractions sdb;
 
 	// auto modes
@@ -59,10 +61,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void robotInit() {
 		//create auto command
-		//autonomousCommand = new SodaDelivery();
+		//autonomousCommand = new SodaDelivery()
+		mini = new TfMini();
 		
-		
-		HardwareAdapter.init();
 		//camera
 		CameraServer.getInstance().startAutomaticCapture();
 		//OI must be at end
@@ -124,7 +125,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		// smartdashboard stuff goes here
 		oi.check();
 		Scheduler.getInstance().run();
-		
+		SmartDashboard.putNumber("Lazers ;)", mini.getValue());
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());

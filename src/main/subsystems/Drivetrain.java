@@ -99,13 +99,13 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		NavX.zeroYaw();
 	}
 	
-	public void driveDistance(double dist) {
-		SmartDashboard.putNumber("Distance", ultra1.getRangeInches());
-	}
-	
 	public void resetSensors() {
 //		resetGyro(); 
 		resetEncoders();
+	}
+	
+	public void driveDistance() {
+		// not sure what goes here
 	}
 	
 	@SuppressWarnings("unused")

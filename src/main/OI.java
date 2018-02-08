@@ -68,7 +68,7 @@ public class OI implements Constants, HardwareAdapter {
 			xbox.dpadup.whenPressed(new MoveUp());
 			xbox.dpaddown.whenPressed(new MoveDown());*/
 			xbox.leftTrigger.whileHeld(new MoveUp());
-			xbox.rightTrigger.whileHeld(new MoveDown());
+			xbox.rightTrigger.whileHeld(new MoveDown());  
 			xbox.leftTrigger.whenReleased(new StopElevator());
 			xbox.rightTrigger.whenReleased(new StopElevator());
 			
