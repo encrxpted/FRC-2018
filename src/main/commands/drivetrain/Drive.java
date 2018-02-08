@@ -4,10 +4,6 @@ import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 import main.OI;
 
-/**
- *go ask alex if you can change record/play to a toggle button and change isFinished to false so the 
- *command only runs once and setting voltage can be done the easy way
- */
 public class Drive extends ImprovedCommand {
 
     public Drive() {

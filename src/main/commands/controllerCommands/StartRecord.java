@@ -23,7 +23,9 @@ public class StartRecord extends ImprovedCommand {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("record ended and thing resetted");
     	Record.okToRecord(false);
+    	Record.reset();
     }
 
     // Called when another command which requires one or more of the same

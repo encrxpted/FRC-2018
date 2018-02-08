@@ -6,7 +6,7 @@ import main.Constants;
 import main.Robot;
 
 public class Play implements Loop, Constants {
-	private boolean initialized = false;
+	private static boolean initialized = false;
 	private static boolean playOK = false;
 	private static boolean finished = false;
 	
@@ -49,11 +49,15 @@ public class Play implements Loop, Constants {
 	private void execute() {
 		System.out.println("Running play");
 		String line = "";
-		if((line = Robot.lg.readLine()) != null) { 
+		line = Robot.lg.readLine();
+		System.out.println(line);
+		if((line) != null) { 
+			//what does the line = "" do?
+			// readline is returning null...
 			String[] robotState = line.split(",");
 			System.out.println(robotState.length);
 			if(robotState.length == 14) {
-				System.out.println("Wer'e doin it bois");
+				System.out.println("We're doin it bois");
 				double leftVoltage = Double.parseDouble(robotState[0]);
 				double rightVoltage = Double.parseDouble(robotState[1]);
 				boolean a = Boolean.parseBoolean(robotState[2]);
@@ -82,17 +86,16 @@ public class Play implements Loop, Constants {
 		}
 		else {
 			end();
+			// What calls end? Are you allowed to call in code?
 			System.out.println("Definately done now.");
 		}
 	}
 	
 	private void end() {
-		if(finished) {
-			if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TalonDefault)
-				Robot.dt.setTalonDefaults();
-			Robot.oi.setInternalControl(false);
-			initialized = false;
-		}
+		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TalonDefault)
+			Robot.dt.setTalonDefaults();
+		Robot.oi.setInternalControl(false);
+			
 	}
 	
 	public static boolean isFinished() {
@@ -101,6 +104,7 @@ public class Play implements Loop, Constants {
 	
 	public static void reset() {
 		finished = false;
+		initialized = false;
 		Robot.lg.reset();		
 	}
 }

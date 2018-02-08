@@ -49,8 +49,14 @@ public class Logger implements Constants {
 	
 	public String readLine() {
 		try {
-			if(br != null) return br.readLine();
-			else return null;
+			if(br != null) {
+				System.out.println("Br is here.");
+				return br.readLine();
+			}
+			else {
+				System.out.println("Br is not here.");
+				return null;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			return e.toString();
@@ -68,6 +74,7 @@ public class Logger implements Constants {
 		}
 		if(fw != null) bw = new BufferedWriter(fw);
 		if(fr != null) br = new BufferedReader(fr);
+		System.out.println("Open status " + "File: " + file + " FW: " + fw + " FR: " + fr + " BW: " + bw + " BR: " + br);
 	}
 	
 	public void close() {
@@ -78,7 +85,8 @@ public class Logger implements Constants {
 			if(br != null) br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
+		}
+		System.out.println("Close status " + "File: " + file + " FW: " + fw + " FR: " + fr + " BW: " + bw + " BR: " + br);
 	}
 	
 	public void reset() {

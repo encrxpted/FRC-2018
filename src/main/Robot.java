@@ -96,6 +96,7 @@ public class Robot extends ImprovedRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		allPeriodic();
+		//System.out.println(Robot.dt.getCurrentCommandName());
 	}
 
 	@Override
