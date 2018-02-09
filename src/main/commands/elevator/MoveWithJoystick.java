@@ -13,8 +13,10 @@ public class MoveWithJoystick extends Command implements Constants, HardwareAdap
 	}
 	
 	protected void execute() {
-		//Robot.el.moveWithJoystick(OI.getXbox().getSmoothedAltY());
-		Robot.el.moveWithJoystick(OI.getXbox2().getSmoothedMainY());
+		if(Robot.oi.getControllerMode())
+			Robot.el.moveWithJoystick(OI.getXbox().getSmoothedAltY());
+		else
+			Robot.el.moveWithJoystick(OI.getXbox2().getSmoothedMainY());
 	}
 
 	@Override
