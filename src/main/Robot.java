@@ -128,7 +128,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		oi.check();
 		Scheduler.getInstance().run();
 		//SmartDashboard.putNumber("Lazers ;)", mini.getValue());
-		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
 		SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
@@ -136,6 +135,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ", HardwareAdapter.ultra.getRangeMM());
 		SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
 		SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());
+		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
 	}
 
 	@Override
