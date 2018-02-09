@@ -12,7 +12,6 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 	 * Constructor
 	 */
 	public Pneumatics() {
-		comp.setClosedLoopControl(true);
 		shifter.set(EXT);
 		shifter.set(OFF);
 		/*tilter.set(EXT);

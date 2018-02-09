@@ -53,8 +53,8 @@ public class OI implements Constants, HardwareAdapter {
 			// pneumatics
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());
-			//xbox.b.whenPressed(new ArmClose());
-			//xbox.x.whenPressed(new ArmOpen());
+			xbox.b.whenPressed(new ArmClose());
+			xbox.x.whenPressed(new ArmOpen());
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
