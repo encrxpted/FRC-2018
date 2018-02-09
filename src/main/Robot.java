@@ -49,7 +49,8 @@ public class Robot extends ImprovedRobot {
 		pn = Pneumatics.newInstance();
 		oi = OI.newInstance();
 		//Other Utility Classes
-		lg = new Logger(outputPath, true);
+		lg = new Logger();
+		lg.changePath(outputPath);
 		enabledLooper = new Looper(kLooperDt);
         enabledLooper.register(new Record());
         enabledLooper.register(new Play()); 
@@ -61,7 +62,6 @@ public class Robot extends ImprovedRobot {
 	@Override
 	public void disabledInit() {
 		enabledLooper.stop();		
-		//lg.close();
 	}
 	
 	
@@ -74,7 +74,8 @@ public class Robot extends ImprovedRobot {
 	public void autonomousInit() {
 		if(autoCommand != null) autoCommand.start();
 		enabledLooper.start();
-		lg = new Logger(outputPath,  true);
+		lg = new Logger();
+		lg.changePath(outputPath);
 	}
 
 
@@ -88,7 +89,8 @@ public class Robot extends ImprovedRobot {
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
 		enabledLooper.start();
-		lg = new Logger(outputPath, true);
+		lg = new Logger();
+		lg.changePath(outputPath);
 	}
 	
 	@Override
@@ -96,7 +98,6 @@ public class Robot extends ImprovedRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		allPeriodic();
-		//System.out.println(Robot.dt.getCurrentCommandName());
 	}
 
 	@Override

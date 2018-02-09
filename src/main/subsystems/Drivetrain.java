@@ -21,7 +21,6 @@ public class Drivetrain extends RobotSubsystem {
 	//DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
 		if(controlModeConfig == driveTrainControlConfig.TalonDefault) {
-			//System.out.println("Problem");
 			driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 		}
 	}
