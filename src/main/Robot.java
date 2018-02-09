@@ -61,7 +61,7 @@ public class Robot extends ImprovedRobot {
 	@Override
 	public void disabledInit() {
 		enabledLooper.stop();		
-		lg.close();
+		//lg.close();
 	}
 	
 	

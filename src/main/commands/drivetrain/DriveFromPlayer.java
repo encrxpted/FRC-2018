@@ -1,41 +1,37 @@
-package main.commands.controllerCommands;
+package main.commands.drivetrain;
 
-import controllers.Play;
 import interfacesAndAbstracts.ImprovedCommand;
-import main.OI;
 import main.Robot;
 
-public class StartPlay extends ImprovedCommand {
-	public StartPlay() {
+public class DriveFromPlayer extends ImprovedCommand {
+	private double leftVoltage;
+	private double rightVoltage;
+	
+	public DriveFromPlayer(double leftVoltage, double rightVoltage) {
+    	requires(Robot.dt);
+    	this.leftVoltage = leftVoltage;
+    	this.rightVoltage = rightVoltage;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Play.okToPlay(true);
-    	Robot.oi.setInternalControl(true);
-    	Robot.dt.setTankDefaults();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.dt.driveVoltageTank(leftVoltage, rightVoltage);
     }
-
-    // Make this return true when this Command no longer needs to run execute()
+    
     protected boolean isFinished() {
-        return Play.isFinished();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Play.okToPlay(false);
-    	Robot.dt.setTalonDefaults();
-    	Robot.oi.setInternalControl(false);
-    	Play.reset();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

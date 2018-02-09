@@ -1,12 +1,14 @@
 
 package controllers;
 
+import edu.wpi.first.wpilibj.command.Command;
 import loopController.Loop;
 import main.Constants;
 import main.Robot;
+import main.commands.drivetrain.DriveFromPlayer;
 
 public class Play implements Loop, Constants {
-	private static boolean initialized = false;
+	//private static boolean initialized = false;
 	private static boolean playOK = false;
 	private static boolean finished = false;
 	
@@ -18,46 +20,45 @@ public class Play implements Loop, Constants {
 	
 	@Override
 	public void onStart() {
-		initialized = false;
-		finished = false;
+		//initialized = false;
+		//finished = false;
 	}
 
 	@Override
 	public void onLoop() {
 		if(playOK) {
-			if(!initialized)
-				initialize();
+			//if(!initialized)
+				//initialize();
 			execute();
 		}
-		else
-			end();
+		//else
+			//end();
 	}
 	
 	@Override
 	public void onStop() {
-		end();
+		//end();
 	}
 	
 	//Helper Methods
-	private void initialize() {
-		System.out.println("Play Start");
-		initialized = true;
-		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TankDefault)
-			Robot.dt.setTankDefaults();
-	}
+	//public static void initialize() {
+		//System.out.println("Play Start");
+		//initialized = true;
+		//if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TankDefault)
+		//	Robot.dt.setTankDefaults();
+	//}
 	
 	private void execute() {
 		System.out.println("Running play");
-		String line = "";
-		line = Robot.lg.readLine();
-		System.out.println(line);
+		String line = Robot.lg.readLine();
+		//System.out.println(line);
 		if((line) != null) { 
 			//what does the line = "" do?
 			// readline is returning null...
 			String[] robotState = line.split(",");
-			System.out.println(robotState.length);
-			if(robotState.length == 14) {
-				System.out.println("We're doin it bois");
+			//System.out.println(robotState.length);
+			//if(robotState.length == 14) {
+				//System.out.println("We're doin it bois");
 				double leftVoltage = Double.parseDouble(robotState[0]);
 				double rightVoltage = Double.parseDouble(robotState[1]);
 				boolean a = Boolean.parseBoolean(robotState[2]);
@@ -72,40 +73,44 @@ public class Play implements Loop, Constants {
 				boolean rightJoystickPress = Boolean.parseBoolean(robotState[11]);
 				boolean leftTrigger = Boolean.parseBoolean(robotState[12]);
 				boolean rightTrigger = Boolean.parseBoolean(robotState[13]);
-				System.out.println(leftVoltage + "," + rightVoltage + "," + a + "," + b
+				/*System.out.println(leftVoltage + "," + rightVoltage + "," + a + "," + b
 				+ "," + x+ "," + y+ "," + leftBumper+ "," + rightBumper+ "," + select
 				+ "," + start+ "," + leftJoystickPress+ "," + rightJoystickPress 
-				+ "," + leftTrigger+ "," + rightTrigger);
-				Robot.dt.driveVoltageTank(leftVoltage, rightVoltage);
+				+ "," + leftTrigger+ "," + rightTrigger);*/
+				Command drive = new DriveFromPlayer(leftVoltage, rightVoltage);
+				drive.start();
 				Robot.oi.setButtonValues(a, b, x, y, leftBumper, rightBumper, select, start, leftJoystickPress, rightJoystickPress, leftTrigger, rightTrigger);
-			}
-			else {
-				System.out.println("End of File");
-				finished = true;
-			}
+			//}
+			//else {
+				//System.out.println("End of File");
+				//finished = true;
+			//}
 		}
 		else {
-			end();
+			finished = true;
+			//end();
 			// What calls end? Are you allowed to call in code?
 			System.out.println("Definately done now.");
 		}
 	}
 	
-	private void end() {
+	/*private void end() {
 		if(Robot.dt.getcontrolModeConfig() != driveTrainControlConfig.TalonDefault)
 			Robot.dt.setTalonDefaults();
 		Robot.oi.setInternalControl(false);
 			
-	}
+	}*/
 	
 	public static boolean isFinished() {
 		return finished;
 	}
-	
 	public static void reset() {
 		finished = false;
-		initialized = false;
-		Robot.lg.reset();		
 	}
+	//public static void reset() {
+		//finished = false;
+		///initialized = false;
+		//Robot.lg.reset();		
+	//}
 }
 

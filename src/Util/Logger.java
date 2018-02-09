@@ -6,11 +6,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import main.Constants;
 
 public class Logger implements Constants {
-	public File file;
+	public static File file;
 	private FileWriter fw;
 	private FileReader fr;
 	private BufferedWriter bw;
@@ -19,10 +20,10 @@ public class Logger implements Constants {
 	public Logger(String path, boolean singleFileMode) {
     	try {
     		file = new File(path);
-    		if(file.exists() && singleFileMode){
+    		/*if(file.exists() && singleFileMode){  
     			file.delete();
     			file.createNewFile();
-    		}
+    		}*/
     		if(!file.exists())
     			file.createNewFile();
     		if(file != null) {
@@ -38,31 +39,50 @@ public class Logger implements Constants {
 	
 	public void writeLine(String line) {
 		try {
-			if(bw != null) {
-				bw.write(line);
-				bw.newLine();
-			}
+			bw.write(line);
+			bw.newLine();
+			bw.flush();
+			//fw.close();
+			//bw.close();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}			
+		//try {
+			//if(bw != null) {
+				//bw.write(line);
+				//bw.newLine();
+			//}
+		//} catch (IOException e) {
+			//e.printStackTrace();
+		//}
 	}
 	
 	public String readLine() {
+		String line = "";
 		try {
+			line = br.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return line;
+		/*try {
 			if(br != null) {
-				System.out.println("Br is here.");
 				return br.readLine();
 			}
 			else {
-				System.out.println("Br is not here.");
 				return null;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			return e.toString();
-		}
+		}*/
 	}
-	
+	public static void changePath(String path) {
+		file = new File(path);
+	}
+	/*
 	public void open() {
 		if(file != null) {
 			try {
@@ -74,7 +94,6 @@ public class Logger implements Constants {
 		}
 		if(fw != null) bw = new BufferedWriter(fw);
 		if(fr != null) br = new BufferedReader(fr);
-		System.out.println("Open status " + "File: " + file + " FW: " + fw + " FR: " + fr + " BW: " + bw + " BR: " + br);
 	}
 	
 	public void close() {
@@ -86,11 +105,10 @@ public class Logger implements Constants {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Close status " + "File: " + file + " FW: " + fw + " FR: " + fr + " BW: " + bw + " BR: " + br);
 	}
 	
 	public void reset() {
 		close();
 		open();
-	}
+	}*/
 }

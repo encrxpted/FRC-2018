@@ -32,14 +32,6 @@ public class OI extends RobotClass {
 	public void setInternalControl(boolean internalControl) {
 		xbox.setInternalControl(internalControl);
 	}
-	
-	public static boolean recordOn() {
-		return xbox.a.get();
-	}
-	
-	public static boolean playOn() {
-		return xbox.b.get();
-	}
 
 	public static OI newInstance() {
 		if (instance == null) {

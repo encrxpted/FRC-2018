@@ -21,14 +21,23 @@ public class Drivetrain extends RobotSubsystem {
 	//DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
 		if(controlModeConfig == driveTrainControlConfig.TalonDefault) {
+			//System.out.println("Problem");
 			driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 		}
 	}
 	
 	public void driveVoltageTank(double leftVoltage, double rightVoltage) {
 		if(controlModeConfig == driveTrainControlConfig.TankDefault) {
-			leftDriveMaster.set(leftVoltage/voltageCompensationVoltage);
-			rightDriveMaster.set(rightVoltage/voltageCompensationVoltage);
+			//Logic to prevent over-driving from potentially larger than +-12 recorded voltages
+			if(Math.abs(leftVoltage) > 12.0 || Math.abs(rightVoltage) > 12.0) {
+				leftDriveMaster.set(Math.signum(leftVoltage));
+				rightDriveMaster.set(Math.signum(rightVoltage));
+			}
+			else {
+				//12 is a fixed number and not the voltageComp target
+				leftDriveMaster.set(leftVoltage/12);
+				rightDriveMaster.set(rightVoltage/12);
+			}
 		}
 	}
 	
