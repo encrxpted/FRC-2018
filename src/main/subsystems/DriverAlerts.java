@@ -5,8 +5,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
+
 public class DriverAlerts extends Subsystem {
 
+		private boolean state = false;
+	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -17,9 +20,12 @@ public class DriverAlerts extends Subsystem {
 
 	public void setAlertLightState(boolean b) {
 		// TODO Auto-generated method stub
-		
+		state = b;
 	}
 
+	public boolean getAlertLightState() {
+		return state;
+	}
 	
 
 	
