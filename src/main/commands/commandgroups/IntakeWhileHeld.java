@@ -9,9 +9,7 @@ import main.commands.pnuematics.TiltDown;
 
 public class IntakeWhileHeld extends CommandGroup implements Constants, HardwareAdapter {
 	public IntakeWhileHeld() {
-		addParallel(new SpinIn());
 		addSequential(new TiltDown());
 		addSequential(new ArmOpen());
 	}
-
 }

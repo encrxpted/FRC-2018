@@ -3,8 +3,8 @@ package main;
 import lib.joystick.XboxController;
 
 
+
 import main.Robot;
-import main.commands.commandgroups.DropWhenreleased;
 import main.commands.commandgroups.Dropwhenpressed;
 import main.commands.commandgroups.IntakeWhenReleased;
 import main.commands.commandgroups.IntakeWhileHeld;
@@ -98,10 +98,11 @@ public class OI implements Constants, HardwareAdapter {
 //			xbox2.rightTrigger.whenReleased(new StopElevator());
 			
 			//OFFICIAL CODE:
-			xbox2.x.whileHeld(new IntakeWhileHeld());
+			xbox2.x.whileHeld(new SpinIn());
+			xbox2.x.whenPressed(new IntakeWhileHeld()); // I know this is dumb... cba to rename tho
 			xbox2.x.whenReleased(new IntakeWhenReleased());
 			xbox2.a.whenPressed(new Dropwhenpressed());
-			xbox2.a.whenReleased(new DropWhenreleased());
+			//xbox2.a.whenReleased(new DropWhenreleased());
 		}
 	}
 
