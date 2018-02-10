@@ -37,6 +37,10 @@ public class Drivetrain extends RobotSubsystem {
 				leftDriveMaster.set(leftVoltage/12);
 				rightDriveMaster.set(rightVoltage/12);
 			}
+			
+			if(!rightDriveMaster.isAlive() || !rightDriveSlave1.isAlive() || !rightDriveSlave2.isAlive() ||
+			   !leftDriveMaster.isAlive() || !leftDriveSlave1.isAlive() || !leftDriveSlave2.isAlive())
+				System.out.println("Problem");
 		}
 	}
 	
@@ -103,20 +107,41 @@ public class Drivetrain extends RobotSubsystem {
 		}
 	}
 	
+	private void setSafetyTimeout(double timeout) {
+		leftDriveMaster.setExpiration(timeout);
+		leftDriveSlave1.setExpiration(timeout);
+		leftDriveSlave2.setExpiration(timeout);
+		rightDriveMaster.setExpiration(timeout);
+		rightDriveSlave1.setExpiration(timeout);
+		rightDriveSlave2.setExpiration(timeout);
+	}
+	
+	private void setSafety(boolean safety) {
+		leftDriveMaster.setSafetyEnabled(safety);
+		leftDriveSlave1.setSafetyEnabled(safety);
+		leftDriveSlave2.setSafetyEnabled(safety);
+		rightDriveMaster.setSafetyEnabled(safety);
+		rightDriveSlave1.setSafetyEnabled(safety);
+		rightDriveSlave2.setSafetyEnabled(safety);
+	}
 
 	public void setTalonDefaults() {
 		reverseTalons(false);
 		setBrakeMode(BRAKE_MODE);
 		setCtrlMode();
 		setVoltageComp(false, 0.0, 0);
+		//setSafetyTimeout(0.3);
+		//setSafety(false);
 		controlModeConfig = driveTrainControlConfig.TalonDefault;
 	}
 	
 	public void setTankDefaults() {
 		reverseTalons(false);
-		setBrakeMode(BRAKE_MODE);
+		setBrakeMode(COAST_MODE);
 		setCtrlMode();
 		setVoltageComp(true, voltageCompensationVoltage, 10);
+		//setSafety(false);
+		//setSafetyTimeout(0.3);
 		controlModeConfig = driveTrainControlConfig.TankDefault;
 	}
 	

@@ -36,6 +36,7 @@ public interface Constants {
 	public final ControlMode SLAVE_MODE = ControlMode.Follower;
 	public final ControlMode PERCENT_VBUS_MODE = ControlMode.PercentOutput;
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
+	public final NeutralMode COAST_MODE = NeutralMode.Coast;
 	
 	//TALON VOLTAGE COMPENSATION
 	public final double voltageCompensationVoltage = 12.0;
