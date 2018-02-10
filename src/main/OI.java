@@ -13,6 +13,7 @@ import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
 import main.commands.elevator.StopElevator;
+import main.commands.intake.IntakeCube;
 import main.commands.intake.SpinIn;
 import main.commands.intake.SpinOff;
 import main.commands.intake.SpinOut;
@@ -67,7 +68,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
-			xbox.a.whenPressed(new DropWhenReleased());
+			xbox.a.whenPressed(new IntakeCube());
+			xbox.a.whenReleased(new SpinOff());
 			xbox.y.whenPressed(new SpinOut());
 			//xbox.a.whenReleased(new SpinOff());
 			xbox.y.whenReleased(new SpinOff());
