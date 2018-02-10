@@ -14,6 +14,7 @@ import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
 import main.commands.elevator.StopElevator;
 import main.commands.intake.IntakeCube;
+import main.commands.intake.IntakeCubeOff;
 import main.commands.intake.SpinIn;
 import main.commands.intake.SpinOff;
 import main.commands.intake.SpinOut;
@@ -70,7 +71,7 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			// intake
 			/*xbox.a.whenPressed(new SpinIn());
 			xbox.a.whenReleased(new SpinOff());*/
-			xbox.a.whenReleased(new SpinOff());
+			xbox.a.whenReleased(new IntakeCubeOff());
 			xbox.a.whenPressed(new IntakeCube());
 			
 			xbox.y.whenPressed(new SpinOut());
