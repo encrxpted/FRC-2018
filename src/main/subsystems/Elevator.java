@@ -11,7 +11,6 @@ import main.HardwareAdapter;
 import main.commands.elevator.MoveWithJoystick;
 
 public class Elevator extends Subsystem implements Constants, HardwareAdapter {
-	// TODO: GET CRUISE VELOCITY FOR ELEVATOR
 	// GET F-GAIN
 	// TEST ERROR AND CALCULATE P
 	// TEST FOR COASTING- BRAKE MODE WORKS GREAT
@@ -29,14 +28,14 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	// ELEVATOR SPEEDS
 	public final double defaultElevatorSpeed = 0.8;
 	public final double slowElevatorSpeed = 0.2;
-	public final int maxVelocity = 95944; //GET THIS VALUE PLEASE
+	public final int maxVelocity = 100523; //GET THIS VALUE PLEASE
 	public final int cruiseVelocity = maxVelocity * 3/4; 
 	public final int acceleration = 6250; //native units of encoder per 100 ms per second- PLACEHOLDER
 	
 	// MOTION MAGIC ELEVATOR STUFF
 	public final int elevatorIdx = 0;
 	public final int pidIdx = 0;
-	public final double fGain = 1023 / cruiseVelocity ;// 1023/max speed
+	public final double fGain = 1023 / maxVelocity ;// 1023/max speed
 	public final double elevator_kP = 0;
 	public final double elevator_kI = 0;
 	public final double elevator_kD = 0;
@@ -44,7 +43,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	private EncoderHelper encoderHelper = new EncoderHelper();
 	private DriveHelper driveHelper = new DriveHelper(7.5);
 	
-	//max velocity was 95944u/100ms	
+	//max velocity was 100523u/100ms	
 	public Elevator() {
 		setElevatorEncoderDefaults();
 		setBrakeMode();
