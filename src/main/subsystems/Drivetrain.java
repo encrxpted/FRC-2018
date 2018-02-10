@@ -33,8 +33,6 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	//DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
 		double currentTime;
-
-		setBrakeMode(BRAKE_MODE);
 		System.out.println("Throttle: " + throttle + " | Heading: " + heading);
 		driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 		currentTime = Timer.getFPGATimestamp();
