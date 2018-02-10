@@ -64,6 +64,10 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		tilter.set(v);
 	}
 	
+	public void shiftPTO(DoubleSolenoid.Value v) {
+		pto.set(v);
+	}
+	
 	/**
 	 * Toggles the compressor (ON/OFF)
 	 */
