@@ -238,11 +238,11 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 *****************/
 	
 	public void up() {
-		leftElevatorMaster.set(1.0);
+		leftElevatorMaster.set(-1.0);
 	}
 	
 	public void down() {
-		leftElevatorMaster.set(-1.0);
+		leftElevatorMaster.set(1.0);
 	}
 	
 	public void stop() {
