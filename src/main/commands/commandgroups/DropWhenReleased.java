@@ -19,7 +19,7 @@ public class DropWhenReleased extends CommandGroup implements Constants, Hardwar
 	    public DropWhenReleased() {
 	    	addSequential(new SpinIn());
 	    	addSequential(new WaitCommand(3.0));
-	    	addSequential(new SpinOff());
+	    	addSequential(new SpinOut());
 	   
 	    }
 
