@@ -17,7 +17,9 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		/*tilter.set(EXT);
 		tilter.set(OFF);
 		arm.set(EXT);
-		arm.set(OFF);*/
+		arm.set(OFF);
+		PTO.set(RET);
+		PTO.set(OFF);*/
 	}
 	
 	public static enum ArmStates {
