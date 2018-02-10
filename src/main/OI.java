@@ -1,13 +1,13 @@
 package main;
 
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.joystick.XboxController;
 
 
-
 import main.Robot;
+import main.commands.commandgroups.DropWhenReleased;
 import main.commands.commandgroups.Dropwhenpressed;
-import main.commands.commandgroups.IntakeWhenReleased;
-import main.commands.commandgroups.IntakeWhileHeld;
 import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
@@ -24,7 +24,7 @@ import main.commands.pnuematics.ShiftUp;
 import main.commands.pnuematics.TiltDown;
 import main.commands.pnuematics.TiltUp;
 
-public class OI implements Constants, HardwareAdapter {
+public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	
 	public OI() {
 		check();
@@ -67,7 +67,7 @@ public class OI implements Constants, HardwareAdapter {
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
-			xbox.a.whenPressed(new SpinIn());
+			xbox.a.whenPressed(new DropWhenReleased());
 			xbox.y.whenPressed(new SpinOut());
 			xbox.a.whenReleased(new SpinOff());
 			xbox.y.whenReleased(new SpinOff());
@@ -84,25 +84,19 @@ public class OI implements Constants, HardwareAdapter {
 		} else {
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());
-//			xbox2.leftTrigger.whenPressed(new TiltUp());
-//			xbox2.rightTrigger.whenPressed(new TiltDown());
-//			xbox2.a.whenPressed(new SpinIn());
-//			xbox2.y.whenPressed(new SpinOut());
-//			xbox2.a.whenReleased(new SpinOff());
-//			xbox2.y.whenReleased(new SpinOff());
-//			xbox2.b.whenPressed(new ArmClose());
-//			xbox2.x.whenPressed(new ArmOpen());
-//			xbox2.leftTrigger.whenPressed(new MoveUp());
-//			xbox2.rightTrigger.whenPressed(new MoveDown());
-//			xbox2.leftTrigger.whenReleased(new StopElevator());
-//			xbox2.rightTrigger.whenReleased(new StopElevator());
 			
-			//OFFICIAL CODE:
-			xbox2.x.whileHeld(new SpinIn());
-			xbox2.x.whenPressed(new IntakeWhileHeld()); // I know this is dumb... cba to rename tho
-			xbox2.x.whenReleased(new IntakeWhenReleased());
-			xbox2.a.whenPressed(new Dropwhenpressed());
-			//xbox2.a.whenReleased(new DropWhenreleased());
+			xbox2.leftTrigger.whenPressed(new TiltUp());
+			xbox2.rightTrigger.whenPressed(new TiltDown());
+			xbox2.a.whenPressed(new SpinIn());
+			xbox2.y.whenPressed(new SpinOut());
+			xbox2.a.whenReleased(new SpinOff());
+			xbox2.y.whenReleased(new SpinOff());
+			xbox2.b.whenPressed(new ArmClose());
+			xbox2.x.whenPressed(new ArmOpen());
+			xbox2.leftTrigger.whenPressed(new MoveUp());
+			xbox2.rightTrigger.whenPressed(new MoveDown());
+			xbox2.leftTrigger.whenReleased(new StopElevator());
+			xbox2.rightTrigger.whenReleased(new StopElevator());
 		}
 	}
 
