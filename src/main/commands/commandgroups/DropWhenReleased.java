@@ -16,9 +16,13 @@ import main.commands.pnuematics.TiltUp;
 public class DropWhenReleased extends CommandGroup implements Constants, HardwareAdapter{
 
 	    public DropWhenReleased() {
-	    	addSequential(new SpinIn());
+	    	addSequential(new SpinIn(), 5);
 	    	addSequential(new WaitCommand(0.1));
-	    	addSequential(new SpinOut());
+	    	addSequential(new SpinOut(), 5);
+	    	addSequential(new WaitCommand(0.1));
+	    	addSequential(new SpinIn(), 5);
+	    	addSequential(new SpinOff());
+
 	   
 	    }
 

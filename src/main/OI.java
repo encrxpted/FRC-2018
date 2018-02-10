@@ -67,9 +67,9 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
-			xbox.a.whenPressed(new DropWhenReleased());
+			xbox.a.whileHeld(new DropWhenReleased());
 			xbox.y.whenPressed(new SpinOut());
-			xbox.a.whenReleased(new SpinOff());
+			//xbox.a.whenReleased(new SpinOff());
 			xbox.y.whenReleased(new SpinOff());
 			// Elevator
 			/*xbox.dpadright.whenPressed(new MoveToScale());
@@ -85,7 +85,7 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());
 			
-			xbox2.leftTrigger.whenPressed(new TiltUp());
+			/*xbox2.leftTrigger.whenPressed(new TiltUp());
 			xbox2.rightTrigger.whenPressed(new TiltDown());
 			xbox2.a.whenPressed(new SpinIn());
 			xbox2.y.whenPressed(new SpinOut());
@@ -96,7 +96,7 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox2.leftTrigger.whenPressed(new MoveUp());
 			xbox2.rightTrigger.whenPressed(new MoveDown());
 			xbox2.leftTrigger.whenReleased(new StopElevator());
-			xbox2.rightTrigger.whenReleased(new StopElevator());
+			xbox2.rightTrigger.whenReleased(new StopElevator());*/
 		}
 	}
 
