@@ -68,8 +68,11 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
-			xbox.a.whenPressed(new IntakeCube());
+			/*xbox.a.whenPressed(new SpinIn());
+			xbox.a.whenReleased(new SpinOff());*/
 			xbox.a.whenReleased(new SpinOff());
+			xbox.a.whenPressed(new IntakeCube());
+			
 			xbox.y.whenPressed(new SpinOut());
 			//xbox.a.whenReleased(new SpinOff());
 			xbox.y.whenReleased(new SpinOff());
