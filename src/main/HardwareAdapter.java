@@ -44,4 +44,5 @@ public interface HardwareAdapter extends Constants{
 	public static DoubleSolenoid tilter = new DoubleSolenoid(PCM_Port1, TILT_EXT, TILT_RET);
 	public static Compressor comp = new Compressor(PCM_Port1);
 	public static DoubleSolenoid arm = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
+	public static DoubleSolenoid pto = new DoubleSolenoid(PCM_Port1, PTO_EXT, PTO_RET);
 }

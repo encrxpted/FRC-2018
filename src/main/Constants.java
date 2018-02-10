@@ -111,6 +111,10 @@ public interface Constants {
 	public final int SHIFTER_EXT = 2;
 	public final int SHIFTER_RET = 3;
 	
+	// PTO
+	public final int PTO_EXT = 6;
+	public final int PTO_RET = 7;
+	
 	// SWITCHES
 	public final int STAGE1_Bottom = 0;
 	public final int STAGE1_Top = 2;
