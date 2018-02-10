@@ -61,8 +61,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	public void check() {
 		if (ControllerMode) {
 			// pneumatics
-			xbox.leftBumper.whenPressed(new ShiftUp());
-			xbox.leftBumper.whenReleased(new ShiftDown());
+			xbox.leftJoystickButton.whenPressed(new ShiftUp());
+			xbox.leftJoystickButton.whenReleased(new ShiftDown());
 			xbox.b.whenPressed(new ArmClose());
 			xbox.x.whenPressed(new ArmOpen());
 			//xbox.leftTrigger.whenPressed(new TiltUp());
@@ -87,8 +87,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox.rightTrigger.whenReleased(new StopElevator());
 			
 		} else {
-			xbox.leftBumper.whenPressed(new ShiftUp());
-			xbox.leftBumper.whenReleased(new ShiftDown());
+			xbox.leftJoystickButton.whenPressed(new ShiftUp());
+			xbox.leftJoystickButton.whenReleased(new ShiftDown());
 			
 			/*xbox2.leftTrigger.whenPressed(new TiltUp());
 			xbox2.rightTrigger.whenPressed(new TiltDown());
