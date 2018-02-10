@@ -6,18 +6,23 @@ import com.kauailabs.navx.frc.AHRS;
 
 import Util.DriveHelper;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.Constants;
 import main.HardwareAdapter;
+import main.Robot;
 import main.commands.drivetrain.Drive;
+import main.commands.pnuematics.DisengagePTO;
+import main.commands.pnuematics.EngagePTO;
 
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
 	private double lastTime = 0.0;
+	private boolean engaged = false;
 	
 	//SHIFTING
 	private static boolean highGearState = false;
@@ -32,12 +37,22 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	
 	//DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
-		double currentTime;
-		System.out.println("Throttle: " + throttle + " | Heading: " + heading);
-		driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
-		currentTime = Timer.getFPGATimestamp();
-		SmartDashboard.putNumber("Milliseconds between each call", currentTime-lastTime);
-		lastTime = currentTime;
+		if(!Robot.oi.getXbox().start.get() || !Robot.oi.getXbox2().start.get()) { // either/both not pressed- normal drive and disengage PTO
+			if(engaged) {
+				Command disengagePto = new DisengagePTO();
+				disengagePto.start();
+				engaged = false;
+			}
+			driveTrain.arcadeDrive(helper.driveSmooth(throttle), helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
+		}
+		else { // both pressed- can only drive forward and engage PTO
+			if(!engaged) {
+				Command engagePto = new EngagePTO();
+				engagePto.start();
+				engaged = true;
+			}
+			driveTrain.arcadeDrive(Math.abs(helper.driveSmooth(throttle)), 0.0);
+		}
 	}
 	
 	/*************************
