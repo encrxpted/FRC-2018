@@ -138,6 +138,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
 		SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
+		SmartDashboard.putBoolean("Cube Detected: ", cubeSensor1.get());
 	}
 
 	@Override

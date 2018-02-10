@@ -6,14 +6,15 @@ import lib.joystick.XboxController;
 
 
 import main.Robot;
-import main.commands.commandgroups.DropWhenReleased;
-import main.commands.commandgroups.Dropwhenpressed;
+import main.commands.commandgroups.IntakeCube;
+import main.commands.commandgroups.IntakeCubeOff;
+import main.commands.commandgroups.PushOutCube;
+import main.commands.commandgroups.PushOutCubeOff;
 import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
 import main.commands.elevator.StopElevator;
-import main.commands.intake.IntakeCube;
 import main.commands.intake.SpinIn;
 import main.commands.intake.SpinOff;
 import main.commands.intake.SpinOut;
@@ -61,21 +62,21 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	public void check() {
 		if (ControllerMode) {
 			// pneumatics
-			xbox.leftBumper.whenPressed(new ShiftUp());
-			xbox.leftBumper.whenReleased(new ShiftDown());
+			xbox.leftJoystickButton.whenPressed(new ShiftUp());
+			xbox.leftJoystickButton.whenReleased(new ShiftDown());
+			xbox.b.whenReleased(new ArmOpen());
 			xbox.b.whenPressed(new ArmClose());
-			xbox.x.whenPressed(new ArmOpen());
+			//xbox.x.whenPressed(new ArmOpen());
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
 			/*xbox.a.whenPressed(new SpinIn());
 			xbox.a.whenReleased(new SpinOff());*/
-			xbox.a.whenReleased(new SpinOff());
+			xbox.a.whenReleased(new IntakeCubeOff());
 			xbox.a.whenPressed(new IntakeCube());
 			
-			xbox.y.whenPressed(new SpinOut());
-			//xbox.a.whenReleased(new SpinOff());
-			xbox.y.whenReleased(new SpinOff());
+			xbox.y.whenPressed(new PushOutCube());
+			xbox.y.whenReleased(new PushOutCubeOff());
 			// Elevator
 			/*xbox.dpadright.whenPressed(new MoveToScale());
 			xbox.dpadleft.whenPressed(new MoveToSwitch());
@@ -87,10 +88,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox.rightTrigger.whenReleased(new StopElevator());
 			
 		} else {
-			xbox.leftBumper.whenPressed(new ShiftUp());
-			xbox.leftBumper.whenReleased(new ShiftDown());
-			xbox2.leftTrigger.whenReleased(new StopElevator());
-			xbox2.rightTrigger.whenReleased(new StopElevator());
+			xbox.leftJoystickButton.whenPressed(new ShiftUp());
+			xbox.leftJoystickButton.whenReleased(new ShiftDown());
 			
 			/*xbox2.leftTrigger.whenPressed(new TiltUp());
 			xbox2.rightTrigger.whenPressed(new TiltDown());

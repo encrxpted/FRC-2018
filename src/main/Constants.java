@@ -32,6 +32,7 @@ public interface Constants {
 	// SENSORS
 	public final boolean encodersInverted = true;
 	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.	
+	public final int cubeSensor = 0;
 	
 	/*************
 	 * CONSTANTS *
@@ -116,7 +117,7 @@ public interface Constants {
 	public final int PTO_RET = 7;
 	
 	// SWITCHES
-	public final int STAGE1_Bottom = 0;
+	public final int STAGE1_Bottom = 8;
 	public final int STAGE1_Top = 2;
 	public final int STAGE2_Bottom = 1;
 	public final int STAGE2_Top = 3;
