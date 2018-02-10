@@ -65,6 +65,7 @@ public class Play implements Loop, Constants {
 	public static boolean isFinished() {
 		return finished;
 	}
+	
 	public static void reset() {
 		finished = false;
 	}
