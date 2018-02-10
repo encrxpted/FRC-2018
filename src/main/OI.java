@@ -8,6 +8,8 @@ import lib.joystick.XboxController;
 import main.Robot;
 import main.commands.commandgroups.IntakeCube;
 import main.commands.commandgroups.IntakeCubeOff;
+import main.commands.commandgroups.PushOutCube;
+import main.commands.commandgroups.PushOutCubeOff;
 import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
@@ -62,8 +64,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			// pneumatics
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());
 			xbox.leftJoystickButton.whenReleased(new ShiftDown());
-			xbox.b.whenPressed(new ArmClose());
-			xbox.x.whenPressed(new ArmOpen());
+			//xbox.b.whenPressed(new ArmClose());
+			//xbox.x.whenPressed(new ArmOpen());
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
@@ -72,9 +74,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox.a.whenReleased(new IntakeCubeOff());
 			xbox.a.whenPressed(new IntakeCube());
 			
-			xbox.y.whenPressed(new SpinOut());
-			//xbox.a.whenReleased(new SpinOff());
-			xbox.y.whenReleased(new SpinOff());
+			xbox.y.whenPressed(new PushOutCube());
+			xbox.y.whenReleased(new PushOutCubeOff());
 			// Elevator
 			/*xbox.dpadright.whenPressed(new MoveToScale());
 			xbox.dpadleft.whenPressed(new MoveToSwitch());
