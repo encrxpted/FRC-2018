@@ -91,7 +91,8 @@ public class OI implements Constants, HardwareAdapter {
 			xbox2.x.whenPressed(new ArmOpen());
 			xbox2.leftTrigger.whenPressed(new MoveUp());
 			xbox2.rightTrigger.whenPressed(new MoveDown());
-
+			xbox2.leftTrigger.whenReleased(new StopElevator());
+			xbox2.rightTrigger.whenReleased(new StopElevator());
 		}
 	}
 
