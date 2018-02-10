@@ -89,6 +89,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 		} else {
 			xbox.leftBumper.whenPressed(new ShiftUp());
 			xbox.leftBumper.whenReleased(new ShiftDown());
+			xbox2.leftTrigger.whenReleased(new StopElevator());
+			xbox2.rightTrigger.whenReleased(new StopElevator());
 			
 			/*xbox2.leftTrigger.whenPressed(new TiltUp());
 			xbox2.rightTrigger.whenPressed(new TiltDown());
