@@ -6,15 +6,13 @@ import lib.joystick.XboxController;
 
 
 import main.Robot;
-import main.commands.commandgroups.DropWhenReleased;
-import main.commands.commandgroups.Dropwhenpressed;
+import main.commands.commandgroups.IntakeCube;
+import main.commands.commandgroups.IntakeCubeOff;
 import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveToScale;
 import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
 import main.commands.elevator.StopElevator;
-import main.commands.intake.IntakeCube;
-import main.commands.intake.IntakeCubeOff;
 import main.commands.intake.SpinIn;
 import main.commands.intake.SpinOff;
 import main.commands.intake.SpinOut;
