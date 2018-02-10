@@ -12,6 +12,7 @@ import main.commands.elevator.StopElevator;
 import main.commands.intake.SpinIn;
 import main.commands.intake.SpinOff;
 import main.commands.intake.SpinOut;
+import main.commands.pnuematics.Arm;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.ArmOpen;
 import main.commands.pnuematics.ShiftDown;

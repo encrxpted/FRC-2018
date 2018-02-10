@@ -82,15 +82,15 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//teleop modes
 		teleopChooser = new SendableChooser();
 		//SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
-		teleopChooser.addDefault("default mode", new JoyStick1());
-		teleopChooser.addObject("alternate mode", new JoyStick2());
+		teleopChooser.addDefault("1 joystick", new JoyStick1());
+		teleopChooser.addObject("2 joystick", new JoyStick2());
 		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 		
 		//auto modes
 		autoChooser = new SendableChooser();
 		autoChooser.addDefault("default mode", new Auto1());
 		autoChooser.addObject("alternate mode", new Auto2());
-		SmartDashboard.putData("teleop mode chooser", autoChooser);
+		SmartDashboard.putData("auto", autoChooser);
 	}
 
 	
