@@ -82,8 +82,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//teleop modes
 		teleopChooser = new SendableChooser();
 		//SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
-		teleopChooser.addDefault("1 joystick", new JoyStick1());
-		teleopChooser.addObject("2 joystick", new JoyStick2());
+		teleopChooser.addDefault("2 joysticks", new JoyStick2());
+		teleopChooser.addObject("1 joystick", new JoyStick1());
 		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 		
 		//auto modes
@@ -130,13 +130,13 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		oi.check();
 		Scheduler.getInstance().run();
 		//SmartDashboard.putNumber("Lazers ;)", mini.getValue());
-		SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
+		/*SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
-		SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());
+		SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());*/
 		//el.check();
 		//SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ", HardwareAdapter.ultra.getRangeMM());
-		SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
-		SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());
+		/*SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
+		SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());*/
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putBoolean("Cube Detected: ", cubeSensor1.get());
 	}

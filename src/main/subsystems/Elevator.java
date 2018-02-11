@@ -45,7 +45,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	//max velocity was 100523u/100ms	
 	public Elevator() {
-		setElevatorEncoderDefaults();
+		//setElevatorEncoderDefaults();
 		setBrakeMode();
 	}
 	
