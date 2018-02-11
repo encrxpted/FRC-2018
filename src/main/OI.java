@@ -82,10 +82,10 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox.dpadleft.whenPressed(new MoveToSwitch());
 			xbox.dpadup.whenPressed(new MoveUp());
 			xbox.dpaddown.whenPressed(new MoveDown());*/
-			xbox.leftTrigger.whileHeld(new MoveUp());
+			/*xbox.leftTrigger.whileHeld(new MoveUp());
 			xbox.rightTrigger.whileHeld(new MoveDown());  
 			xbox.leftTrigger.whenReleased(new StopElevator());
-			xbox.rightTrigger.whenReleased(new StopElevator());
+			xbox.rightTrigger.whenReleased(new StopElevator());*/
 			
 		} else {
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());

@@ -11,8 +11,8 @@ import main.commands.pnuematics.TiltDown;
 public class PushOutCube extends CommandGroup {
 
     public PushOutCube() {
-    	addSequential(new TiltDown());
-    	addSequential(new SpinOut());
-    	addSequential(new ArmOpen());
+    	addParallel(new TiltDown());
+    	addParallel(new SpinOut());
+    	addParallel(new ArmOpen());
     }
 }
