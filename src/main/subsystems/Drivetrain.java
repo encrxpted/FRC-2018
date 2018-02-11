@@ -28,15 +28,19 @@ public class Drivetrain extends RobotSubsystem {
 	public void driveVoltageTank(double leftVoltage, double rightVoltage) {
 		if(controlModeConfig == driveTrainControlConfig.TankDefault) {
 			//Logic to prevent over-driving from potentially larger than +-12 recorded voltages
-			if(Math.abs(leftVoltage) > 12.0 || Math.abs(rightVoltage) > 12.0) {
-				leftDriveMaster.set(Math.signum(leftVoltage));
-				rightDriveMaster.set(Math.signum(rightVoltage));
-			}
-			else {
+			//if(Math.abs(leftVoltage) > 12.0 || Math.abs(rightVoltage) > 12.0) {
+//				leftDriveMaster.set(Math.signum(leftVoltage));
+//				rightDriveMaster.set(Math.signum(rightVoltage));
+				//driveTrain.tankDrive(Math.signum(leftVoltage), Math.signum(rightVoltage));
+				// what if left voltage > 12 but right voltage = 5?
+			//}
+			//else {
 				//12 is a fixed number and not the voltageComp target
-				leftDriveMaster.set(leftVoltage/12);
-				rightDriveMaster.set(rightVoltage/12);
-			}
+//				leftDriveMaster.set(leftVoltage/12);
+//				rightDriveMaster.set(rightVoltage/12);
+			driveTrain.tankDrive((Math.abs(leftVoltage) > 12.0) ? Math.signum(leftVoltage) : leftVoltage/12, 
+								 (Math.abs(rightVoltage)  > 12.0) ? Math.signum(rightVoltage) : rightVoltage/12);
+			//}
 			
 			if(!rightDriveMaster.isAlive() || !rightDriveSlave1.isAlive() || !rightDriveSlave2.isAlive() ||
 			   !leftDriveMaster.isAlive() || !leftDriveSlave1.isAlive() || !leftDriveSlave2.isAlive())
@@ -130,7 +134,7 @@ public class Drivetrain extends RobotSubsystem {
 		setBrakeMode(BRAKE_MODE);
 		setCtrlMode();
 		setVoltageComp(false, 0.0, 0);
-		//setSafetyTimeout(0.3);
+		//setSafetyTimeout(10000);
 		//setSafety(false);
 		controlModeConfig = driveTrainControlConfig.TalonDefault;
 	}
@@ -141,7 +145,7 @@ public class Drivetrain extends RobotSubsystem {
 		setCtrlMode();
 		setVoltageComp(true, voltageCompensationVoltage, 10);
 		//setSafety(false);
-		//setSafetyTimeout(0.3);
+		//setSafetyTimeout(10000);
 		controlModeConfig = driveTrainControlConfig.TankDefault;
 	}
 	
