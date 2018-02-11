@@ -64,19 +64,19 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			// pneumatics
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());
 			xbox.leftJoystickButton.whenReleased(new ShiftDown());
-			xbox.b.whenReleased(new ArmOpen());
+			xbox.y.whenPressed(new ArmOpen());
 			xbox.b.whenPressed(new ArmClose());
 			//xbox.x.whenPressed(new ArmOpen());
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
 			// intake
-			xbox.a.whenPressed(new SpinIn());
-			xbox.a.whenReleased(new SpinOff());
+			xbox.a.whenPressed(new IntakeCube());
+			xbox.a.whenReleased(new IntakeCubeOff());
 			/*xbox.a.whenReleased(new IntakeCubeOff());
 			xbox.a.whenPressed(new IntakeCube());*/
 			
-			xbox.y.whenPressed(new PushOutCube());
-			xbox.y.whenReleased(new PushOutCubeOff());
+			xbox.x.whenPressed(new PushOutCube());
+			xbox.x.whenReleased(new PushOutCubeOff());
 			// Elevator
 			/*xbox.dpadright.whenPressed(new MoveToScale());
 			xbox.dpadleft.whenPressed(new MoveToSwitch());
