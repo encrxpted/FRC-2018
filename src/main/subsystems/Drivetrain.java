@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import main.Constants;
 import main.HardwareAdapter;
-import main.Robot;
+import main.OI;
 import main.commands.drivetrain.Drive;
 import main.commands.pnuematics.DisengagePTO;
 import main.commands.pnuematics.EngagePTO;
@@ -35,7 +35,7 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	
 	//DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
-		if(!Robot.oi.getXbox().start.get() || !Robot.oi.getXbox2().start.get()) { // either/both not pressed- normal drive and disengage PTO
+		if(!OI.getXbox().start.get() || !OI.getXbox2().start.get()) { // either/both not pressed- normal drive and disengage PTO
 			if(engaged) {
 				Command disengagePto = new DisengagePTO();
 				disengagePto.start();

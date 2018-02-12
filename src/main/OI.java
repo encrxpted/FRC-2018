@@ -21,13 +21,9 @@ import main.commands.pnuematics.TiltUp;
 
 public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	
-	public OI() {
-		check();
-	}
-	
 	public static boolean ControllerMode = false;
 	
-	public boolean getControllerMode() {
+	public static boolean getControllerMode() {
 		return ControllerMode;
 	}
 	
@@ -49,10 +45,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
     	return ControllerMode;
     }
     
-	
-	
 	// important
-	public void check() {
+	public static void check() {
 		if (ControllerMode) {
 			// pneumatics
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());
