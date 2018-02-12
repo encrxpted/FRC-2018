@@ -9,7 +9,6 @@ package main;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -47,12 +46,12 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	SendableChooser teleopChooser;
 	
 	//SendableChooser teleopChooser;
-	public static OI oi;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
+	public static OI oi;
 	//public static TfMini mini;
 	//public static SmartDashboardInteractions sdb;
 
@@ -152,7 +151,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void teleopPeriodic() {
 		// smartdashboard stuff goes here
-		oi.check();
+		OI.check();
 		Scheduler.getInstance().run();
 		//SmartDashboard.putNumber("Lazers ;)", mini.getValue());
 		/*SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);

@@ -1,7 +1,7 @@
 package main.commands.joystickselector;
 
 import edu.wpi.first.wpilibj.command.Command;
-import main.Robot;
+import main.OI;
 
 public class JoyStick1 extends Command {
 
@@ -12,9 +12,7 @@ public class JoyStick1 extends Command {
 	}
 	
 	protected void initialize() {
-		
-		Robot.oi.OneController();
-		
+		OI.OneController();
     }
 
 }
