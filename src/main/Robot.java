@@ -8,6 +8,7 @@
 package main;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -99,9 +100,21 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void autonomousInit() {
-		if(autoCommand != null) autoCommand.start();
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if(gameData.length() > 0)
+        {
+			  if(gameData.charAt(0) == 'L')
+			  {
+				//Put left auto code here
+			  } else {
+				//Put right auto code here
+			  }
+        }
+		
+        /*if(autoCommand != null) autoCommand.start();
 		autoCommand = (Command) autoChooser.getSelected();
-		autoCommand.start();
+		autoCommand.start();*/
 	}
 
 
