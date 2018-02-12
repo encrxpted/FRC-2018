@@ -9,6 +9,7 @@ package main;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -17,6 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.autonomous.Auto1;
 import main.commands.autonomous.Auto2;
+import main.commands.autonomous.Baseline;
+import main.commands.autonomous.ScoreCube;
 import main.commands.joystickselector.JoyStick1;
 import main.commands.joystickselector.JoyStick2;
 import main.subsystems.DriverAlerts;
@@ -53,6 +56,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	// auto modes
 	Command autoCommand;
 	SendableChooser autoChooser;
+	SendableChooser startPos;
 
 	@Override
 	public void robotInit() {
@@ -85,6 +89,12 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		autoChooser.addDefault("default mode", new Auto1());
 		autoChooser.addObject("alternate mode", new Auto2());
 		SmartDashboard.putData("auto", autoChooser);
+		
+		//Starting Pos
+		startPos = new SendableChooser();
+		startPos.addDefault("Left", new Baseline());
+		startPos.addObject("Right", new ScoreCube());
+		startPos.addObject("Center", new ScoreCube());
 	}
 
 	
@@ -100,6 +110,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void autonomousInit() {
+		autoCommand = (Command) autoChooser.getSelected();
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0)
@@ -107,8 +118,11 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 			  if(gameData.charAt(0) == 'L')
 			  {
 				//Put left auto code here
+				autoCommand.start();
+				  
 			  } else {
 				//Put right auto code here
+				autoCommand.start();
 			  }
         }
 		
