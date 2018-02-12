@@ -22,6 +22,9 @@ import main.commands.autonomous.Baseline;
 import main.commands.autonomous.ScoreCube;
 import main.commands.joystickselector.JoyStick1;
 import main.commands.joystickselector.JoyStick2;
+import main.commands.startposition.StartLeft;
+import main.commands.startposition.StartMiddle;
+import main.commands.startposition.StartRight;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -53,6 +56,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	//public static TfMini mini;
 	//public static SmartDashboardInteractions sdb;
 
+	public static String startpos;
+	
 	// auto modes
 	Command autoCommand;
 	SendableChooser autoChooser;
@@ -92,9 +97,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		
 		//Starting Pos
 		startPos = new SendableChooser();
-		startPos.addDefault("Left", new Baseline());
-		startPos.addObject("Right", new ScoreCube());
-		startPos.addObject("Center", new ScoreCube());
+		startPos.addDefault("Left", new StartLeft());
+		startPos.addObject("Middle", new StartMiddle());
+		startPos.addObject("Right", new StartRight());
 	}
 
 	

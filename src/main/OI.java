@@ -49,6 +49,16 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
     	return ControllerMode;
     }
     
+    public static String Left() {
+    	return "left";
+    }
+    public static String Right() {
+    	return "right";
+    }
+    public static String Middle() {
+    	return "middle";
+    }
+    
 	
 	
 	// important
