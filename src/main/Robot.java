@@ -7,11 +7,7 @@
 
 package main;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import Util.SmartDashboardInteractions;
-import Util.TfMini;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,8 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.autonomous.Auto1;
 import main.commands.autonomous.Auto2;
-import main.commands.driveAlerts.AlertLightOn;
-import main.commands.elevator.MoveToScale;
 import main.commands.joystickselector.JoyStick1;
 import main.commands.joystickselector.JoyStick2;
 import main.subsystems.DriverAlerts;
@@ -29,7 +23,6 @@ import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
-import main.subsystems.OtherSensors;
 
 /**
  * The VM is configured to automatically run this class, and to call the

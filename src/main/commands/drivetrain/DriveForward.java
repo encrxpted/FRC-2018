@@ -1,7 +1,6 @@
 package main.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.command.Command;
-import main.OI;
 import main.Robot;
 
 public class DriveForward extends Command {

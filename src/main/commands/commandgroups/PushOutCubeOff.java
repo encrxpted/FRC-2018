@@ -2,10 +2,7 @@ package main.commands.commandgroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import main.commands.intake.SpinOff;
-import main.commands.intake.SpinOut;
 import main.commands.pnuematics.ArmClose;
-import main.commands.pnuematics.ArmOpen;
-import main.commands.pnuematics.TiltDown;
 import main.commands.pnuematics.TiltUp;
 
 /**

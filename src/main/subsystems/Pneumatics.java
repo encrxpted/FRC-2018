@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import main.Constants;
 import main.HardwareAdapter;
-import main.Robot;
 
 public class Pneumatics extends Subsystem implements Constants, HardwareAdapter {
 	private boolean down = false;

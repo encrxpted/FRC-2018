@@ -1,24 +1,17 @@
 package main;
 
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import lib.joystick.XboxController;
-
-
-import main.Robot;
 import main.commands.commandgroups.IntakeCube;
 import main.commands.commandgroups.IntakeCubeOff;
 import main.commands.commandgroups.PushOutCube;
 import main.commands.commandgroups.PushOutCubeOff;
 import main.commands.elevator.MoveDown;
-import main.commands.elevator.MoveToScale;
-import main.commands.elevator.MoveToSwitch;
 import main.commands.elevator.MoveUp;
 import main.commands.elevator.StopElevator;
 import main.commands.intake.SpinIn;
 import main.commands.intake.SpinOff;
 import main.commands.intake.SpinOut;
-import main.commands.pnuematics.Arm;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.ArmOpen;
 import main.commands.pnuematics.ShiftDown;

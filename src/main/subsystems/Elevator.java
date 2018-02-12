@@ -1,7 +1,6 @@
 package main.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import Util.DriveHelper;
 import Util.EncoderHelper;

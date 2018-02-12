@@ -1,7 +1,5 @@
 package Util;
 
-import java.nio.ByteBuffer;
-
 import edu.wpi.first.wpilibj.SerialPort;
 
 public class TfMini {
