@@ -48,7 +48,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
-	public static OI oi;
 	//public static TfMini mini;
 	//public static SmartDashboardInteractions sdb;
 
@@ -76,7 +75,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
 		//robotState = 
-		oi = new OI();
 		
 		//teleop modes
 		teleopChooser = new SendableChooser();

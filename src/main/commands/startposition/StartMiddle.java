@@ -1,11 +1,8 @@
 package main.commands.startposition;
 
 import edu.wpi.first.wpilibj.command.Command;
-import main.Robot;
+import main.OI;
 
-/**
- *
- */
 public class StartMiddle extends Command {
 
     public StartMiddle() {
@@ -15,7 +12,7 @@ public class StartMiddle extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.oi.Middle();
+    	OI.Middle();
     }
 
     // Called repeatedly when this Command is scheduled to run

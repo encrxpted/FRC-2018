@@ -1,11 +1,8 @@
 package main.commands.startposition;
 
 import edu.wpi.first.wpilibj.command.Command;
-import main.Robot;
+import main.OI;
 
-/**
- *
- */
 public class StartRight extends Command {
 
     public StartRight() {
@@ -15,7 +12,7 @@ public class StartRight extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.oi.Right();
+    	OI.Right();
     }
 
     // Called repeatedly when this Command is scheduled to run
