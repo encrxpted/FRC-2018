@@ -92,13 +92,6 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
-	// "Instantiates" the encoders onto the talon + sets things
-	private void setElevatorEncoderDefaults() {
-		leftElevatorMaster.configSelectedFeedbackSensor(encoder, 0, 0);
-		resetElevatorEncoder();
-		leftElevatorMaster.setSensorPhase(false);
-	}
-	
 	// Checks if the intake is at bottom
 	public boolean isArmAtBottom() {
 		if (stage1BottomSwitch.get() /*&& stage2BottomSwitch.get()*/) return true;
@@ -170,10 +163,6 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	/**********************
 	 * CONVERSION METHODS *
 	 **********************/
-	
-	private double encoderTicksToInches(double ticks) {
-		return encoderHelper.encoderTicksToInches(ticks, countsPerRev, spindleCircum);
-	}
 	
 	private double inchesToElevatorEncoderTicks(double inches) {
 		return encoderHelper.inchesToEncoderTicks(inches, spindleCircum, countsPerRev);
