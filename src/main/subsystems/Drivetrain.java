@@ -17,9 +17,9 @@ import main.commands.pnuematics.EngagePTO;
 
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
+	
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
-	private double lastTime = 0.0;
 	private boolean engaged = false;
 	
 	//SHIFTING
@@ -27,7 +27,6 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	
 	//GYRO
 	private static AHRS NavX;
-	
 
 	public Drivetrain() {
 		setTalonDefaults();
