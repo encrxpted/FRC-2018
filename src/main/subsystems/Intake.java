@@ -18,13 +18,13 @@ public class Intake extends Subsystem implements Constants, HardwareAdapter {
 	//public static CubeInIntake cubeInIntake = CubeInIntake.NoCube;
 	
 	public void spinIn() {
-		leftIntakeMotor.set(1.0);
+		leftIntakeMotor.set(-1.0);
 //    	rightIntakeMotor.set(-1.0);
     	wheelStates = WheelStates.In;
 	}
 	
 	public void spinOut() {
-		leftIntakeMotor.set(-1.0);
+		leftIntakeMotor.set(1.0);
 //    	rightIntakeMotor.set(1.0);
     	wheelStates = WheelStates.Out;
 	}

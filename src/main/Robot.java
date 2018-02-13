@@ -118,9 +118,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
         	if(gameData.charAt(0) == 'L' && startpos != "middle")
 			{
 	        	//Put left auto code here
-				if (startpos == "left" && autoCommand == new ScoreCube())
+				if (startpos == "left" && autoCommand.toString() == "ScoreCube()")
 				autoCommand.start();
-				else if (autoCommand == new DoNothing()) {
+				else if (autoCommand.toString() == "DoNothing()") {
 					autoCommand = new Baseline();
 					autoCommand.start();
 				}
@@ -130,7 +130,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 					  
 			} else {
 				//Put right auto code here
-				if (startpos == "right" && autoCommand == new ScoreCube())
+				if (startpos == "right" && autoCommand.toString() == "ScoreCube()")
 				autoCommand.start();
 				else if (autoCommand == new DoNothing()) {
 					autoCommand = new Baseline();
@@ -146,6 +146,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 				autoCommand.start();
         	}
     	}
+        System.out.println(autoCommand.toString());
     }
 		
         /*if(autoCommand != null) autoCommand.start();
