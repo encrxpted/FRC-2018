@@ -41,7 +41,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	}
 	//robot modes
 	Command teleopCommand;
-	SendableChooser<Command> teleopChooser, autoChooser, startPos;
+	SendableChooser teleopChooser, autoChooser, startPos;
 	
 	//SendableChooser teleopChooser;
 	public static Drivetrain dt;
@@ -76,21 +76,21 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//robotState = 
 		
 		//teleop modes
-		teleopChooser = new SendableChooser<>();
+		teleopChooser = new SendableChooser();
 		//SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
 		teleopChooser.addDefault("2 joysticks", new JoyStick2());
 		teleopChooser.addObject("1 joystick", new JoyStick1());
 		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 		
 		//auto modes
-		autoChooser = new SendableChooser<>();
+		autoChooser = new SendableChooser();
 		autoChooser.addDefault("Baseline", new Baseline());
 		autoChooser.addObject("Score Cube", new ScoreCube());
 		autoChooser.addObject("Do Nothing", new DoNothing());
 		SmartDashboard.putData("auto", autoChooser);
 		
 		//Starting Pos
-		startPos = new SendableChooser<>();
+		startPos = new SendableChooser();
 		startPos.addDefault("Left", new StartLeft());
 		startPos.addObject("Middle", new StartMiddle());
 		startPos.addObject("Right", new StartRight());
