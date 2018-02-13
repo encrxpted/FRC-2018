@@ -118,9 +118,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
         	if(gameData.charAt(0) == 'L' && startpos != "middle")
 			{
 	        	//Put left auto code here
-				if (startpos == "left" && autoChooser.getSelected() == "Score Cube")
+				if (startpos == "left" && autoCommand == new ScoreCube())
 				autoCommand.start();
-				else if (autoChooser.getSelected() != "Do Nothing") {
+				else if (autoCommand == new DoNothing()) {
 					autoCommand = new Baseline();
 					autoCommand.start();
 				}
@@ -130,9 +130,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 					  
 			} else {
 				//Put right auto code here
-				if (startpos == "right" && autoChooser.getSelected() == "Score Cube")
+				if (startpos == "right" && autoCommand == new ScoreCube())
 				autoCommand.start();
-				else if (autoChooser.getSelected() != "Do Nothing") {
+				else if (autoCommand == new DoNothing()) {
 					autoCommand = new Baseline();
 					autoCommand.start();
 				}
