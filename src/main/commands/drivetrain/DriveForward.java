@@ -3,12 +3,13 @@ package main.commands.drivetrain;
 import edu.wpi.first.wpilibj.command.Command;
 import main.Robot;
 
+// TODO: implement this class
 public class DriveForward extends Command {
-	private double dist = 0;
+	// private double dist = 0;
 	
     public DriveForward(double dist) {
     	requires(Robot.dt);
-    	this.dist = dist;
+    	// this.dist = dist;
     }
 
     // Called just before this Command runs the first time
