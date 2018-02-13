@@ -103,8 +103,8 @@ public interface Constants {
 	public final int PCM_Port1 = 1;
 	
 	// INTAKE PNEUMATICS
-	public final int INTAKE_EXT = 1;
-	public final int INTAKE_RET = 0;	
+	public final int INTAKE_EXT = 0;
+	public final int INTAKE_RET = 1;	
 	public final int TILT_EXT = 5;
 	public final int TILT_RET = 4;
 	

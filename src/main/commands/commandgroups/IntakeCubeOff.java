@@ -11,8 +11,8 @@ import main.commands.pnuematics.TiltUp;
 public class IntakeCubeOff extends CommandGroup {
 
     public IntakeCubeOff() {
-    	addParallel(new ArmClose());
     	addParallel(new SpinOff());
     	addParallel(new TiltUp());
+    	addParallel(new ArmClose());
     }
 }
