@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.autonomous.Auto1;
@@ -52,7 +51,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
-	public static OI oi;
 	//public static TfMini mini;
 	//public static SmartDashboardInteractions sdb;
 
@@ -80,7 +78,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//da = new DriverAlerts();
 		//sdb = new SmartDashboardInteractions();
 		//robotState = 
-		oi = new OI();
 		
 		//teleop modes
 		teleopChooser = new SendableChooser();
@@ -191,6 +188,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void testPeriodic() {
-		LiveWindow.run();
+		
 	}
 }
