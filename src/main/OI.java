@@ -23,6 +23,10 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	
 	public static boolean ControllerMode = false;
 	
+	public OI() {
+		check();
+	}
+	
 	public static boolean getControllerMode() {
 		return ControllerMode;
 	}
@@ -63,8 +67,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			// pneumatics
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());
 			xbox.leftJoystickButton.whenReleased(new ShiftDown());
-			xbox.y.whenPressed(new ArmOpen());
-			xbox.b.whenPressed(new ArmClose());
+			//xbox.y.whenPressed(new ArmOpen());
+			//xbox.b.whenPressed(new ArmClose());
 			//xbox.x.whenPressed(new ArmOpen());
 			//xbox.leftTrigger.whenPressed(new TiltUp());
 			//xbox.rightTrigger.whenPressed(new TiltDown());
@@ -73,7 +77,6 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			//xbox.a.whenReleased(new SpinOff());
 			xbox.a.whenReleased(new IntakeCubeOff());
 			xbox.a.whenPressed(new IntakeCube());
-			
 			xbox.x.whenPressed(new PushOutCube());
 			xbox.x.whenReleased(new PushOutCubeOff());
 			// Elevator
@@ -90,14 +93,20 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());
 			xbox.leftJoystickButton.whenReleased(new ShiftDown());
 			
-			xbox2.leftTrigger.whenPressed(new TiltUp());
+			/*xbox2.leftTrigger.whenPressed(new TiltUp());
 			xbox2.rightTrigger.whenPressed(new TiltDown());
 			xbox2.a.whenPressed(new SpinIn());
 			xbox2.y.whenPressed(new SpinOut());
 			xbox2.a.whenReleased(new SpinOff());
 			xbox2.y.whenReleased(new SpinOff());
 			xbox2.b.whenPressed(new ArmClose());
-			xbox2.x.whenPressed(new ArmOpen());
+			xbox2.x.whenPressed(new ArmOpen());*/
+			
+			xbox2.a.whenReleased(new IntakeCubeOff());
+			xbox2.a.whenPressed(new IntakeCube());
+			
+			xbox2.x.whenPressed(new PushOutCube());
+			xbox2.x.whenReleased(new PushOutCubeOff());
 			xbox2.leftTrigger.whenPressed(new MoveUp());
 			xbox2.rightTrigger.whenPressed(new MoveDown());
 			xbox2.leftTrigger.whenReleased(new StopElevator());
