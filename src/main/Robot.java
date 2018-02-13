@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.autonomous.Auto1;
 import main.commands.autonomous.Auto2;
 import main.commands.autonomous.Baseline;
+import main.commands.autonomous.DoNothing;
 import main.commands.autonomous.ScoreCube;
 import main.commands.joystickselector.JoyStick1;
 import main.commands.joystickselector.JoyStick2;
@@ -90,8 +91,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		
 		//auto modes
 		autoChooser = new SendableChooser();
-		autoChooser.addDefault("default mode", new Auto1());
-		autoChooser.addObject("alternate mode", new Auto2());
+		autoChooser.addDefault("Baseline", new Baseline());
+		autoChooser.addObject("Score Cube", new ScoreCube());
+		autoChooser.addObject("Do Nothing", new DoNothing());
 		SmartDashboard.putData("auto", autoChooser);
 		
 		//Starting Pos
@@ -99,6 +101,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		startPos.addDefault("Left", new StartLeft());
 		startPos.addObject("Middle", new StartMiddle());
 		startPos.addObject("Right", new StartRight());
+		SmartDashboard.putData("Starting Pos", startPos);
 	}
 
 	
@@ -119,21 +122,42 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0)
         {
-			  if(gameData.charAt(0) == 'L')
-			  {
-				//Put left auto code here
+        	if(gameData.charAt(0) == 'L' && startpos != "middle")
+			{
+	        	//Put left auto code here
+				if (startpos == "left" && autoChooser.getSelected() == "Score Cube")
 				autoCommand.start();
-				  
-			  } else {
+				else if (autoChooser.getSelected() != "Do Nothing") {
+					autoCommand = new Baseline();
+					autoCommand.start();
+				}
+				else 
+					autoCommand.start();	
+				
+					  
+			} else {
 				//Put right auto code here
+				if (startpos == "right" && autoChooser.getSelected() == "Score Cube")
 				autoCommand.start();
-			  }
-        }
+				else if (autoChooser.getSelected() != "Do Nothing") {
+					autoCommand = new Baseline();
+					autoCommand.start();
+				}
+				else 
+					autoCommand.start();
+			}
+        	if (gameData.charAt(0) == 'L' && startpos == "middle")
+        	{
+        		//Put middle auto here
+        		autoCommand = new DoNothing();
+				autoCommand.start();
+        	}
+    	}
+    }
 		
         /*if(autoCommand != null) autoCommand.start();
 		autoCommand = (Command) autoChooser.getSelected();
 		autoCommand.start();*/
-	}
 
 
 	@Override
