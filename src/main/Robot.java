@@ -97,6 +97,9 @@ public class Robot extends ImprovedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
+		SmartDashboard.putNumber("Left Motor Output", dt.getLeftVoltage());
+		SmartDashboard.putNumber("Left Motor Bus", dt.getLeftBusVoltage());
+		SmartDashboard.putNumber("Right Motor Output", dt.getRightVoltage());
 		allPeriodic();
 	}
 

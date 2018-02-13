@@ -10,8 +10,8 @@ public class OI extends RobotClass {
 	
 	public OI() {
 		xbox.setInternalControl(false);
-		xbox.leftBumper.whenPressed(new ShiftUp());
-		xbox.leftBumper.whenReleased(new ShiftDown());		
+		xbox.leftBumper.whileHeld(new ShiftUp());
+		xbox.leftBumper.whenReleased(new ShiftDown());
 	}
 	
 	public static XboxController getXbox() {
@@ -40,4 +40,3 @@ public class OI extends RobotClass {
 		return instance;
 	}
 }
- 

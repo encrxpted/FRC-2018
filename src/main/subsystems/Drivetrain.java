@@ -38,8 +38,10 @@ public class Drivetrain extends RobotSubsystem {
 				//12 is a fixed number and not the voltageComp target
 //				leftDriveMaster.set(leftVoltage/12);
 //				rightDriveMaster.set(rightVoltage/12);
+			
 			driveTrain.tankDrive((Math.abs(leftVoltage) > 12.0) ? Math.signum(leftVoltage) : leftVoltage/12, 
-								 (Math.abs(rightVoltage)  > 12.0) ? Math.signum(rightVoltage) : rightVoltage/12);
+								 -((Math.abs(rightVoltage)  > 12.0) ? Math.signum(rightVoltage) : rightVoltage/12),
+								 false);
 			//}
 			
 			if(!rightDriveMaster.isAlive() || !rightDriveSlave1.isAlive() || !rightDriveSlave2.isAlive() ||
@@ -54,6 +56,10 @@ public class Drivetrain extends RobotSubsystem {
 	
 	public double getRightVoltage() {
 		return rightDriveMaster.getMotorOutputVoltage();
+	}
+	
+	public double getLeftBusVoltage() {
+		return leftDriveMaster.getBusVoltage();
 	}
 	
 	/*************************
@@ -141,7 +147,7 @@ public class Drivetrain extends RobotSubsystem {
 	
 	public void setTankDefaults() {
 		reverseTalons(false);
-		setBrakeMode(COAST_MODE);
+		setBrakeMode(BRAKE_MODE);
 		setCtrlMode();
 		setVoltageComp(true, voltageCompensationVoltage, 10);
 		//setSafety(false);
