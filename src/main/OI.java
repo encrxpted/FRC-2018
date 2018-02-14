@@ -9,15 +9,8 @@ import main.commands.commandgroups.PushOutCubeOff;
 import main.commands.elevator.MoveDown;
 import main.commands.elevator.MoveUp;
 import main.commands.elevator.StopElevator;
-import main.commands.intake.SpinIn;
-import main.commands.intake.SpinOff;
-import main.commands.intake.SpinOut;
-import main.commands.pnuematics.ArmClose;
-import main.commands.pnuematics.ArmOpen;
 import main.commands.pnuematics.ShiftDown;
 import main.commands.pnuematics.ShiftUp;
-import main.commands.pnuematics.TiltDown;
-import main.commands.pnuematics.TiltUp;
 
 public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	
