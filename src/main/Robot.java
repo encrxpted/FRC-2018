@@ -8,20 +8,11 @@
 package main;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import main.commands.autonomous.Baseline;
-import main.commands.autonomous.DoNothing;
-import main.commands.autonomous.ScoreCube;
-import main.commands.joystickselector.JoyStick1;
-import main.commands.joystickselector.JoyStick2;
-import main.commands.startposition.StartLeft;
-import main.commands.startposition.StartMiddle;
-import main.commands.startposition.StartRight;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -40,8 +31,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Driving, Climbing, Neither
 	}
 	//robot modes
-	Command teleopCommand;
-	SendableChooser<Command> teleopChooser, autoChooser, startPos;
+	Runnable teleopCommand;
+	SendableChooser<Runnable> teleopChooser, autoChooser, startPos;
 	
 	//SendableChooser teleopChooser;
 	public static Drivetrain dt;
@@ -78,22 +69,22 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		//teleop modes
 		teleopChooser = new SendableChooser<>();
 		//SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
-		teleopChooser.addDefault("2 joysticks", new JoyStick2());
-		teleopChooser.addObject("1 joystick", new JoyStick1());
+		teleopChooser.addDefault("2 joysticks", ()->{OI.TwoController();});
+		teleopChooser.addObject("1 joystick", ()->{OI.OneController();});
 		SmartDashboard.putData("teleop mode chooser", teleopChooser);
 		
 		//auto modes
 		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault("Baseline", new Baseline());
-		autoChooser.addObject("Score Cube", new ScoreCube());
-		autoChooser.addObject("Do Nothing", new DoNothing());
+		autoChooser.addDefault("Baseline", ()->{});
+		autoChooser.addObject("Score Cube", ()->{});
+		autoChooser.addObject("Do Nothing", ()->{});
 		SmartDashboard.putData("auto", autoChooser);
 		
 		//Starting Pos
 		startPos = new SendableChooser<>();
-		startPos.addDefault("Left", new StartLeft());
-		startPos.addObject("Middle", new StartMiddle());
-		startPos.addObject("Right", new StartRight());
+		startPos.addDefault("Left", ()->{OI.Left();});
+		startPos.addObject("Middle", ()->{OI.Middle();});
+		startPos.addObject("Right", ()->{OI.Right();});
 		SmartDashboard.putData("Starting Pos", startPos);
 	}
 
@@ -111,7 +102,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void autonomousInit() {
 		// FIXME: use String.equals and instanceof instead of == and Command.toString()
-		autoCommand = (Command) autoChooser.getSelected();
+		// FIXME: figure out how to use auto commands
+		/*autoCommand = (Command) autoChooser.getSelected();
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0)
@@ -147,7 +139,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 				autoCommand.start();
         	}
     	}
-        System.out.println(autoCommand.toString());
+        System.out.println(autoCommand.toString());*/
     }
 		
         /*if(autoCommand != null) autoCommand.start();
@@ -165,7 +157,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public void teleopInit() {
 		if (autoCommand != null) autoCommand.cancel();
 		teleopCommand = teleopChooser.getSelected();
-		teleopCommand.start();
+		teleopCommand.run();
 	} 
 	@Override
 	public void teleopPeriodic() {
