@@ -42,8 +42,6 @@ public class Robot extends ImprovedRobot {
     private Command autoPlayCommand = new StartPlay();
     private static String newFileName;
 	
-	//TODO Recording Multiple Files
-	//TODO Putting everything on SmartDashboard
 	public Robot() {
 		//OI must be the last class added, this will make it the last class to be instantiated
 		//This is needed in order to ensure classes are defined in the correct order and null errors do not occur
