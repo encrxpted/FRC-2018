@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import interfacesAndAbstracts.ImprovedRobot;
 import loopController.Looper;
+import main.commands.controllerCommands.DoNothing;
 import main.commands.controllerCommands.FileCreator;
 import main.commands.controllerCommands.FilePicker;
 import main.commands.controllerCommands.StartPlay;
@@ -40,6 +41,7 @@ public class Robot extends ImprovedRobot {
     private Looper autoLooper;
     SendableChooser<Command> fileChooser;
     private Command autoPlayCommand = new StartPlay();
+    private Command lastSelectedFile;
     private static String newFileName;
 	
 	public Robot() {
@@ -49,7 +51,7 @@ public class Robot extends ImprovedRobot {
 
 	@Override
 	public void robotInit() {
-		//Instantiate Robot Systems
+		//**************************************************Instantiate Robot Systems
 		dt = Drivetrain.newInstance();
 		pn = Pneumatics.newInstance();
 		oi = OI.newInstance();
@@ -58,14 +60,16 @@ public class Robot extends ImprovedRobot {
 		autoLooper = new Looper(kLooperDt);
 		autoLooper.register(new Record());
 		autoLooper.register(new Play()); 
-        //SmartDashboard
+		
+        //**************************************************SmartDashboard
         SmartDashboard.putData("Record", new StartRecord());
         SmartDashboard.putData("Play", new StartPlay());
         //FileSelector
     	fileChooser = new SendableChooser<>();
+    	fileChooser.addDefault("Do Nothing", new DoNothing());    	
         for(File file: lg.getFiles(outputPath))
         	fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
-    	SmartDashboard.putData(fileChooser);
+    	SmartDashboard.putData("File Selector", fileChooser);
     	//FileAdder
     	SmartDashboard.putString("New File Name", "");
     	SmartDashboard.putData("Create a new file", new FileCreator());
@@ -122,6 +126,10 @@ public class Robot extends ImprovedRobot {
 	private void checkForSmartDashboardUpdates() {
 		if(!newFileName.equals(SmartDashboard.getString("New File Name", "")))
 				newFileName = SmartDashboard.getString("New File Name", "");		
+		if(fileChooser.getSelected() != lastSelectedFile) {
+			fileChooser.getSelected().start();
+			lastSelectedFile = fileChooser.getSelected();
+		}
 	}
 	
 	public void allPeriodic() {
