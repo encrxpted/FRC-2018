@@ -63,7 +63,7 @@ public class Robot extends ImprovedRobot {
         SmartDashboard.putData("Play", new StartPlay());
         //FileSelector
     	fileChooser = new SendableChooser<>();
-        for(File file: lg.getFiles())
+        for(File file: lg.getFiles(outputPath))
         	fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
     	SmartDashboard.putData(fileChooser);
     	//FileAdder

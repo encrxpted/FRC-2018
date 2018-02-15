@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import main.Constants;
@@ -77,8 +78,20 @@ public class Logger implements Constants {
 		}		
 	}
 	
-	public List<File> getFiles() {
-		return null;
+	public File[] getFiles(String path) {
+		List<File> textFiles = new ArrayList<File>();
+		File dir = new File(path);
+		for (File file : dir.listFiles()) {
+			if (file.getName().toLowerCase().endsWith((".txt"))) {
+				textFiles.add(file);
+			}
+		}
+		
+		File[] allFiles = new File[textFiles.size()];
+		for(int i = 0; i < textFiles.size(); i++)
+			allFiles[i] = textFiles.get(i);
+		
+		return allFiles;
 	}
 	
 	public String getWorkingFile() {
