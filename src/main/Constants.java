@@ -27,6 +27,8 @@ public interface Constants {
 	/*************
 	 * CONSTANTS *
 	 *************/
+	// COMPETITION?
+	public final boolean isCompetition = false;
 	// PNEUMATIC STATES
 	public final DoubleSolenoid.Value EXT = Value.kForward;
 	public final DoubleSolenoid.Value RET = Value.kReverse;

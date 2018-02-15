@@ -86,39 +86,56 @@ public class Drivetrain extends RobotSubsystem {
 	}
 	
 	private void setVoltageComp(boolean set, double voltage, int timeout) {
-		//TODO
-		//Do something here to limit the max output to 12v in all stages of the game
-		//Record/PLay cycle
+		//Voltage Compensation
 		leftDriveMaster.enableVoltageCompensation(set);
 		leftDriveSlave1.enableVoltageCompensation(set);
 		leftDriveSlave2.enableVoltageCompensation(set);
 		rightDriveMaster.enableVoltageCompensation(set);
 		rightDriveSlave1.enableVoltageCompensation(set);
 		rightDriveSlave2.enableVoltageCompensation(set);
-
-		if(set == true) {
-			leftDriveMaster.configVoltageCompSaturation(voltage, timeout);
-			leftDriveSlave1.configVoltageCompSaturation(voltage, timeout);
-			leftDriveSlave2.configVoltageCompSaturation(voltage, timeout);
-			rightDriveMaster.configVoltageCompSaturation(voltage, timeout);
-			rightDriveSlave1.configVoltageCompSaturation(voltage, timeout);
-			rightDriveSlave2.configVoltageCompSaturation(voltage, timeout);
-		}
+		leftDriveMaster.configVoltageCompSaturation(voltage, timeout);
+		leftDriveSlave1.configVoltageCompSaturation(voltage, timeout);
+		leftDriveSlave2.configVoltageCompSaturation(voltage, timeout);
+		rightDriveMaster.configVoltageCompSaturation(voltage, timeout);
+		rightDriveSlave1.configVoltageCompSaturation(voltage, timeout);
+		rightDriveSlave2.configVoltageCompSaturation(voltage, timeout);
+		//Nominal and peak outputs
+		leftDriveMaster.configPeakOutputForward(1.0, timeout);
+		leftDriveSlave1.configPeakOutputForward(1.0, timeout);
+		leftDriveSlave2.configPeakOutputForward(1.0, timeout);
+		rightDriveMaster.configPeakOutputForward(1.0, timeout);
+		rightDriveSlave1.configPeakOutputForward(1.0, timeout);
+		rightDriveSlave2.configPeakOutputForward(1.0, timeout);
+		leftDriveMaster.configPeakOutputReverse(-1.0, timeout);
+		leftDriveSlave1.configPeakOutputReverse(-1.0, timeout);
+		leftDriveSlave2.configPeakOutputReverse(-1.0, timeout);
+		rightDriveMaster.configPeakOutputReverse(-1.0, timeout);
+		rightDriveSlave1.configPeakOutputReverse(-1.0, timeout);
+		rightDriveSlave2.configPeakOutputReverse(-1.0, timeout);
+		leftDriveMaster.configNominalOutputForward(0.0, timeout);
+		leftDriveSlave1.configNominalOutputForward(0.0, timeout);
+		leftDriveSlave2.configNominalOutputForward(0.0, timeout);
+		rightDriveMaster.configNominalOutputForward(0.0, timeout);
+		rightDriveSlave1.configNominalOutputForward(0.0, timeout);
+		rightDriveSlave2.configNominalOutputForward(0.0, timeout);
+		leftDriveMaster.configNominalOutputReverse(0.0, timeout);
+		leftDriveSlave1.configNominalOutputReverse(0.0, timeout);
+		leftDriveSlave2.configNominalOutputReverse(0.0, timeout);
+		rightDriveMaster.configNominalOutputReverse(0.0, timeout);
+		rightDriveSlave1.configNominalOutputReverse(0.0, timeout);
+		rightDriveSlave2.configNominalOutputReverse(0.0, timeout);
 	}
 	
 	public void setTalonDefaults() {
 		reverseTalons(false);
 		setBrakeMode(BRAKE_MODE);
 		setCtrlMode();
-		setVoltageComp(false, 0.0, 0);
+		setVoltageComp(true, voltageCompensationVoltage, 10);
 		controlModeConfig = driveTrainControlConfig.TalonDefault;
 	}
 	
 	public void setTankDefaults() {
-		reverseTalons(false);
-		setBrakeMode(BRAKE_MODE);
-		setCtrlMode();
-		setVoltageComp(true, voltageCompensationVoltage, 10);
+		setTalonDefaults();
 		controlModeConfig = driveTrainControlConfig.TankDefault;
 	}
 	
