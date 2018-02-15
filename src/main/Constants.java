@@ -14,7 +14,7 @@ public interface Constants {
 	public final int analogSensor = 0;
 	
 	// FILE WRITING
-	public final String outputPath = "/home/lvuser/Test2.txt";
+	public final String outputPath = "/home/lvuser";
 	
 	// JOYSTICK DEADBANDS
 	public final double throttleDeadband = 0.02;

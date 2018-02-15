@@ -7,14 +7,19 @@
 
 package main;
 
+import java.io.File;
+
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import interfacesAndAbstracts.ImprovedRobot;
 import loopController.Looper;
+import main.commands.controllerCommands.FileCreator;
+import main.commands.controllerCommands.FilePicker;
 import main.commands.controllerCommands.StartPlay;
 import main.commands.controllerCommands.StartRecord;
 import main.subsystems.Drivetrain;
@@ -32,8 +37,10 @@ public class Robot extends ImprovedRobot {
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Logger lg;
-    private Looper enabledLooper;
-	Command autoCommand;
+    private Looper autoLooper;
+    SendableChooser<Command> fileChooser;
+    private Command autoPlayCommand = new StartPlay();
+    private static String newFileName;
 	
 	//TODO Recording Multiple Files
 	//TODO Putting everything on SmartDashboard
@@ -50,18 +57,30 @@ public class Robot extends ImprovedRobot {
 		oi = OI.newInstance();
 		//Other Utility Classes
 		lg = new Logger();
-		lg.changePath(outputPath);
-		enabledLooper = new Looper(kLooperDt);
-        enabledLooper.register(new Record());
-        enabledLooper.register(new Play()); 
+		autoLooper = new Looper(kLooperDt);
+		autoLooper.register(new Record());
+		autoLooper.register(new Play()); 
         //SmartDashboard
         SmartDashboard.putData("Record", new StartRecord());
         SmartDashboard.putData("Play", new StartPlay());
+        //FileSelector
+    	fileChooser = new SendableChooser<>();
+        for(File file: lg.getFiles())
+        	fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
+    	SmartDashboard.putData(fileChooser);
+    	//FileAdder
+    	SmartDashboard.putString("New File Name", "");
+    	SmartDashboard.putData("Create a new file", new FileCreator());
+    	//Knowing Where You Are At
+    	SmartDashboard.putString("Working File", lg.getWorkingFile());
+    	SmartDashboard.putString("Working Path", outputPath);
 	}
 	
 	@Override
 	public void disabledInit() {
-		enabledLooper.stop();		
+		if(autoPlayCommand.isRunning())
+			autoPlayCommand.cancel();
+		autoLooper.stop();		
 	}
 	
 	
@@ -72,10 +91,8 @@ public class Robot extends ImprovedRobot {
 
 	@Override
 	public void autonomousInit() {
-		if(autoCommand != null) autoCommand.start();
-		enabledLooper.start();
-		lg = new Logger();
-		lg.changePath(outputPath);
+		autoLooper.start();
+		autoPlayCommand.start();
 	}
 
 
@@ -87,19 +104,15 @@ public class Robot extends ImprovedRobot {
 
 	@Override
 	public void teleopInit() {
-		if (autoCommand != null) autoCommand.cancel();
-		enabledLooper.start();
-		lg = new Logger();
-		lg.changePath(outputPath);
+		if(autoPlayCommand.isRunning())
+			autoPlayCommand.cancel();
+		autoLooper.start();
 	}
 	
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
-		SmartDashboard.putNumber("Left Motor Output", dt.getLeftVoltage());
-		SmartDashboard.putNumber("Left Motor Bus", dt.getLeftBusVoltage());
-		SmartDashboard.putNumber("Right Motor Output", dt.getRightVoltage());
 		allPeriodic();
 	}
 
@@ -108,10 +121,21 @@ public class Robot extends ImprovedRobot {
 		allPeriodic();
 	}
 	
+	private void checkForSmartDashboardUpdates() {
+		if(!newFileName.equals(SmartDashboard.getString("New File Name", "")))
+				newFileName = SmartDashboard.getString("New File Name", "");		
+	}
+	
 	public void allPeriodic() {
-		enabledLooper.outputToSmartDashboard();
+		SmartDashboard.updateValues();
+		checkForSmartDashboardUpdates();
+		autoLooper.outputToSmartDashboard();
 		dt.check();
 		pn.check();
 		oi.check();
+	}
+	
+	public static String getNewFileName() {
+		return newFileName;
 	}
 }

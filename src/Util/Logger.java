@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+
 import main.Constants;
 
 public class Logger implements Constants {
@@ -16,6 +18,19 @@ public class Logger implements Constants {
 	private BufferedReader br;
 	
 	public Logger() {
+	}
+	
+	public void createNewFile(String name) {
+		File newFile = new File(outputPath +"/" + name);
+		if(!newFile.exists())
+			try {
+				newFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		else
+			System.out.println("This file already exists so a new" +
+					           " one will not be created.");		
 	}
 	
 	public void writeLine(String line) {
@@ -38,9 +53,17 @@ public class Logger implements Constants {
 		return line;
 	}
 	
-	public void changePath(String path) {
+	public void changePath(String nameOrPath, boolean useFileLookup) {
+		//If useFileLookup is true then it will search for the specified
+		//fileName and get its path.
+		//---------------------useFileLookup currently unused
+		if(useFileLookup) {
+			for(File file: new File(outputPath).listFiles())
+				if(file.getName().equals(nameOrPath)) changePath(file.getPath(), false);
+		}
+		
 		try {
-    		file = new File(path);
+    		file = new File(nameOrPath);
     		if(!file.exists())
     			file.createNewFile();
     		if(file != null) {
@@ -52,5 +75,14 @@ public class Logger implements Constants {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	public List<File> getFiles() {
+		return null;
+	}
+	
+	public String getWorkingFile() {
+		return file.getName();
+		
 	}
 }

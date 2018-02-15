@@ -26,27 +26,13 @@ public class Drivetrain extends RobotSubsystem {
 	}
 	
 	public void driveVoltageTank(double leftVoltage, double rightVoltage) {
-		if(controlModeConfig == driveTrainControlConfig.TankDefault) {
-			//Logic to prevent over-driving from potentially larger than +-12 recorded voltages
-			//if(Math.abs(leftVoltage) > 12.0 || Math.abs(rightVoltage) > 12.0) {
-//				leftDriveMaster.set(Math.signum(leftVoltage));
-//				rightDriveMaster.set(Math.signum(rightVoltage));
-				//driveTrain.tankDrive(Math.signum(leftVoltage), Math.signum(rightVoltage));
-				// what if left voltage > 12 but right voltage = 5?
-			//}
-			//else {
-				//12 is a fixed number and not the voltageComp target
-//				leftDriveMaster.set(leftVoltage/12);
-//				rightDriveMaster.set(rightVoltage/12);
-			
+		if(controlModeConfig == driveTrainControlConfig.TankDefault) {	
 			driveTrain.tankDrive((Math.abs(leftVoltage) > 12.0) ? Math.signum(leftVoltage) : leftVoltage/12, 
 								 -((Math.abs(rightVoltage)  > 12.0) ? Math.signum(rightVoltage) : rightVoltage/12),
 								 false);
-			//}
-			
-			if(!rightDriveMaster.isAlive() || !rightDriveSlave1.isAlive() || !rightDriveSlave2.isAlive() ||
-			   !leftDriveMaster.isAlive() || !leftDriveSlave1.isAlive() || !leftDriveSlave2.isAlive())
-				System.out.println("Problem");
+		if(!rightDriveMaster.isAlive() || !rightDriveSlave1.isAlive() || !rightDriveSlave2.isAlive() ||
+		   !leftDriveMaster.isAlive() || !leftDriveSlave1.isAlive() || !leftDriveSlave2.isAlive())
+			System.out.println("Problem");
 		}
 	}
 	
@@ -100,6 +86,9 @@ public class Drivetrain extends RobotSubsystem {
 	}
 	
 	private void setVoltageComp(boolean set, double voltage, int timeout) {
+		//TODO
+		//Do something here to limit the max output to 12v in all stages of the game
+		//Record/PLay cycle
 		leftDriveMaster.enableVoltageCompensation(set);
 		leftDriveSlave1.enableVoltageCompensation(set);
 		leftDriveSlave2.enableVoltageCompensation(set);
@@ -117,31 +106,11 @@ public class Drivetrain extends RobotSubsystem {
 		}
 	}
 	
-	private void setSafetyTimeout(double timeout) {
-		leftDriveMaster.setExpiration(timeout);
-		leftDriveSlave1.setExpiration(timeout);
-		leftDriveSlave2.setExpiration(timeout);
-		rightDriveMaster.setExpiration(timeout);
-		rightDriveSlave1.setExpiration(timeout);
-		rightDriveSlave2.setExpiration(timeout);
-	}
-	
-	private void setSafety(boolean safety) {
-		leftDriveMaster.setSafetyEnabled(safety);
-		leftDriveSlave1.setSafetyEnabled(safety);
-		leftDriveSlave2.setSafetyEnabled(safety);
-		rightDriveMaster.setSafetyEnabled(safety);
-		rightDriveSlave1.setSafetyEnabled(safety);
-		rightDriveSlave2.setSafetyEnabled(safety);
-	}
-
 	public void setTalonDefaults() {
 		reverseTalons(false);
 		setBrakeMode(BRAKE_MODE);
 		setCtrlMode();
 		setVoltageComp(false, 0.0, 0);
-		//setSafetyTimeout(10000);
-		//setSafety(false);
 		controlModeConfig = driveTrainControlConfig.TalonDefault;
 	}
 	
@@ -150,8 +119,6 @@ public class Drivetrain extends RobotSubsystem {
 		setBrakeMode(BRAKE_MODE);
 		setCtrlMode();
 		setVoltageComp(true, voltageCompensationVoltage, 10);
-		//setSafety(false);
-		//setSafetyTimeout(10000);
 		controlModeConfig = driveTrainControlConfig.TankDefault;
 	}
 	
