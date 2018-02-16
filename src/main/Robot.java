@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import main.commands.drivetrain.TimedDrive;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -98,11 +99,13 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
-
+	
 	@Override
 	public void autonomousInit() {
+		new TimedDrive(0.7, -0.1, 0.5).start();
 		// FIXME: use String.equals and instanceof instead of == and Command.toString()
 		// FIXME: figure out how to use auto commands
+		
 		/*autoCommand = (Command) autoChooser.getSelected();
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -141,16 +144,10 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
     	}
         System.out.println(autoCommand.toString());*/
     }
-		
-        /*if(autoCommand != null) autoCommand.start();
-		autoCommand = (Command) autoChooser.getSelected();
-		autoCommand.start();*/
-
-
+	
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		//el.check();
 	}
 
 	@Override
@@ -158,7 +155,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		if (autoCommand != null) autoCommand.cancel();
 		teleopCommand = teleopChooser.getSelected();
 		teleopCommand.run();
-	} 
+	}
+	
 	@Override
 	public void teleopPeriodic() {
 		// smartdashboard stuff goes here
@@ -174,10 +172,5 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());*/
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putBoolean("Cube Detected: ", cubeSensor1.get());
-	}
-
-	@Override
-	public void testPeriodic() {
-		
 	}
 }
