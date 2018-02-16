@@ -159,9 +159,13 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	
 	@Override
 	public void teleopPeriodic() {
+		Runtime runtime=Runtime.getRuntime();
+		
 		// smartdashboard stuff goes here
 		OI.check();
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Free memory", runtime.freeMemory());
+		SmartDashboard.putNumber("Total memory", runtime.totalMemory());
 		//SmartDashboard.putNumber("Lazers ;)", mini.getValue());
 		/*SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
 		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());

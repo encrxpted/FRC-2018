@@ -6,7 +6,7 @@ import main.Robot;
 /**
  * Drive for a certain amount of time.
  * 
- * @author Yuchen Jing
+ * @author TheSuperDuck
  *
  */
 public class TimedDrive extends TimedCommand {
