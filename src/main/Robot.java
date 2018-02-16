@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import main.commands.drivetrain.TimedDrive;
+import main.commands.autonomous.Auto;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -102,7 +102,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	
 	@Override
 	public void autonomousInit() {
-		new TimedDrive(0.7, -0.1, 0.5).start();
+		new Auto().start();
 		// FIXME: use String.equals and instanceof instead of == and Command.toString()
 		// FIXME: figure out how to use auto commands
 		
