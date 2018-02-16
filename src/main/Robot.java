@@ -155,7 +155,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		if (autoCommand != null) autoCommand.cancel();
 		teleopCommand = teleopChooser.getSelected();
 		teleopCommand.run();
-		OI.check();
+		OI.configure();
 	}
 	
 	@Override

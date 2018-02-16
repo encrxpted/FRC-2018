@@ -14,48 +14,10 @@ import main.commands.pnuematics.ShiftUp;
 
 public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	
+	// true: one, false: two
 	public static boolean ControllerMode = false;
 	
-	public OI() {
-		check();
-	}
-	
-	public static boolean getControllerMode() {
-		return ControllerMode;
-	}
-	
-	public static XboxController getXbox() {
-		return xbox; 
-	}
-	
-	public static XboxController getXbox2() {
-		return xbox2;
-	}
-	
-    public static boolean OneController(){
-    	ControllerMode = true;
-    	return ControllerMode;
-    }
-    
-    public static boolean TwoController(){
-    	ControllerMode = false;
-    	return ControllerMode;
-    }
-    
-    public static String Left() {
-    	return "left";
-    }
-    public static String Right() {
-    	return "right";
-    }
-    public static String Middle() {
-    	return "middle";
-    }
-    
-	
-	
-	// important
-	public static void check() {
+	public static void configure() {
 		if (ControllerMode) {
 			// pneumatics
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());
@@ -81,7 +43,6 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox.rightTrigger.whileHeld(new MoveDown());  
 			xbox.leftTrigger.whenReleased(new StopElevator());
 			xbox.rightTrigger.whenReleased(new StopElevator());*/
-			
 		} else {
 			xbox.leftJoystickButton.whenPressed(new ShiftUp());
 			xbox.leftJoystickButton.whenReleased(new ShiftDown());
@@ -106,6 +67,41 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 			xbox2.rightTrigger.whenReleased(new StopElevator());
 		}
 	}
-
+	
+	public static boolean getControllerMode() {
+		return ControllerMode;
+	}
+	
+	public static XboxController getXbox() {
+		return xbox;
+	}
+	
+    public static XboxController getXbox2() {
+		return xbox2;
+	}
+    
+    public static String Left() {
+    	return "left";
+    }
+    
+    public static String Middle() {
+    	return "middle";
+    }
+    
+    public static boolean OneController(){
+    	ControllerMode = true;
+    	configure();
+    	return ControllerMode;
+    }
+    
+    public static String Right() {
+    	return "right";
+    }
+    
+	public static boolean TwoController(){
+    	ControllerMode = false;
+    	configure();
+    	return ControllerMode;
+    }
 }
  
