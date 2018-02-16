@@ -155,6 +155,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		if (autoCommand != null) autoCommand.cancel();
 		teleopCommand = teleopChooser.getSelected();
 		teleopCommand.run();
+		OI.check();
 	}
 	
 	@Override
@@ -162,7 +163,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Runtime runtime=Runtime.getRuntime();
 		
 		// smartdashboard stuff goes here
-		OI.check();
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Free memory", runtime.freeMemory());
 		SmartDashboard.putNumber("Total memory", runtime.totalMemory());
