@@ -8,7 +8,6 @@ import main.Robot;
 import main.commands.drivetrain.DriveFromPlayer;
 
 public class Play implements Loop, Constants {
-	//SET RECORD/PLAY ON COAST AND BUT NORMAL DRIVE ON BRAKE
 	private static boolean playOK = false;
 	private static boolean finished = false;
 	
@@ -33,7 +32,7 @@ public class Play implements Loop, Constants {
 	}
 	
 	private void execute() {
-		//System.out.println("Running play");
+		System.out.println("Running play");
 		String line = Robot.lg.readLine();
 		if((line) != null) { 
 			String[] robotState = line.split(",");

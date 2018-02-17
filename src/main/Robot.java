@@ -8,6 +8,8 @@
 package main;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import Util.Logger;
 import controllers.Play;
@@ -41,8 +43,10 @@ public class Robot extends ImprovedRobot {
     private Looper autoLooper;
     SendableChooser<Command> fileChooser;
     private Command autoPlayCommand = new StartPlay();
-    private Command lastSelectedFile;
-    private static String newFileName;
+    private Command lastSelectedFile = new DoNothing();
+    private static String newFileName = "";
+    private static List<File> listOfFiles = new ArrayList<File>();
+    private static int lastNumOfFiles = 0;
 	
 	public Robot() {
 		//OI must be the last class added, this will make it the last class to be instantiated
@@ -62,20 +66,22 @@ public class Robot extends ImprovedRobot {
 		autoLooper.register(new Play()); 
 		
         //**************************************************SmartDashboard
-        SmartDashboard.putData("Record", new StartRecord());
-        SmartDashboard.putData("Play", new StartPlay());
-        //FileSelector
+		if(!isCompetition) {
+			SmartDashboard.putData("Record", new StartRecord());
+			SmartDashboard.putData("Play", new StartPlay());
+		}
+		//FileSelector
     	fileChooser = new SendableChooser<>();
-    	fileChooser.addDefault("Do Nothing", new DoNothing());    	
-        for(File file: lg.getFiles(outputPath))
-        	fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
+    	fileChooser.addDefault("Do Nothing", new DoNothing());
     	SmartDashboard.putData("File Selector", fileChooser);
     	//FileAdder
-    	SmartDashboard.putString("New File Name", "");
-    	SmartDashboard.putData("Create a new file", new FileCreator());
+    	if(!isCompetition) {
+    		SmartDashboard.putString("New File Name", "");
+    		SmartDashboard.putData("Create a new file", new FileCreator()); 
+    	}
     	//Knowing Where You Are At
-    	SmartDashboard.putString("Working File", lg.getWorkingFile());
-    	SmartDashboard.putString("Working Path", outputPath);
+//    	SmartDashboard.putString("Working File", lg.getWorkingFile());
+//    	SmartDashboard.putString("Working Path", outputPath);
 	}
 	
 	@Override
@@ -108,7 +114,8 @@ public class Robot extends ImprovedRobot {
 	public void teleopInit() {
 		if(autoPlayCommand.isRunning())
 			autoPlayCommand.cancel();
-		autoLooper.start();
+		if(!isCompetition)
+			autoLooper.start();
 	}
 	
 	@Override
@@ -124,12 +131,28 @@ public class Robot extends ImprovedRobot {
 	}
 	
 	private void checkForSmartDashboardUpdates() {
-		if(!newFileName.equals(SmartDashboard.getString("New File Name", "")))
+		if(!isCompetition && !newFileName.equals(SmartDashboard.getString("New File Name", "")))
 				newFileName = SmartDashboard.getString("New File Name", "");		
 		if(fileChooser.getSelected() != lastSelectedFile) {
 			fileChooser.getSelected().start();
 			lastSelectedFile = fileChooser.getSelected();
 		}
+		if(lg.getFiles(outputPath).length != lastNumOfFiles) {    	
+	        for(File file: lg.getFiles(outputPath))
+	        	if(!fileNameInListOfFiles(listOfFiles, file)) {
+	        		fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
+	        		listOfFiles.add(file);
+	        	}
+	    	lastNumOfFiles = lg.getFiles(outputPath).length;
+		}
+	}
+	
+	private boolean fileNameInListOfFiles(List<File> l, File f) {
+		for(File file: l) {
+			if(file.getName().toLowerCase().equals(f.getName().toLowerCase()))
+				return true;
+		}
+		return false;
 	}
 	
 	public void allPeriodic() {
@@ -139,6 +162,11 @@ public class Robot extends ImprovedRobot {
 		dt.check();
 		pn.check();
 		oi.check();
+		// Knowing where you're at
+		if(!isCompetition) {
+			SmartDashboard.putString("Working File", lg.getWorkingFile()); // Later add if-statement to minimize data sent
+			SmartDashboard.putString("Working Path", outputPath);
+		}
 	}
 	
 	public static String getNewFileName() {

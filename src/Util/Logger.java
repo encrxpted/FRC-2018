@@ -12,17 +12,21 @@ import java.util.List;
 import main.Constants;
 
 public class Logger implements Constants {
-	private File file;
+	private File file; // CAUSING A NULL POINTER EXCEPTION- LINE 109
 	private FileWriter fw;
 	private FileReader fr;
 	private BufferedWriter bw;
 	private BufferedReader br;
+	//Restricted Files List
+	private final List<File> restrictedFilesList = new ArrayList<File>();
 	
 	public Logger() {
+		//Adding Restricted Files
+		restrictedFilesList.add(new File(outputPath +"/README_File_Paths.txt"));
 	}
 	
 	public void createNewFile(String name) {
-		File newFile = new File(outputPath +"/" + name);
+		File newFile = new File(outputPath +"/" + name + ".txt");
 		if(!newFile.exists())
 			try {
 				newFile.createNewFile();
@@ -58,6 +62,7 @@ public class Logger implements Constants {
 		//If useFileLookup is true then it will search for the specified
 		//fileName and get its path.
 		//---------------------useFileLookup currently unused
+		//---------------------Only pass this method (path, false) or (name, true)
 		if(useFileLookup) {
 			for(File file: new File(outputPath).listFiles())
 				if(file.getName().equals(nameOrPath)) changePath(file.getPath(), false);
@@ -80,9 +85,9 @@ public class Logger implements Constants {
 	
 	public File[] getFiles(String path) {
 		List<File> textFiles = new ArrayList<File>();
-		File dir = new File(path);
+		File dir = new File(path + "/");
 		for (File file : dir.listFiles()) {
-			if (file.getName().toLowerCase().endsWith((".txt"))) {
+			if (file.getName().toLowerCase().endsWith((".txt")) && !fileInRestrictedList(file)) {
 				textFiles.add(file);
 			}
 		}
@@ -94,8 +99,16 @@ public class Logger implements Constants {
 		return allFiles;
 	}
 	
+	private boolean fileInRestrictedList(File file) {
+		for(File f: restrictedFilesList)
+			if(f.getName().toLowerCase().equals(file.getName().toLowerCase()))
+				return true;
+		return false;
+	}
+	
 	public String getWorkingFile() {
-		return file.getName();
-		
+		if(file != null)
+			return file.getName();	
+		else return "No File Selected";
 	}
 }
