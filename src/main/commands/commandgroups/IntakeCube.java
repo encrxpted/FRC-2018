@@ -12,7 +12,7 @@ import main.commands.pnuematics.*;
 public class IntakeCube extends CommandGroup implements Constants, HardwareAdapter {
 
     public IntakeCube() {
-    	addParallel(new TiltDown());
+    	//addParallel(new TiltDown());
     	addParallel(new ArmOpen());
     	addParallel(new SpinIn());
     }
