@@ -14,12 +14,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import main.commands.autonomous.Auto;
 import main.commands.autonomous.Baseline;
 import main.commands.autonomous.DoNothing;
 import main.commands.autonomous.ScoreCubeLeft;
 import main.commands.autonomous.ScoreCubeRight;
-import main.commands.autonomous.TestAuto;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -94,8 +92,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		startPos.addObject("Middle", ()->{OI.Middle();});
 		startPos.addObject("Right", ()->{OI.Right();});
 		SmartDashboard.putData("Starting Position", startPos);
-		
-		OI.configure();
 	}
 
 	
@@ -150,6 +146,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void teleopInit() {
+		OI.configure();
+		
 		if (autoCommand != null) autoCommand.cancel();
 		teleopCommand = teleopChooser.getSelected();
 		teleopCommand.run();
