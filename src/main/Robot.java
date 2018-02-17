@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import main.commands.autonomous.Auto;
 import main.commands.autonomous.TestAuto;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
