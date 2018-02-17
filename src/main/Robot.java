@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.autonomous.Auto;
+import main.commands.autonomous.TestAuto;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -87,6 +88,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		startPos.addObject("Middle", ()->{OI.Middle();});
 		startPos.addObject("Right", ()->{OI.Right();});
 		SmartDashboard.putData("Starting Pos", startPos);
+		
+		OI.configure();
 	}
 
 	
@@ -102,7 +105,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	
 	@Override
 	public void autonomousInit() {
-		new Auto().start();
+		new TestAuto().start();
 		// FIXME: use String.equals and instanceof instead of == and Command.toString()
 		// FIXME: figure out how to use auto commands
 		
@@ -155,7 +158,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		if (autoCommand != null) autoCommand.cancel();
 		teleopCommand = teleopChooser.getSelected();
 		teleopCommand.run();
-		OI.configure();
 	}
 	
 	@Override

@@ -20,7 +20,7 @@ public class AlertLightOn {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.da.setAlertLightState(true);
+		//Robot.da.setAlertLightState(true);
 		
 	}
 	

@@ -45,5 +45,5 @@ public interface HardwareAdapter extends Constants{
 	public static DoubleSolenoid arm = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
 	public static DoubleSolenoid pto = new DoubleSolenoid(PCM_Port1, PTO_EXT, PTO_RET);
     //Driver Alert
-	public static DigitalOutput alertRelay = new DigitalOutput(DriverAlert_DigiOut);
+	//public static DigitalOutput alertRelay = new DigitalOutput(DriverAlert_DigiOut);
 }

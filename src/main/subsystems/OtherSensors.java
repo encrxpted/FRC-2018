@@ -53,7 +53,6 @@ import main.commands.driveAlerts.AlertDriver;
 			
 			System.out.println(IntakeCurrentState);
 			if(IntakeLastState != IntakeCurrentState) flashLights.start();
-			alertDriverButton.setPressed(gearSwitchCurrentState != IntakeSwitchLastState);
 			//alertDriverButton.whenPressed(new AlertDriver());
 			IntakeLastState = IntakeCurrentState;
 		}

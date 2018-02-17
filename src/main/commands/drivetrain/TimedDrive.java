@@ -47,6 +47,6 @@ public class TimedDrive extends TimedCommand {
 	 */
 	@Override
 	protected void execute() {
-		Robot.dt.driveVelocity(throttle, heading);
+		Robot.dt.driveVelocity(-throttle, heading);
 	}
 }
