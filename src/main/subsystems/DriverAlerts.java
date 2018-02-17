@@ -8,28 +8,26 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriverAlerts extends Subsystem {
 
-		private boolean state = false;
-	
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+ public void setAlertLightState(boolean state) {
+	alertRelay.set(!state);
+ }
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+ public boolean getAlertLightState() {
+	return alertRelay.get();
+ }
 
-	public void setAlertLightState(boolean b) {
-		// TODO Auto-generated method stub
-		state = b;
-	}
+ public void pulseAlertLight(int pulseLength) {
+	alertRelay.pulse(pulseLength);
+ }
 
-	public boolean getAlertLightState() {
-		return state;
-	}
-	
+ public boolean isPulsing() {
+	return alertRelay.isPulsing();
+}
 
-	
-		
-	}
+ @Override
+ protected void initDefaultCommand() {
+ }
+
+}
 
 

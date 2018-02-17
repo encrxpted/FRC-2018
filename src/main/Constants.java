@@ -127,6 +127,7 @@ public interface Constants {
 	public final double alertOnTime = 0.125;
 	public final double alertOffTime = 0.125;
 	public final int driverAlertsPort = 10;
+	public final int DriverAlert_DigiOut = 2;
 
 	
 }

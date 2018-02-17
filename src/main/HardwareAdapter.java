@@ -20,8 +20,7 @@ public interface HardwareAdapter extends Constants{
 	public static WPI_TalonSRX rightDriveSlave1 = new WPI_TalonSRX(RIGHT_Drive_Slave1);
 	public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
 	public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
-	
-	//INTAKE
+	 
 	public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
 	//public static WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(RIGHT_Intake);
 	
@@ -34,7 +33,7 @@ public interface HardwareAdapter extends Constants{
 	public static DigitalInput stage1BottomSwitch = new DigitalInput(STAGE1_Bottom);
 	public static DigitalInput stage1TopSwitch = new DigitalInput(STAGE1_Top);
 	public static DigitalInput cubeSensor1 = new DigitalInput(cubeSensor);
-	//public static DigitalInput stage2BottomSwitch = new DigitalInput(STAGE2_Bottom);
+	//public static DigitalInput stage2BottomSwitch = new tDigitalInput(STAGE2_Bottom);
 	//public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
 	public static DigitalOutput driverAlerts = new DigitalOutput(driverAlertsPort);
 	//public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
@@ -45,4 +44,6 @@ public interface HardwareAdapter extends Constants{
 	public static Compressor comp = new Compressor(PCM_Port1);
 	public static DoubleSolenoid arm = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
 	public static DoubleSolenoid pto = new DoubleSolenoid(PCM_Port1, PTO_EXT, PTO_RET);
+    //Driver Alert
+	public static DigitalOutput alertRelay = new DigitalOutput(DriverAlert_DigiOut);
 }
