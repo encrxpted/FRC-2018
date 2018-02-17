@@ -178,7 +178,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	public void moveWithJoystick(double throttle) {
-		leftElevatorMaster.set(driveHelper.driveSmooth(throttle));
+		leftElevatorMaster.set(driveHelper.handleDeadband(throttle, throttleDeadband));
 	}
 	
 	// Moves fast to a position if far away, slows down when it gets closer, and stops when it reaches
