@@ -8,12 +8,17 @@
 package main;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.autonomous.Auto;
+import main.commands.autonomous.Baseline;
+import main.commands.autonomous.DoNothing;
+import main.commands.autonomous.ScoreCubeLeft;
+import main.commands.autonomous.ScoreCubeRight;
 import main.commands.autonomous.TestAuto;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
@@ -46,6 +51,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	//public static SmartDashboardInteractions sdb;
 
 	public static String startpos;
+	public static String desiredAuto;
 	
 	// auto modes
 	Command autoCommand;
@@ -77,9 +83,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		
 		//auto modes
 		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault("Baseline", ()->{});
-		autoChooser.addObject("Score Cube", ()->{});
-		autoChooser.addObject("Do Nothing", ()->{});
+		autoChooser.addDefault("Baseline", ()->{OI.BaselineAuto();});
+		autoChooser.addObject("Score Cube", ()->{OI.ScoreCubeAuto();});
+		autoChooser.addObject("Do Nothing", ()->{OI.DoNothingAuto();});
 		SmartDashboard.putData("auto", autoChooser);
 		
 		//Starting Pos
@@ -105,47 +111,36 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	
 	@Override
 	public void autonomousInit() {
-		new TestAuto().start();
+		//new TestAuto().start();
 		// FIXME: use String.equals and instanceof instead of == and Command.toString()
 		// FIXME: figure out how to use auto commands
 		
-		/*autoCommand = (Command) autoChooser.getSelected();
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-        if(gameData.length() > 0)
+        if(gameData.length() > 0 && !desiredAuto.equals("DoNothing"))
         {
-        	if(gameData.charAt(0) == 'L' && startpos != "middle")
+        	if(gameData.charAt(0) == 'L' && !startpos.equals("middle"))
 			{
 	        	//Put left auto code here
-				if (startpos == "left" && autoCommand.toString() == "ScoreCube()")
-				autoCommand.start();
-				else if (autoCommand.toString() == "DoNothing()") {
-					autoCommand = new Baseline();
-					autoCommand.start();
-				}
+				if (startpos.equals("left") && desiredAuto.equals("ScoreCube"))
+					new ScoreCubeLeft().start();
 				else 
-					autoCommand.start();	
-				
-					  
+					new Baseline().start();	
 			} else {
 				//Put right auto code here
-				if (startpos == "right" && autoCommand.toString() == "ScoreCube()")
-				autoCommand.start();
-				else if (autoCommand == new DoNothing()) {
-					autoCommand = new Baseline();
-					autoCommand.start();
-				}
+				if (startpos.equals("left") && desiredAuto.equals("ScoreCube"))
+					new Baseline().start();
 				else 
-					autoCommand.start();
+					new ScoreCubeRight().start();
 			}
-        	if (gameData.charAt(0) == 'L' && startpos == "middle")
+        	if (gameData.charAt(0) == 'L' && startpos.equals("middle"))
         	{
         		//Put middle auto here
-        		autoCommand = new DoNothing();
-				autoCommand.start();
+        		new DoNothing().start();
         	}
     	}
-        System.out.println(autoCommand.toString());*/
+        else 
+        	new DoNothing().start();
     }
 	
 	@Override

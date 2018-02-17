@@ -1,24 +1,36 @@
 package main.commands.autonomous;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.WaitCommand;
-import main.commands.commandgroups.PushOutCube;
-import main.commands.commandgroups.PushOutCubeOff;
-import main.commands.drivetrain.TimedDrive;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * The whole logic for auto.
- * 
- * @author TheSuperDuck
  *
  */
-public class Auto extends CommandGroup {
+public class Auto extends Command {
 
-	public Auto() {
-		addSequential(new TimedDrive(0.3, 1));
-		addSequential(new TimedDrive(0.3, 0.5, 1));
-		addSequential(new PushOutCube());
-		addSequential(new WaitCommand(1));
-		addSequential(new PushOutCubeOff());
-	}
+    public Auto() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    }
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+    }
+
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+        return false;
+    }
+
+    // Called once after isFinished returns true
+    protected void end() {
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+    }
 }
