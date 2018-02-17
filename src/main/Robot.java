@@ -128,7 +128,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 					new Baseline().start();	
 			} else {
 				//Put right auto code here
-				if (startpos.equals("left") && desiredAuto.equals("ScoreCube"))
+				if ((startpos.equals("left") && desiredAuto.equals("ScoreCube")) || desiredAuto.equals("Baseline"))
 					new Baseline().start();
 				else 
 					new ScoreCubeRight().start();
