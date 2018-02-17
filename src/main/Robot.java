@@ -86,14 +86,14 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		autoChooser.addDefault("Baseline", ()->{OI.BaselineAuto();});
 		autoChooser.addObject("Score Cube", ()->{OI.ScoreCubeAuto();});
 		autoChooser.addObject("Do Nothing", ()->{OI.DoNothingAuto();});
-		SmartDashboard.putData("auto", autoChooser);
+		SmartDashboard.putData("Auto Chooser", autoChooser);
 		
 		//Starting Pos
 		startPos = new SendableChooser<>();
 		startPos.addDefault("Left", ()->{OI.Left();});
 		startPos.addObject("Middle", ()->{OI.Middle();});
 		startPos.addObject("Right", ()->{OI.Right();});
-		SmartDashboard.putData("Starting Pos", startPos);
+		SmartDashboard.putData("Starting Position", startPos);
 		
 		OI.configure();
 	}
