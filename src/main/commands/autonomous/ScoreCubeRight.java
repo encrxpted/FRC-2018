@@ -1,6 +1,10 @@
 package main.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
+import main.commands.commandgroups.IntakeCube;
+import main.commands.commandgroups.IntakeCubeOff;
+import main.commands.drivetrain.TimedDrive;
 
 /**
  *
@@ -8,21 +12,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ScoreCubeRight extends CommandGroup {
 
     public ScoreCubeRight() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+		addSequential(new TimedDrive(0.6, 3));
+		addSequential(new TimedDrive(0.5, 0.6, 3));
+		addSequential(new IntakeCube());
+		addSequential(new WaitCommand(3));
+		addSequential(new IntakeCubeOff());
     }
 }
