@@ -12,7 +12,7 @@ import java.util.List;
 import main.Constants;
 
 public class Logger implements Constants {
-	private File file; // CAUSING A NULL POINTER EXCEPTION- LINE 109
+	private File file;
 	private FileWriter fw;
 	private FileReader fr;
 	private BufferedWriter bw;
@@ -23,11 +23,12 @@ public class Logger implements Constants {
 	public Logger() {
 		//Adding Restricted Files
 		restrictedFilesList.add(new File(outputPath +"/README_File_Paths.txt"));
+		restrictedFilesList.add(new File(outputPath +"/crash_tracking.txt"));
 	}
 	
 	public void createNewFile(String name) {
 		File newFile = new File(outputPath +"/" + name + ".txt");
-		if(!newFile.exists())
+		if(newFile != null && !newFile.exists())
 			try {
 				newFile.createNewFile();
 			} catch (IOException e) {
@@ -38,11 +39,23 @@ public class Logger implements Constants {
 					           " one will not be created.");		
 	}
 	
+	public void deleteFile(String path) {
+		File file = new File(path);//outputPath +"/" + name + ".txt");
+		System.out.println(file.getName());
+		System.out.println(file.exists());
+		if(file != null && file.exists())
+			file.delete();
+		System.out.println(file.exists());
+	}
+	
 	public void writeLine(String line) {
 		try {
-			bw.write(line);
-			bw.newLine();
-			bw.flush();
+			if(bw != null) {
+				bw.write(line);
+				bw.newLine();
+				bw.flush();
+				System.out.println("Im writing");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}			
@@ -51,7 +64,8 @@ public class Logger implements Constants {
 	public String readLine() {
 		String line = "";
 		try {
-			line = br.readLine();
+			if(br != null)
+				line = br.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -67,22 +81,33 @@ public class Logger implements Constants {
 			for(File file: new File(outputPath).listFiles())
 				if(file.getName().equals(nameOrPath)) changePath(file.getPath(), false);
 		}
-		
-		try {
-    		file = new File(nameOrPath);
-    		if(!file.exists())
-    			file.createNewFile();
-    		if(file != null) {
-    			fw = new FileWriter(file);
-    			fr = new FileReader(file);
-    		}
-    		if(fw != null) bw = new BufferedWriter(fw);
-    		if(fr != null) br = new BufferedReader(fr);
-		} catch (IOException e) {
-			e.printStackTrace();
+		file = new File(nameOrPath);	
+	}
+	
+	public void resetForRead() {
+		if (file != null) {
+			try {
+				fr = new FileReader(file);
+				if (fr != null) br = new BufferedReader(fr);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
 		}		
 	}
 	
+	public void resetForWrite() {
+		// if(!file.exists())
+		// file.createNewFile();
+		if (file != null) {
+			try {
+				fw = new FileWriter(file);
+				if (fw != null) bw = new BufferedWriter(fw);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}		
+	}
+
 	public File[] getFiles(String path) {
 		List<File> textFiles = new ArrayList<File>();
 		File dir = new File(path + "/");

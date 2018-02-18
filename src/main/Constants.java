@@ -1,9 +1,5 @@
 package main;
 
-import java.awt.List;
-import java.io.File;
-import java.util.ArrayList;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -32,7 +28,7 @@ public interface Constants {
 	 * CONSTANTS *
 	 *************/
 	// COMPETITION?
-	public final boolean isCompetition = false;
+	public final boolean isCompetition = true;
 	// PNEUMATIC STATES
 	public final DoubleSolenoid.Value EXT = Value.kForward;
 	public final DoubleSolenoid.Value RET = Value.kReverse;

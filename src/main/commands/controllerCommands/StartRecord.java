@@ -2,6 +2,7 @@ package main.commands.controllerCommands;
 
 import controllers.Record;
 import interfacesAndAbstracts.ImprovedCommand;
+import main.Robot;
 
 public class StartRecord extends ImprovedCommand {
 	public StartRecord() {
@@ -9,7 +10,9 @@ public class StartRecord extends ImprovedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	 Record.okToRecord(true);
+    	//Robot.getFileChooser().getSelected().start();
+    	Robot.lg.resetForWrite();
+    	Record.okToRecord(true);
     }
 
     // Called repeatedly when this Command is scheduled to run

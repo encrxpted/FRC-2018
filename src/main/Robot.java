@@ -8,19 +8,22 @@
 package main;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import interfacesAndAbstracts.ImprovedRobot;
-import interfacesAndAbstracts.ImprovedSendableChooser;
 import loopController.Looper;
 import main.commands.controllerCommands.DoNothing;
 import main.commands.controllerCommands.FileCreator;
+import main.commands.controllerCommands.FileDeletor;
 import main.commands.controllerCommands.FilePicker;
 import main.commands.controllerCommands.StartPlay;
 import main.commands.controllerCommands.StartRecord;
@@ -39,9 +42,10 @@ public class Robot extends ImprovedRobot {
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Logger lg;
-    private Looper autoLooper;
-    ImprovedSendableChooser<Command> fileChooser;
-    private Command autoPlayCommand = new StartPlay();
+    private static Looper autoLooper;
+    private static SendableChooser<Command> fileChooser;
+    //private static Command autoPlayCommand = new StartPlay(); // add isCompetition if-statement???
+    private static Command autoPlayCommand;
     private Command lastSelectedFile = new DoNothing();
     private static String newFileName = "";
     private static List<File> listOfFiles = new ArrayList<File>();
@@ -65,12 +69,15 @@ public class Robot extends ImprovedRobot {
 		autoLooper.register(new Play()); 
 		
         //**************************************************SmartDashboard
+		if(isCompetition) {
+			autoPlayCommand = new StartPlay();
+		}
 		if(!isCompetition) {
 			SmartDashboard.putData("Record", new StartRecord());
 			SmartDashboard.putData("Play", new StartPlay());
 		}
 		//FileSelector
-    	fileChooser = new ImprovedSendableChooser<>();
+    	fileChooser = new SendableChooser<>();
     	fileChooser.addDefault("Do Nothing", new DoNothing());
     	SmartDashboard.putData("File Selector", fileChooser);
     	//FileAdder
@@ -78,6 +85,9 @@ public class Robot extends ImprovedRobot {
     		SmartDashboard.putString("New File Name", "");
     		SmartDashboard.putData("Create a new file", new FileCreator()); 
     	}
+    	//FileRemover
+    	if(!isCompetition)
+    		SmartDashboard.putData("Delete a file", new FileDeletor());
     	//Knowing Where You Are At
 //    	SmartDashboard.putString("Working File", lg.getWorkingFile());
 //    	SmartDashboard.putString("Working Path", outputPath);
@@ -85,8 +95,9 @@ public class Robot extends ImprovedRobot {
 	
 	@Override
 	public void disabledInit() {
-		if(autoPlayCommand.isRunning())
-			autoPlayCommand.cancel();
+		if(isCompetition) {
+			if(autoPlayCommand.isRunning()) autoPlayCommand.cancel();
+		}
 		autoLooper.stop();		
 	}
 	
@@ -99,7 +110,7 @@ public class Robot extends ImprovedRobot {
 	@Override
 	public void autonomousInit() {
 		autoLooper.start();
-		autoPlayCommand.start();
+		if(isCompetition) autoPlayCommand.start();
 	}
 
 
@@ -111,8 +122,10 @@ public class Robot extends ImprovedRobot {
 
 	@Override
 	public void teleopInit() {
-		if(autoPlayCommand.isRunning())
-			autoPlayCommand.cancel();
+		if(isCompetition) {
+			if(autoPlayCommand.isRunning())
+				autoPlayCommand.cancel();
+		}
 		if(!isCompetition)
 			autoLooper.start();
 	}
@@ -130,28 +143,22 @@ public class Robot extends ImprovedRobot {
 	}
 	
 	private void checkForSmartDashboardUpdates() {
-		if(!isCompetition && !newFileName.equals(SmartDashboard.getString("New File Name", "")))
-				newFileName = SmartDashboard.getString("New File Name", "");		
-		if(fileChooser.getSelected() != lastSelectedFile) {
+		if (!isCompetition && !newFileName.equals(SmartDashboard.getString("New File Name", "")))
+			newFileName = SmartDashboard.getString("New File Name", "");
+		if (fileChooser.getSelected() != lastSelectedFile && fileChooser.getSelected() != null) {
 			fileChooser.getSelected().start();
 			lastSelectedFile = fileChooser.getSelected();
 		}
-		if(lg.getFiles(outputPath).length > lastNumOfFiles) {    	
-	        for(File file: lg.getFiles(outputPath))
-	        	if(!fileNameInListOfFiles(listOfFiles, file)) {
-	        		fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
-	        		listOfFiles.add(file);
-	        	}
-	    	lastNumOfFiles = lg.getFiles(outputPath).length;
-		}
-		else if(lg.getFiles(outputPath).length < lastNumOfFiles) {    	
-	        for(File file: lg.getFiles(outputPath))
-	        	if(fileNameInListOfFiles(listOfFiles, file)) {
-	        		fileChooser.removeObject(file.getName(), new FilePicker(file.getPath()));
-	        		listOfFiles.remove(file);
-	        	}
-	    	lastNumOfFiles = lg.getFiles(outputPath).length;
-		}
+		
+		//if (lg.getFiles(outputPath).length != lastNumOfFiles) {
+		if (lg.getFiles(outputPath).length != lastNumOfFiles) {
+			for (File file : lg.getFiles(outputPath))
+				if (!fileNameInListOfFiles(listOfFiles, file)) {
+					fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
+					listOfFiles.add(file);
+				}
+			lastNumOfFiles = lg.getFiles(outputPath).length;
+		} 
 	}
 	
 	private boolean fileNameInListOfFiles(List<File> l, File f) {
@@ -160,6 +167,15 @@ public class Robot extends ImprovedRobot {
 				return true;
 		}
 		return false;
+	}
+	
+	public static SendableChooser<Command> getFileChooser() {
+		return fileChooser;
+	}
+	
+	//I ADDED THIS
+	public static Command getFile() {
+		return fileChooser.getSelected();
 	}
 	
 	public void allPeriodic() {

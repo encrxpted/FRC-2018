@@ -10,9 +10,11 @@ public class StartPlay extends ImprovedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Play.okToPlay(true);
+    	//Robot.getFileChooser().getSelected().start();
+    	Robot.lg.resetForRead();
     	Robot.oi.setInternalControl(true);
     	Robot.dt.setTankDefaults();
+    	Play.okToPlay(true);
     }
 
     // Called repeatedly when this Command is scheduled to run

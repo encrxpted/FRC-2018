@@ -23,6 +23,7 @@ public class Play implements Loop, Constants {
 
 	@Override
 	public void onLoop() {
+		//System.out.println("Play- onLoop");
 		if(playOK)
 			execute();
 	}
@@ -35,6 +36,7 @@ public class Play implements Loop, Constants {
 		System.out.println("Running play");
 		String line = Robot.lg.readLine();
 		if((line) != null) { 
+			System.out.println("line is not null");
 			String[] robotState = line.split(",");
 			
 			double leftVoltage = Double.parseDouble(robotState[0]);
