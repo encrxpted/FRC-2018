@@ -168,9 +168,26 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		return encoderHelper.inchesToEncoderTicks(inches, spindleCircum, countsPerRev);
 	}
 	
+	/***************
+	 * RECORD/PLAY *
+	 ***************/
+	public double getElevatorVoltage() {
+		return leftElevatorMaster.getMotorOutputVoltage();
+	}
+	
+	public void setVoltageMode(boolean set, double voltage, int timeout) {
+		leftElevatorMaster.enableVoltageCompensation(set);
+			if(set == true) leftElevatorMaster.configVoltageCompSaturation(voltage, timeout);
+	}
+	
+	
 	/********************
 	 * MOVEMENT METHODS *
 	 ********************/
+	
+	public void moveFromPlay(double voltage) {
+		leftElevatorMaster.set(voltage);
+	}
 	
 	public void moveToPosPID(double pos) {
 		setMotionMagicDefaults();
