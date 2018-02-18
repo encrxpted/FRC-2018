@@ -35,110 +35,143 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static enum RobotState {
 		Driving, Climbing, Neither
 	}
-	//robot modes
+
+	// robot modes
 	Runnable teleopCommand;
 	SendableChooser<Runnable> teleopChooser, autoChooser, startPos;
-	
-	//SendableChooser teleopChooser;
+
+	// SendableChooser teleopChooser;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
-	//public static TfMini mini;
-	//public static SmartDashboardInteractions sdb;
+	// public static TfMini mini;
+	// public static SmartDashboardInteractions sdb;
 
-	public static String startpos;
-	public static String desiredAuto;
-	
+	public static String startpos = "left";
+	public static String desiredAuto = "Baseline";
+
 	// auto modes
 	Command autoCommand;
 
 	@Override
 	public void robotInit() {
-		//create auto command
-		//autonomousCommand = new SodaDelivery()
-		//mini = new TfMini();
-		
-		//camera
+		// create auto command
+		// autonomousCommand = new SodaDelivery()
+		// mini = new TfMini();
+
+		// camera
 		CameraServer.getInstance().startAutomaticCapture();
-		//OI must be at end
+		// OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		it = new Intake();
-		//CameraServer.getInstance().startAutomaticCapture();
+		// CameraServer.getInstance().startAutomaticCapture();
 		el = new Elevator();
-		//da = new DriverAlerts();
-		//sdb = new SmartDashboardInteractions();
-		//robotState = 
-		
-		//teleop modes
+		// da = new DriverAlerts();
+		// sdb = new SmartDashboardInteractions();
+		// robotState =
+
+		// teleop modes
 		teleopChooser = new SendableChooser<>();
-		//SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
-		teleopChooser.addDefault("2 joysticks", ()->{OI.TwoController();});
-		teleopChooser.addObject("1 joystick", ()->{OI.OneController();});
+		// SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
+		teleopChooser.addDefault("2 joysticks", () -> {
+			OI.TwoController();
+		});
+		teleopChooser.addObject("1 joystick", () -> {
+			OI.OneController();
+		});
 		SmartDashboard.putData("teleop mode chooser", teleopChooser);
+
 		
-		//auto modes
+		// auto modes
 		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault("Baseline", ()->{OI.BaselineAuto();});
-		autoChooser.addObject("Score Cube", ()->{OI.ScoreCubeAuto();});
-		autoChooser.addObject("Do Nothing", ()->{OI.DoNothingAuto();});
+		autoChooser.addDefault("Baseline", () -> {
+			OI.BaselineAuto();
+		});
+		autoChooser.addObject("Score Cube", () -> {
+			OI.ScoreCubeAuto();
+		});
+		autoChooser.addObject("Do Nothing", () -> {
+			OI.DoNothingAuto();
+		});
 		SmartDashboard.putData("Auto Chooser", autoChooser);
 		
-		//Starting Pos
+
+		// Starting Pos
 		startPos = new SendableChooser<>();
-		startPos.addDefault("Left", ()->{OI.Left();});
-		startPos.addObject("Middle", ()->{OI.Middle();});
-		startPos.addObject("Right", ()->{OI.Right();});
+		startPos.addDefault("Left", () -> {
+			OI.Left();
+		});
+		startPos.addObject("Middle", () -> {
+			OI.Middle();
+		});
+		startPos.addObject("Right", () -> {
+			OI.Right();
+		});
 		SmartDashboard.putData("Starting Position", startPos);
+		
 	}
 
-	
 	@Override
 	public void disabledInit() {
 
 	}
-	
-	
+
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
-	
+
 	@Override
 	public void autonomousInit() {
-		//new TestAuto().start();
+		// new TestAuto().start();
 		// FIXME: use String.equals and instanceof instead of == and Command.toString()
 		// FIXME: figure out how to use auto commands
-		
+
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
-        if(gameData.length() > 0 && !desiredAuto.equals("DoNothing"))
-        {
-        	if(gameData.charAt(0) == 'L' && !startpos.equals("middle"))
-			{
-	        	//Put left auto code here
+		if (gameData.length() > 0 && !(desiredAuto.equals("DoNothing"))) {
+			//left switch code is here
+			if (gameData.charAt(0) == 'L') {
+				//switch auto scoring in left
 				if (startpos.equals("left") && desiredAuto.equals("ScoreCube"))
 					new ScoreCubeLeft().start();
-				else 
-					new Baseline().start();	
-			} else {
-				//Put right auto code here
-				if ((startpos.equals("left") && desiredAuto.equals("ScoreCube")) || desiredAuto.equals("Baseline"))
+				// crossing auto baseline in right/middle
+				else
+					// do baseline in right
+					if(startpos.equals("right") && desiredAuto.equals("Baseline"))
 					new Baseline().start();
-				else 
-					new ScoreCubeRight().start();
+					// do nothing in middle
+					else
+					new DoNothing().start();
+			}		
+			// put right switch code here
+			else {
+				// switch auto scoring right
+				if ((startpos.equals("right") && desiredAuto.equals("ScoreCube")) || desiredAuto.equals("Baseline"))
+					new ScoreCubeLeft().start();
+				// switch auto scoring left/middle
+				else
+					// do baseline in left
+					if(startpos.equals("right") && desiredAuto.equals("Baseline"))
+						new Baseline().start();
+						// do nothing in middle
+						else
+						new DoNothing().start();
 			}
-        	if (gameData.charAt(0) == 'L' && startpos.equals("middle"))
-        	{
-        		//Put middle auto here
-        		new DoNothing().start();
-        	}
-    	}
-        else 
-        	new DoNothing().start();
-    }
-	
+			/*if (gameData.charAt(0) == 'L' && startpos.equals("middle")) {
+				// Put middle auto here
+				new DoNothing().start();
+			}*/
+		} 
+		// nothing sent to driver station
+		else
+			//new DoNothing().start();
+			System.out.println("Doing Nothing!");
+		
+	}
+
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
@@ -147,28 +180,36 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	@Override
 	public void teleopInit() {
 		OI.configure();
-		
-		if (autoCommand != null) autoCommand.cancel();
+
+		if (autoCommand != null)
+			autoCommand.cancel();
 		teleopCommand = teleopChooser.getSelected();
 		teleopCommand.run();
 	}
-	
+
 	@Override
 	public void teleopPeriodic() {
-		Runtime runtime=Runtime.getRuntime();
-		
+		Runtime runtime = Runtime.getRuntime();
+
 		// smartdashboard stuff goes here
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Free memory", runtime.freeMemory());
 		SmartDashboard.putNumber("Total memory", runtime.totalMemory());
-		//SmartDashboard.putNumber("Lazers ;)", mini.getValue());
-		/*SmartDashboard.putNumber("Elevator Encoder Revs", leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev);
-		SmartDashboard.putBoolean("Is arm at bottom: ", el.isArmAtBottom());
-		SmartDashboard.putBoolean("Is arm at top: ", el.isArmAtTop());*/
-		//el.check();
-		//SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ", HardwareAdapter.ultra.getRangeMM());
-		/*SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
-		SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());*/
+		// SmartDashboard.putNumber("Lazers ;)", mini.getValue());
+		/*
+		 * SmartDashboard.putNumber("Elevator Encoder Revs",
+		 * leftElevatorMaster.getSensorCollection().getQuadraturePosition() /
+		 * countsPerRev); SmartDashboard.putBoolean("Is arm at bottom: ",
+		 * el.isArmAtBottom()); SmartDashboard.putBoolean("Is arm at top: ",
+		 * el.isArmAtTop());
+		 */
+		// el.check();
+		// SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ",
+		// HardwareAdapter.ultra.getRangeMM());
+		/*
+		 * SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
+		 * SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());
+		 */
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putBoolean("Cube Detected: ", cubeSensor1.get());
 	}
