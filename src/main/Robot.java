@@ -10,15 +10,14 @@ package main;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import interfacesAndAbstracts.ImprovedRobot;
+import interfacesAndAbstracts.ImprovedSendableChooser;
 import loopController.Looper;
 import main.commands.controllerCommands.DoNothing;
 import main.commands.controllerCommands.FileCreator;
@@ -41,7 +40,7 @@ public class Robot extends ImprovedRobot {
 	public static Pneumatics pn;
 	public static Logger lg;
     private Looper autoLooper;
-    SendableChooser<Command> fileChooser;
+    ImprovedSendableChooser<Command> fileChooser;
     private Command autoPlayCommand = new StartPlay();
     private Command lastSelectedFile = new DoNothing();
     private static String newFileName = "";
@@ -71,7 +70,7 @@ public class Robot extends ImprovedRobot {
 			SmartDashboard.putData("Play", new StartPlay());
 		}
 		//FileSelector
-    	fileChooser = new SendableChooser<>();
+    	fileChooser = new ImprovedSendableChooser<>();
     	fileChooser.addDefault("Do Nothing", new DoNothing());
     	SmartDashboard.putData("File Selector", fileChooser);
     	//FileAdder
@@ -137,11 +136,19 @@ public class Robot extends ImprovedRobot {
 			fileChooser.getSelected().start();
 			lastSelectedFile = fileChooser.getSelected();
 		}
-		if(lg.getFiles(outputPath).length != lastNumOfFiles) {    	
+		if(lg.getFiles(outputPath).length > lastNumOfFiles) {    	
 	        for(File file: lg.getFiles(outputPath))
 	        	if(!fileNameInListOfFiles(listOfFiles, file)) {
 	        		fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
 	        		listOfFiles.add(file);
+	        	}
+	    	lastNumOfFiles = lg.getFiles(outputPath).length;
+		}
+		else if(lg.getFiles(outputPath).length < lastNumOfFiles) {    	
+	        for(File file: lg.getFiles(outputPath))
+	        	if(fileNameInListOfFiles(listOfFiles, file)) {
+	        		fileChooser.removeObject(file.getName(), new FilePicker(file.getPath()));
+	        		listOfFiles.remove(file);
 	        	}
 	    	lastNumOfFiles = lg.getFiles(outputPath).length;
 		}
