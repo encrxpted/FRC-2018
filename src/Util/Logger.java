@@ -17,6 +17,7 @@ public class Logger implements Constants {
 	private FileReader fr;
 	private BufferedWriter bw;
 	private BufferedReader br;
+	private boolean fileSelected = false;
 	//Restricted Files List
 	private final List<File> restrictedFilesList = new ArrayList<File>();
 	
@@ -54,7 +55,6 @@ public class Logger implements Constants {
 				bw.write(line);
 				bw.newLine();
 				bw.flush();
-				System.out.println("Im writing");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -78,8 +78,14 @@ public class Logger implements Constants {
 		//---------------------useFileLookup currently unused
 		//---------------------Only pass this method (path, false) or (name, true)
 		if(useFileLookup) {
-			for(File file: new File(outputPath).listFiles())
-				if(file.getName().equals(nameOrPath)) changePath(file.getPath(), false);
+			if(nameOrPath == "00000000000000000000000000000000000000000000000000000000000")
+				fileSelected = false;
+			else
+				for(File file: new File(outputPath).listFiles())
+					if(file.getName().equals(nameOrPath)) {
+						changePath(file.getPath(), false);
+						fileSelected = true;
+					}
 		}
 		file = new File(nameOrPath);	
 	}
@@ -132,7 +138,7 @@ public class Logger implements Constants {
 	}
 	
 	public String getWorkingFile() {
-		if(file != null)
+		if(file != null && fileSelected)
 			return file.getName();	
 		else return "No File Selected";
 	}

@@ -32,7 +32,7 @@ public class Record implements Loop, Constants {
 	}
 	
 	private void execute() {
-		System.out.println("Running record");
+		//System.out.println("Running record");
 		Robot.lg.writeLine(Robot.dt.getLeftVoltage() + "," + Robot.dt.getRightVoltage() + "," + controller.a.get() + "," + controller.b.get() + "," + controller.x.get() 
 				 + "," + controller.y.get() + "," + controller.leftBumper.get() + "," + controller.rightBumper.get() + "," + controller.select.get() + "," 
 				 + controller.start.get() + "," + controller.leftJoystickPress.get() + "," + controller.rightJoystickPress.get() + "," + controller.leftTrigger.get()

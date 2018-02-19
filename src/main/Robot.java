@@ -69,6 +69,9 @@ public class Robot extends ImprovedRobot {
 		autoLooper.register(new Play()); 
 		
         //**************************************************SmartDashboard
+		SmartDashboard.putString("NOTICE:", "Whenever you redeploy restart shuffleboard. And whenever you "
+								+ "delete a file restart robot code.");
+		
 		if(isCompetition) {
 			autoPlayCommand = new StartPlay();
 		}
@@ -78,7 +81,7 @@ public class Robot extends ImprovedRobot {
 		}
 		//FileSelector
     	fileChooser = new SendableChooser<>();
-    	fileChooser.addDefault("Do Nothing", new DoNothing());
+    	fileChooser.addDefault("", new DoNothing());
     	SmartDashboard.putData("File Selector", fileChooser);
     	//FileAdder
     	if(!isCompetition) {
@@ -88,6 +91,7 @@ public class Robot extends ImprovedRobot {
     	//FileRemover
     	if(!isCompetition)
     		SmartDashboard.putData("Delete a file", new FileDeletor());
+    	
     	//Knowing Where You Are At
 //    	SmartDashboard.putString("Working File", lg.getWorkingFile());
 //    	SmartDashboard.putString("Working Path", outputPath);
@@ -110,7 +114,10 @@ public class Robot extends ImprovedRobot {
 	@Override
 	public void autonomousInit() {
 		autoLooper.start();
-		if(isCompetition) autoPlayCommand.start();
+		if(isCompetition && autoPlayCommand != null) {
+			fileChooser.getSelected().start();
+			autoPlayCommand.start();
+		}
 	}
 
 
