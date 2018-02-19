@@ -82,12 +82,13 @@ public class Logger implements Constants {
 				fileSelected = false;
 			else
 				for(File file: new File(outputPath).listFiles())
-					if(file.getName().equals(nameOrPath)) {
+					if(file.getName().equals(nameOrPath))
 						changePath(file.getPath(), false);
-						fileSelected = true;
-					}
 		}
-		file = new File(nameOrPath);	
+		else {
+			file = new File(nameOrPath);	
+			fileSelected = true;
+		}
 	}
 	
 	public void resetForRead() {
