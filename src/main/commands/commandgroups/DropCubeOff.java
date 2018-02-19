@@ -1,17 +1,16 @@
 package main.commands.commandgroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import main.commands.intake.SpinOff;
 import main.commands.pnuematics.ArmClose;
 import main.commands.pnuematics.TiltUp;
 
 /**
  *
  */
-public class PushOutCubeOff extends CommandGroup {
+public class DropCubeOff extends CommandGroup {
 
-    public PushOutCubeOff() {
+    public DropCubeOff() {
     	addParallel(new TiltUp());
-    	addParallel(new SpinOff());
+    	addParallel(new ArmClose());
     }
 }
