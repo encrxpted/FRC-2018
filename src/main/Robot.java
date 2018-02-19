@@ -45,9 +45,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
-	// public static TfMini mini;
-	// public static SmartDashboardInteractions sdb;
-
 	public static String startpos = "left";
 	public static String desiredAuto = "Baseline";
 
@@ -56,25 +53,15 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void robotInit() {
-		// create auto command
-		// autonomousCommand = new SodaDelivery()
-		// mini = new TfMini();
-
 		// camera
 		CameraServer.getInstance().startAutomaticCapture();
 		// OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		it = new Intake();
-		// CameraServer.getInstance().startAutomaticCapture();
 		el = new Elevator();
-		// da = new DriverAlerts();
-		// sdb = new SmartDashboardInteractions();
-		// robotState =
-
 		// teleop modes
 		teleopChooser = new SendableChooser<>();
-		// SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
 		teleopChooser.addDefault("2 joysticks", () -> {
 			OI.TwoController();
 		});
