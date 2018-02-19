@@ -1,9 +1,4 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+// Copyright (c) 2018 FIRST 3140. All Rights Reserved.
 
 package main;
 
@@ -14,26 +9,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import main.commands.autonomous.Baseline;
-import main.commands.autonomous.DoNothing;
-import main.commands.autonomous.ScoreCubeLeft;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in the
- * project.
- */
 public class Robot extends TimedRobot implements Constants, HardwareAdapter {
-	public static enum RobotState {
-		Driving, Climbing, Neither
-	}
+	public enum RobotState {Driving, Climbing, Neither}
+	// TODO: change enum to capitalized
+	private enum StartPos {LEFT, MIDDLE, RIGHT}
 
 	// robot modes
 	Runnable teleopCommand;
@@ -45,8 +30,9 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static Intake it;
 	public static Elevator el;
 	public static DriverAlerts da;
-	public static String startpos = "left";
-	public static String desiredAuto = "Baseline";
+	
+	public static StartPos start_pos=StartPos.LEFT;
+	public static boolean auto_score=true;
 
 	// auto modes
 	Command autoCommand;
@@ -73,28 +59,24 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		
 		// auto modes
 		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault("Baseline", () -> {
-			OI.BaselineAuto();
-		});
 		autoChooser.addObject("Score Cube", () -> {
-			OI.ScoreCubeAuto();
+			auto_score=true;
 		});
-		autoChooser.addObject("Do Nothing", () -> {
-			OI.DoNothingAuto();
+		autoChooser.addDefault("Baseline", () -> {
+			auto_score=true;
 		});
 		SmartDashboard.putData("Auto Chooser", autoChooser);
-		
 
 		// Starting Pos
 		startPos = new SendableChooser<>();
 		startPos.addDefault("Left", () -> {
-			OI.Left();
+			start_pos=StartPos.LEFT;
 		});
 		startPos.addObject("Middle", () -> {
-			OI.Middle();
+			start_pos=StartPos.MIDDLE;
 		});
 		startPos.addObject("Right", () -> {
-			OI.Right();
+			start_pos=StartPos.RIGHT;
 		});
 		SmartDashboard.putData("Starting Position", startPos);
 		
@@ -111,51 +93,43 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 
 	@Override
 	public void autonomousInit() {
-		// new TestAuto().start();
-		// FIXME: use String.equals and instanceof instead of == and Command.toString()
-		// FIXME: figure out how to use auto commands
-
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if (gameData.length() > 0 && !(desiredAuto.equals("DoNothing"))) {
-			//left switch code is here
-			if (gameData.charAt(0) == 'L') {
-				//switch auto scoring in left
-				if (startpos.equals("left") && desiredAuto.equals("ScoreCube"))
-					new ScoreCubeLeft().start();
-				// crossing auto baseline in right/middle
-				else
-					// do baseline in right
-					if(startpos.equals("right") && desiredAuto.equals("Baseline"))
-					new Baseline().start();
-					// do nothing in middle
-					else
-					new DoNothing().start();
-			}		
-			// put right switch code here
-			else {
-				// switch auto scoring right
-				if ((startpos.equals("right") && desiredAuto.equals("ScoreCube")) || desiredAuto.equals("Baseline"))
-					new ScoreCubeLeft().start();
-				// switch auto scoring left/middle
-				else
-					// do baseline in left
-					if(startpos.equals("right") && desiredAuto.equals("Baseline"))
-						new Baseline().start();
-						// do nothing in middle
-						else
-						new DoNothing().start();
-			}
-			/*if (gameData.charAt(0) == 'L' && startpos.equals("middle")) {
-				// Put middle auto here
-				new DoNothing().start();
-			}*/
-		} 
-		// nothing sent to driver station
-		else
-			//new DoNothing().start();
-			System.out.println("Doing Nothing!");
+		String gmsg = DriverStation.getInstance().getGameSpecificMessage();
 		
+		if (gmsg!=null && gmsg.length()==3) {
+			// game message is correct
+			
+			boolean left=gmsg.charAt(0)=='L';
+			
+			if (auto_score) {
+				switch (start_pos) {
+				case LEFT:
+					if (left) ; // TODO: score cube to left from left
+					else ; // TODO: score cube to right from left
+					break;
+				case MIDDLE:
+					if (left) ; // TODO: score cube to left from middle
+					else ; // TODO: score cube to right from middle
+					break;
+				case RIGHT:
+					if (left) ; // TODO: score cube to left from right
+					else ; // TODO: score cube to right from right
+				}
+			} else {
+				switch (start_pos) {
+				case LEFT:
+					if (left) ; // TODO: cross baseline to left from left
+					else ; // TODO: cross baseline to right from left
+					break;
+				case MIDDLE:
+					if (left) ; // TODO: cross baseline to left from middle
+					else ; // TODO: cross baseline to right from middle
+					break;
+				case RIGHT:
+					if (left) ; // TODO: cross baseline to left from right
+					else ; // TODO: cross baseline to right from right
+				}
+			}
+		}
 	}
 
 	@Override

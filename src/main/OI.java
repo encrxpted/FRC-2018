@@ -80,31 +80,6 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 		return xbox2;
 	}
     
-    public static String Left() {
-    	Robot.startpos = "left";
-    	return "left";
-    }
-    
-    public static String Middle() {
-    	Robot.startpos = "middle";
-    	return "middle";
-    }
-    
-    public static String Right() {
-    	Robot.startpos = "right";
-    	return "right";
-    }
-    
-    public static void BaselineAuto() {
-    	Robot.desiredAuto = "Baseline";
-    }
-    public static void ScoreCubeAuto() {
-    	Robot.desiredAuto = "ScoreCube";
-    }
-    public static void DoNothingAuto() {
-    	Robot.desiredAuto = "DoNothing";
-    }
-    
     public static boolean OneController(){
     	ControllerMode = true;
     	configure();
