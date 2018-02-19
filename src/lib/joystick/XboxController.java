@@ -1,110 +1,160 @@
 package lib.joystick;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.InternalButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-public class XboxController extends Joystick{
-	
-	/*****************
-	 * INSTANCE DATA *
-	 *****************/
-	// Buttons
-	public Button a, b, x, y, select, start;
-	// Thumb-stick buttons
-	public Button leftJoystickButton, rightJoystickButton;
-	// Bumpers
-	public Button leftBumper, rightBumper;
-	// Triggers
-	public Button leftTrigger, rightTrigger;
-    //  D-pad
-	public Button dpadup, dpaddown, dpadleft, dpadright;
+public class XboxController extends InterfaceableXboxController {
+	private static boolean internalControl = false;
 	/**
-	 * @param port of the controller.
+	 * Buttons
 	 */
+	private JoystickButton aButton;
+	private JoystickButton bButton;
+	private JoystickButton xButton;
+	private JoystickButton yButton;
+	private JoystickButton selectButton;
+	private JoystickButton startButton;
+	// Thumb-stick buttons
+	private JoystickButton leftJoystickPressButton;
+	private JoystickButton rightJoystickPressButton;
+	// Bumpers
+	private JoystickButton leftBumperButton;
+	private JoystickButton rightBumperButton;
+	// Triggers
+	private Button leftTriggerButton;
+	private Button rightTriggerButton;
+	
+	/**
+	 * Internal Buttons
+	 */
+	public InternalButton a;
+	public InternalButton b;
+	public InternalButton x;
+	public InternalButton y;
+	public InternalButton select;
+	public InternalButton start;
+	// Thumb-stick InternalButtons
+	public InternalButton leftJoystickPress;
+	public InternalButton rightJoystickPress;
+	// Bumpers
+	public InternalButton leftBumper;
+	public InternalButton rightBumper;
+	// Triggers
+	public InternalButton leftTrigger;
+	public InternalButton rightTrigger;
+	
 	public XboxController(int port) {
 		super(port);
-		a = new JoystickButton(this, 1);
-		b = new JoystickButton(this, 2);
-		x = new JoystickButton(this, 3);
-		y = new JoystickButton(this, 4);
-		leftBumper = new JoystickButton(this, 5);
-		rightBumper = new JoystickButton(this, 6);
-		select = new JoystickButton(this, 7);
-		start = new JoystickButton(this, 8);
-		leftJoystickButton = new JoystickButton(this, 9);
-		rightJoystickButton = new JoystickButton(this, 10);
-		dpadup=new DpadButton(this, DpadButton.UP);
-		dpaddown=new DpadButton(this, DpadButton.DOWN);
-		dpadleft=new DpadButton(this, DpadButton.LEFT);
-		dpadright=new DpadButton(this, DpadButton.RIGHT);
-		leftTrigger = new AnalogButton(this, 2, 0.1);
-		rightTrigger = new AnalogButton(this, 3, 0.1);
-		
+		//Buttons
+		aButton = new JoystickButton(this, 1);
+		bButton = new JoystickButton(this, 2);
+		xButton = new JoystickButton(this, 3);
+		yButton = new JoystickButton(this, 4);
+		leftBumperButton = new JoystickButton(this, 5);
+		rightBumperButton = new JoystickButton(this, 6);
+		selectButton = new JoystickButton(this, 7);
+		startButton = new JoystickButton(this, 8);
+		leftJoystickPressButton = new JoystickButton(this, 9);
+		rightJoystickPressButton = new JoystickButton(this, 10);
+		leftTriggerButton = new AnalogButton(this, 2, 0.1);
+		rightTriggerButton = new AnalogButton(this, 3, 0.1);
+		//InternalButtons
+		a = new InternalButton();
+		b = new InternalButton();
+		x = new InternalButton();
+		y = new InternalButton();
+		leftBumper = new InternalButton();
+		rightBumper = new InternalButton();
+		select = new InternalButton();
+		start = new InternalButton();
+		leftJoystickPress = new InternalButton();
+		rightJoystickPress = new InternalButton();
+		leftTrigger = new InternalButton();
+		rightTrigger = new InternalButton();
 	}
 	
-	/**
-	 * Gets the X-axis of the left-thumbstick.
-	 * @return Value of the X-axis.
-	 */
+	@Override
+	public void check() {
+		if(!internalControl) {
+			a.setPressed(aButton.get());
+			b.setPressed(bButton.get());
+			x.setPressed(xButton.get());
+			y.setPressed(yButton.get());
+			leftBumper.setPressed(leftBumperButton.get());
+			rightBumper.setPressed(rightBumperButton.get());
+			select.setPressed(selectButton.get());
+			start.setPressed(startButton.get());
+			leftJoystickPress.setPressed(leftJoystickPressButton.get());
+			rightJoystickPress.setPressed(rightJoystickPressButton.get());
+			leftTrigger.setPressed(leftTriggerButton.get());
+			rightTrigger.setPressed(rightTriggerButton.get());
+		}
+	}
+	
 	public double getMainX(){
 		return super.getRawAxis(0);
 	}
-	/**
-	 * Gets the Y-axis of the left-thumbstick.
-	 * @return Value of the Y-axis.
-	 */
+	
 	public double getMainY(){
 		return super.getRawAxis(1);
 	}
-	/**
-	 * Gets the X-axis of the right-thumbstick.
-	 * @return Value of the X-axis.
-	 */
+	
 	public double getAltX(){
 		return super.getRawAxis(4);
 	}
-	/**
-	 * Gets the Y-axis of the right-thumbstick.
-	 * @return Value of the Y-axis.
-	 */
+	
 	public double getAltY(){
 		return super.getRawAxis(5);
 	}
 	
-	/**
-	 * Gets the X-axis of the left-thumbstick, and smoothens it.
-	 * @return Cubed value of the X-axis.
-	 */
 	public double getSmoothedMainX() {
 		//return Math.pow(super.getRawAxis(0), 3) * -1;
 		return -Math.sin(Math.PI/2 * super.getRawAxis(0));
 	}
 	
-	/**
-	 * Gets the Y-axis of the left-thumbstick, and smoothens it.
-	 * @return Cubed value of the Y-axis.
-	 */
 	public double getSmoothedMainY() {
 		//return Math.pow(super.getRawAxis(1), 5);
 		return Math.sin(Math.PI/2 * super.getRawAxis(1));
 	}
 	
-	/**
-	 * Gets the X-axis of the right thumbstick, and smoothens it.
-	 * @return Cubed value of the alternate X-axis.
-	 */
 	public double getSmoothedAltX() {
 		//return Math.pow(super.getRawAxis(4), 3) * -1;
 		return -Math.sin(Math.PI/2 * super.getRawAxis(4));
 	}
 	
-	/**
-	 * Gets the Y-axis of the right thumbstick, and smoothens it.
-	 * @return Cubed value of the alternate Y-axis.
-	 */
 	public double getSmoothedAltY() {
 		//return Math.pow(super.getRawAxis(5), 3);
 		return Math.sin(Math.PI/2 * super.getRawAxis(5));
+	}
+	
+	@Override
+	public void setButtonStatus(boolean a, boolean b, boolean x, boolean y, boolean leftBumper, boolean rightBumper,
+								boolean select, boolean start, boolean leftJoystickPress, boolean rightJoystickPress,
+								boolean leftTrigger, boolean rightTrigger) {
+		if(internalControl) {
+			this.a.setPressed(a);
+			this.b.setPressed(b);
+			this.x.setPressed(x);
+			this.y.setPressed(y);
+			this.leftBumper.setPressed(leftBumper);
+			this.rightBumper.setPressed(rightBumper);
+			this.select.setPressed(select);
+			this.start.setPressed(start);
+			this.leftJoystickPress.setPressed(leftJoystickPress);
+			this.rightJoystickPress.setPressed(rightJoystickPress);
+			this.leftTrigger.setPressed(leftTrigger);
+			this.rightTrigger.setPressed(rightTrigger);
+		}
+	}
+	
+	@Override
+	public void setInternalControl(boolean internalControl) {
+		XboxController.internalControl = internalControl;		
+	}
+
+	@Override
+	public boolean getInternalControl() {
+		return internalControl;
 	}
 }

@@ -52,6 +52,18 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		}
 	}
 	
+	//Drive for playing back
+	public void driveVoltageTank(double leftVoltage, double rightVoltage) {
+		if(controlModeConfig == driveTrainControlConfig.TankDefault) {	
+			driveTrain.tankDrive((Math.abs(leftVoltage) > 12.0) ? Math.signum(leftVoltage) : leftVoltage/12, 
+								 -((Math.abs(rightVoltage)  > 12.0) ? Math.signum(rightVoltage) : rightVoltage/12),
+								 false);
+		if(!rightDriveMaster.isAlive() || !rightDriveSlave1.isAlive() || !rightDriveSlave2.isAlive() ||
+		   !leftDriveMaster.isAlive() || !leftDriveSlave1.isAlive() || !leftDriveSlave2.isAlive())
+			System.out.println("Problem");
+		}
+	}
+	
 	/*************************
 	 * SENSOR OUTPUT METHODS *
 	 *************************/

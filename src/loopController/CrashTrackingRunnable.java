@@ -1,4 +1,4 @@
-package lib;
+package loopController;
 
 /**
  * Runnable class with reports all uncaught throws to CrashTracker

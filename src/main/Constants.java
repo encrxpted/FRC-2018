@@ -12,15 +12,15 @@ public interface Constants {
 	/*************
 	 * VARIABLES *
 	 *************/
+	// FILE OUTPUT PATH
+	public final String outputPath = "/home/lvuser";
+	
 	// REV ROBOTICS SENSORS
 	public final int analogSensor = 0;
 	
 	// PNEUMATICS
 	public final int armUp = 0;
 	public final int armDown = 0;
-	
-	// FILE WRITING
-	public final String outputPath = "/home/lvuser/Output.txt";
 	
 	// JOYSTICK DEADBANDS
 	public final double throttleDeadband = 0.03;
@@ -33,6 +33,21 @@ public interface Constants {
 	public final boolean encodersInverted = true;
 	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.	
 	public final int cubeSensor = 0;
+	
+	// TALON VOLTAGE COMPENSATION
+	public final double voltageCompensationVoltage = 12.0;
+
+	// LOOPER CONSTANTS
+	public final double kLooperDt = 0.005;// 0.005
+
+	// DRIVETRAIN CONSTANTS
+	// false: default low gear - true: default high gear
+	public final boolean defaultHighGearState = false;
+	// Possible DriveTrain Control Configurations
+	public enum driveTrainControlConfig {
+		TalonDefault(), TankDefault()
+	}
+		
 	
 	/*************
 	 * CONSTANTS *

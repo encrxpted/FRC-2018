@@ -1,11 +1,12 @@
-package lib;
+package loopController;
 
 import java.util.ArrayList;
 import java.util.List;
-import lib.CrashTrackingRunnable;
+
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import loopController.CrashTrackingRunnable;
 
 /**
  * This code runs all of the robot's loops. Loop objects are stored in a List
