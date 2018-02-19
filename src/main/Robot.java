@@ -7,17 +7,26 @@
 
 package main;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import Util.Logger;
+import controllers.Play;
+import controllers.Record;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import main.commands.autonomous.Baseline;
-import main.commands.autonomous.DoNothing;
-import main.commands.autonomous.ScoreCubeLeft;
-import main.commands.autonomous.ScoreCubeRight;
+import loopController.Looper;
+import main.commands.controllerCommands.DoNothing;
+import main.commands.controllerCommands.FileCreator;
+import main.commands.controllerCommands.FileDeletor;
+import main.commands.controllerCommands.FilePicker;
+import main.commands.controllerCommands.StartPlay;
+import main.commands.controllerCommands.StartRecord;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
@@ -36,21 +45,20 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Driving, Climbing, Neither
 	}
 
-	// robot modes
-	Runnable teleopCommand;
-	SendableChooser<Runnable> teleopChooser, autoChooser, startPos;
-
-	// SendableChooser teleopChooser;
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Intake it;
 	public static Elevator el;
-	public static DriverAlerts da;
-	// public static TfMini mini;
-	// public static SmartDashboardInteractions sdb;
-
-	public static String startpos = "left";
-	public static String desiredAuto = "Baseline";
+	public static DriverAlerts da;	
+	public static OI oi;
+	public static Logger lg;
+    private static Looper autoLooper;
+    private static SendableChooser<Command> fileChooser;
+    private static Command autoPlayCommand;
+    private Command lastSelectedFile = new DoNothing();
+    private static String newFileName = "";
+    private static List<File> listOfFiles = new ArrayList<File>();
+    private static int lastNumOfFiles = 0;
 
 	// auto modes
 	Command autoCommand;
@@ -69,123 +77,73 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		it = new Intake();
 		// CameraServer.getInstance().startAutomaticCapture();
 		el = new Elevator();
-		// da = new DriverAlerts();
-		// sdb = new SmartDashboardInteractions();
-		// robotState =
+		oi = OI.newInstance();
+		// da = new DriverAlerts();	
+		lg = new Logger();
+		autoLooper = new Looper(kLooperDt);
+		autoLooper.register(new Record());
+		autoLooper.register(new Play()); 
 
-		// teleop modes
-		teleopChooser = new SendableChooser<>();
-		// SmartDashboard.putBoolean("alert light", Robot.da.getAlertLightState());
-		teleopChooser.addDefault("2 joysticks", () -> {
-			OI.TwoController();
-		});
-		teleopChooser.addObject("1 joystick", () -> {
-			OI.OneController();
-		});
-		SmartDashboard.putData("teleop mode chooser", teleopChooser);
-
-		
-		// auto modes
-		autoChooser = new SendableChooser<>();
-		autoChooser.addDefault("Baseline", () -> {
-			OI.BaselineAuto();
-		});
-		autoChooser.addObject("Score Cube", () -> {
-			OI.ScoreCubeAuto();
-		});
-		autoChooser.addObject("Do Nothing", () -> {
-			OI.DoNothingAuto();
-		});
-		SmartDashboard.putData("Auto Chooser", autoChooser);
-		
-
-		// Starting Pos
-		startPos = new SendableChooser<>();
-		startPos.addDefault("Left", () -> {
-			OI.Left();
-		});
-		startPos.addObject("Middle", () -> {
-			OI.Middle();
-		});
-		startPos.addObject("Right", () -> {
-			OI.Right();
-		});
-		SmartDashboard.putData("Starting Position", startPos);
-		
+        //**************************************************SmartDashboard
+		SmartDashboard.putString("NOTICE:", "Whenever you redeploy code you must restart shuffleboard; And whenever you "
+								+ "delete a file you must restart robot code.");
+		if(!isCompetition) {
+			SmartDashboard.putData("Record", new StartRecord());
+			SmartDashboard.putData("Play", new StartPlay());
+		}
+		//FileSelector
+    	fileChooser = new SendableChooser<>();
+    	fileChooser.addDefault("", new DoNothing());
+    	SmartDashboard.putData("File Selector", fileChooser);
+    	//FileAdder
+    	if(!isCompetition) {
+    		SmartDashboard.putString("New File Name", "");
+    		SmartDashboard.putData("Create a new file", new FileCreator()); 
+    	}
+    	//FileRemover
+    	if(!isCompetition)
+    		SmartDashboard.putData("Delete a file", new FileDeletor());
 	}
-
+	
 	@Override
 	public void disabledInit() {
-
+		if(isCompetition) {
+			if(autoPlayCommand.isRunning()) autoPlayCommand.cancel();
+		}
+		autoLooper.stop();		
 	}
-
+	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		allPeriodic();
 	}
 
 	@Override
 	public void autonomousInit() {
-		// new TestAuto().start();
-		// FIXME: use String.equals and instanceof instead of == and Command.toString()
-		// FIXME: figure out how to use auto commands
-
-		String gameData;
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		if (gameData.length() > 0 && !(desiredAuto.equals("DoNothing"))) {
-			//left switch code is here
-			if (gameData.charAt(0) == 'L') {
-				//switch auto scoring in left
-				if (startpos.equals("left") && desiredAuto.equals("ScoreCube"))
-					new ScoreCubeLeft().start();
-				// crossing auto baseline in right/middle
-				else
-					// do baseline in right
-					if(startpos.equals("right") && desiredAuto.equals("Baseline"))
-					new Baseline().start();
-					// do nothing in middle
-					else
-					new DoNothing().start();
-			}		
-			// put right switch code here
-			else {
-				// switch auto scoring right
-				if ((startpos.equals("right") && desiredAuto.equals("ScoreCube")) || desiredAuto.equals("Baseline"))
-					new ScoreCubeLeft().start();
-				// switch auto scoring left/middle
-				else
-					// do baseline in left
-					if(startpos.equals("right") && desiredAuto.equals("Baseline"))
-						new Baseline().start();
-						// do nothing in middle
-						else
-						new DoNothing().start();
-			}
-			/*if (gameData.charAt(0) == 'L' && startpos.equals("middle")) {
-				// Put middle auto here
-				new DoNothing().start();
-			}*/
-		} 
-		// nothing sent to driver station
-		else
-			//new DoNothing().start();
-			System.out.println("Doing Nothing!");
-		
+		autoLooper.start();
+		if(isCompetition) {
+			fileChooser.getSelected().start();
+			Command autoPlayCommand = new StartPlay();
+			autoPlayCommand.start();
+		}
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		allPeriodic();
 	}
 
 	@Override
 	public void teleopInit() {
-		OI.configure();
-
-		if (autoCommand != null)
-			autoCommand.cancel();
-		teleopCommand = teleopChooser.getSelected();
-		teleopCommand.run();
+		if(isCompetition) {
+			if(autoPlayCommand.isRunning())
+				autoPlayCommand.cancel();
+		}
+		if(!isCompetition)
+			autoLooper.start();
 	}
+	
 
 	@Override
 	public void teleopPeriodic() {
@@ -195,22 +153,66 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Free memory", runtime.freeMemory());
 		SmartDashboard.putNumber("Total memory", runtime.totalMemory());
-		// SmartDashboard.putNumber("Lazers ;)", mini.getValue());
-		/*
-		 * SmartDashboard.putNumber("Elevator Encoder Revs",
-		 * leftElevatorMaster.getSensorCollection().getQuadraturePosition() /
-		 * countsPerRev); SmartDashboard.putBoolean("Is arm at bottom: ",
-		 * el.isArmAtBottom()); SmartDashboard.putBoolean("Is arm at top: ",
-		 * el.isArmAtTop());
-		 */
-		// el.check();
-		// SmartDashboard.putNumber("Ultrasonic sensor distance (mm): ",
-		// HardwareAdapter.ultra.getRangeMM());
-		/*
-		 * SmartDashboard.putNumber("Elevator velocity:", el.getElevatorVelocity());
-		 * SmartDashboard.putNumber("Elevator Distance:", el.getTicksTravelled());
-		 */
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putBoolean("Cube Detected: ", cubeSensor1.get());
+		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
+		allPeriodic();
+	}
+	
+	@Override
+	public void testPeriodic() {
+		allPeriodic();
+	}
+	
+	private void checkForSmartDashboardUpdates() {
+		if (!isCompetition && !newFileName.equals(SmartDashboard.getString("New File Name", "")))
+			newFileName = SmartDashboard.getString("New File Name", "");
+		if (fileChooser.getSelected() != lastSelectedFile && fileChooser.getSelected() != null) {
+			fileChooser.getSelected().start();
+			lastSelectedFile = fileChooser.getSelected();
+		}
+		
+		if (lg.getFiles(outputPath).length != lastNumOfFiles) {
+			for (File file : lg.getFiles(outputPath))
+				if (!fileNameInListOfFiles(listOfFiles, file)) {
+					fileChooser.addObject(file.getName(), new FilePicker(file.getPath()));
+					listOfFiles.add(file);
+				}
+			lastNumOfFiles = lg.getFiles(outputPath).length;
+		} 
+	}
+	
+	private boolean fileNameInListOfFiles(List<File> l, File f) {
+		for(File file: l) {
+			if(file.getName().toLowerCase().equals(f.getName().toLowerCase()))
+				return true;
+		}
+		return false;
+	}
+	
+	public static SendableChooser<Command> getFileChooser() {
+		return fileChooser;
+	}
+	
+	public static Command getFile() {
+		return fileChooser.getSelected();
+	}
+	
+	public void allPeriodic() {
+		SmartDashboard.updateValues();
+		checkForSmartDashboardUpdates();
+		autoLooper.outputToSmartDashboard();
+//		dt.check();
+//		pn.check();
+		oi.check();
+		// Knowing where you're at
+		if(!isCompetition) {
+			SmartDashboard.putString("Working File", lg.getWorkingFile());
+			SmartDashboard.putString("Working Path", outputPath);
+		}
+	}
+	
+	public static String getNewFileName() {
+		return newFileName;
 	}
 }

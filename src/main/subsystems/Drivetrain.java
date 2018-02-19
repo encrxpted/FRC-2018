@@ -17,13 +17,13 @@ import main.commands.pnuematics.EngagePTO;
 
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
+	private static Drivetrain instance;
+	private static boolean highGearState = defaultHighGearState;
+	private static driveTrainControlConfig controlModeConfig;
 	
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
 	private boolean engaged = false;
-	
-	//SHIFTING
-	private static boolean highGearState = false;
 	
 	//GYRO
 	private static AHRS NavX;
@@ -63,6 +63,22 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 			System.out.println("Problem");
 		}
 	}
+	
+	/***********************
+	 * PLAY/RECORD METHODS *
+	 ***********************/
+	public double getLeftVoltage() {
+		return leftDriveMaster.getMotorOutputVoltage();
+	}
+	
+	public double getRightVoltage() {
+		return rightDriveMaster.getMotorOutputVoltage();
+	}
+	
+	public double getLeftBusVoltage() {
+		return leftDriveMaster.getBusVoltage();
+	}
+	
 	
 	/*************************
 	 * SENSOR OUTPUT METHODS *
@@ -183,23 +199,68 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 	}
 
 	private void setCtrlMode() {
-		/*
-		leftDriveMaster.set(PERCENT_VBUS_MODE, 0.5);     
-		rightDriveMaster.set(PERCENT_VBUS_MODE, 0.5);
-		leftDriveSlave1.set(SLAVE_MODE, LEFT_Drive_Master);
-		rightDriveSlave1.set(SLAVE_MODE, RIGHT_Drive_Master);
-		*/
 		leftDriveSlave1.follow(leftDriveMaster);
 		rightDriveSlave1.follow(rightDriveMaster);
 		leftDriveSlave2.follow(leftDriveMaster);
 		rightDriveSlave2.follow(rightDriveMaster);
 	}
 	
-
+	private void setVoltageComp(boolean set, double voltage, int timeout) {
+		//Voltage Compensation
+		leftDriveMaster.enableVoltageCompensation(set);
+		leftDriveSlave1.enableVoltageCompensation(set);
+		leftDriveSlave2.enableVoltageCompensation(set);
+		rightDriveMaster.enableVoltageCompensation(set);
+		rightDriveSlave1.enableVoltageCompensation(set);
+		rightDriveSlave2.enableVoltageCompensation(set);
+		leftDriveMaster.configVoltageCompSaturation(voltage, timeout);
+		leftDriveSlave1.configVoltageCompSaturation(voltage, timeout);
+		leftDriveSlave2.configVoltageCompSaturation(voltage, timeout);
+		rightDriveMaster.configVoltageCompSaturation(voltage, timeout);
+		rightDriveSlave1.configVoltageCompSaturation(voltage, timeout);
+		rightDriveSlave2.configVoltageCompSaturation(voltage, timeout);
+		//Nominal and peak outputs
+		leftDriveMaster.configPeakOutputForward(1.0, timeout);
+		leftDriveSlave1.configPeakOutputForward(1.0, timeout);
+		leftDriveSlave2.configPeakOutputForward(1.0, timeout);
+		rightDriveMaster.configPeakOutputForward(1.0, timeout);
+		rightDriveSlave1.configPeakOutputForward(1.0, timeout);
+		rightDriveSlave2.configPeakOutputForward(1.0, timeout);
+		leftDriveMaster.configPeakOutputReverse(-1.0, timeout);
+		leftDriveSlave1.configPeakOutputReverse(-1.0, timeout);
+		leftDriveSlave2.configPeakOutputReverse(-1.0, timeout);
+		rightDriveMaster.configPeakOutputReverse(-1.0, timeout);
+		rightDriveSlave1.configPeakOutputReverse(-1.0, timeout);
+		rightDriveSlave2.configPeakOutputReverse(-1.0, timeout);
+		leftDriveMaster.configNominalOutputForward(0.0, timeout);
+		leftDriveSlave1.configNominalOutputForward(0.0, timeout);
+		leftDriveSlave2.configNominalOutputForward(0.0, timeout);
+		rightDriveMaster.configNominalOutputForward(0.0, timeout);
+		rightDriveSlave1.configNominalOutputForward(0.0, timeout);
+		rightDriveSlave2.configNominalOutputForward(0.0, timeout);
+		leftDriveMaster.configNominalOutputReverse(0.0, timeout);
+		leftDriveSlave1.configNominalOutputReverse(0.0, timeout);
+		leftDriveSlave2.configNominalOutputReverse(0.0, timeout);
+		rightDriveMaster.configNominalOutputReverse(0.0, timeout);
+		rightDriveSlave1.configNominalOutputReverse(0.0, timeout);
+		rightDriveSlave2.configNominalOutputReverse(0.0, timeout);
+	}
+	
 	public void setTalonDefaults() {
 		reverseTalons(false);
 		setBrakeMode(BRAKE_MODE);
 		setCtrlMode();
+		setVoltageComp(true, voltageCompensationVoltage, 10);
+		controlModeConfig = driveTrainControlConfig.TalonDefault;
+	}
+	
+	public void setTankDefaults() {
+		setTalonDefaults();
+		controlModeConfig = driveTrainControlConfig.TankDefault;
+	}
+	
+	public driveTrainControlConfig getcontrolModeConfig() {
+		return controlModeConfig;
 	}
 
 	@Override

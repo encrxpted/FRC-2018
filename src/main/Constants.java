@@ -12,6 +12,8 @@ public interface Constants {
 	/*************
 	 * VARIABLES *
 	 *************/
+	public final boolean isCompetition = false;
+	
 	// FILE OUTPUT PATH
 	public final String outputPath = "/home/lvuser";
 	

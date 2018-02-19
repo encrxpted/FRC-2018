@@ -1,4 +1,4 @@
-package main.commands.autonomous;
+package main.commands.controllerCommands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
