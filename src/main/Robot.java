@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import main.commands.autonomous.Baseline;
 import main.commands.autonomous.DoNothing;
 import main.commands.autonomous.ScoreCubeLeft;
-import main.commands.autonomous.ScoreCubeRight;
 import main.subsystems.DriverAlerts;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
