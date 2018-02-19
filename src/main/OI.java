@@ -12,23 +12,11 @@ import main.commands.pneumatics.shift.ShiftUp;
 
 public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	public static OI instance;
-	
-	public OI() {
-		xbox.leftBumper.whenPressed(new ShiftUp());
-		xbox.leftBumper.whenReleased(new ShiftDown());
-		
-		xbox2.a.whenReleased(new IntakeCubeOff());
-		xbox2.a.whenPressed(new IntakeCube());
-		xbox2.x.whenPressed(new PushOutCube());
-		xbox2.x.whenReleased(new PushOutCubeOff());
-//		xbox2.leftTrigger.whenPressed(new MoveUp());
-//		xbox2.rightTrigger.whenPressed(new MoveDown());
-//		xbox2.leftTrigger.whenReleased(new StopElevator());
-//		xbox2.rightTrigger.whenReleased(new StopElevator());
-	}
-	
+	public static boolean controllerMode = false;
+
 	public void check() {
-		xbox.check();	
+		xbox.check();
+		xbox2.check();
 	}
 	
 	public static XboxController getXbox() {
@@ -38,6 +26,24 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
     public static XboxController getXbox2() {
 		return xbox2;
 	}
+    
+    public static void configure() {
+		xbox.leftBumper.whenPressed(new ShiftUp());
+		xbox.leftBumper.whenReleased(new ShiftDown());
+		
+    	if (controllerMode) {
+			xbox.a.whenReleased(new IntakeCubeOff());
+			xbox.a.whenPressed(new IntakeCube());
+			xbox.x.whenPressed(new PushOutCube());
+			xbox.x.whenReleased(new PushOutCubeOff());
+		} 
+    	else {
+			xbox2.a.whenReleased(new IntakeCubeOff());
+			xbox2.a.whenPressed(new IntakeCube());
+			xbox2.x.whenPressed(new PushOutCube());
+			xbox2.x.whenReleased(new PushOutCubeOff());
+		}
+    }
     
 	
 	/**************
@@ -68,5 +74,16 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 		}
 		return instance;
 	}
+    public static boolean OneController(){
+    	controllerMode = true;
+    	configure();
+    	return controllerMode;
+    }
+    
+	public static boolean TwoController(){
+    	controllerMode = false;
+    	configure();
+    	return controllerMode;
+    }
 }
  

@@ -1,13 +1,9 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+// Copyright (c) 2018 FIRST 3140. All Rights Reserved.
 
 package main;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +11,7 @@ import Util.Logger;
 import controllers.Play;
 import controllers.Record;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -33,17 +30,10 @@ import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the build.properties file in the
- * project.
- */
 public class Robot extends TimedRobot implements Constants, HardwareAdapter {
-	public static enum RobotState {
-		Driving, Climbing, Neither
-	}
+	public enum RobotState {Driving, Climbing, Neither}
+	// TODO: change enum to capitalized
+	private enum StartPos {LEFT, MIDDLE, RIGHT}
 
 	public static Drivetrain dt;
 	public static Pneumatics pn;
@@ -51,6 +41,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	public static Elevator el;
 	public static DriverAlerts da;	
 	public static OI oi;
+	// PLAY AND RECORD
 	public static Logger lg;
     private static Looper autoLooper;
     private static SendableChooser<Command> fileChooser;
@@ -59,23 +50,22 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
     private static String newFileName = "";
     private static List<File> listOfFiles = new ArrayList<File>();
     private static int lastNumOfFiles = 0;
+	// AUTO LOGIC
+	public static StartPos start_pos = StartPos.LEFT;
+	public static boolean auto_score = true;
+	private static SendableChooser<Runnable> teleopChooser, autoChooser, startPos;
 
 	// auto modes
 	Command autoCommand;
 
 	@Override
 	public void robotInit() {
-		// create auto command
-		// autonomousCommand = new SodaDelivery()
-		// mini = new TfMini();
-
 		// camera
 		CameraServer.getInstance().startAutomaticCapture();
 		// OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		it = new Intake();
-		// CameraServer.getInstance().startAutomaticCapture();
 		el = new Elevator();
 		oi = OI.newInstance();
 		// da = new DriverAlerts();	
@@ -103,6 +93,39 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
     	//FileRemover
     	if(!isCompetition)
     		SmartDashboard.putData("Delete a file", new FileDeletor());
+		// teleop modes (joystick modes)
+		teleopChooser = new SendableChooser<>();
+		teleopChooser.addDefault("2 joysticks", () -> {
+			OI.TwoController();
+		});
+		teleopChooser.addObject("1 joystick", () -> {
+			OI.OneController();
+		});
+		SmartDashboard.putData("teleop mode chooser", teleopChooser);
+
+		
+		// auto modes
+		autoChooser = new SendableChooser<>();
+		autoChooser.addObject("Score Cube", () -> {
+			auto_score=true;
+		});
+		autoChooser.addDefault("Baseline", () -> {
+			auto_score=true;
+		});
+		SmartDashboard.putData("Auto Chooser", autoChooser);
+
+		// Starting Pos
+		startPos = new SendableChooser<>();
+		startPos.addDefault("Left", () -> {
+			start_pos=StartPos.LEFT;
+		});
+		startPos.addObject("Middle", () -> {
+			start_pos=StartPos.MIDDLE;
+		});
+		startPos.addObject("Right", () -> {
+			start_pos=StartPos.RIGHT;
+		});
+		SmartDashboard.putData("Starting Position", startPos);
 	}
 	
 	@Override
@@ -125,6 +148,43 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 			fileChooser.getSelected().start();
 			Command autoPlayCommand = new StartPlay();
 			autoPlayCommand.start();
+		}
+		String gmsg = DriverStation.getInstance().getGameSpecificMessage();
+		
+		if (gmsg != null && gmsg.length() == 3) {
+			// game message is correct
+			
+			boolean left=gmsg.charAt(0)=='L';
+			
+			if (auto_score) {
+				switch (start_pos) {
+				case LEFT:
+					if (left) ; // TODO: score cube to left from left
+					else ; // TODO: score cube to right from left
+					break;
+				case MIDDLE:
+					if (left) ; // TODO: score cube to left from middle
+					else ; // TODO: score cube to right from middle
+					break;
+				case RIGHT:
+					if (left) ; // TODO: score cube to left from right
+					else ; // TODO: score cube to right from right
+				}
+			} else {
+				switch (start_pos) {
+				case LEFT:
+					if (left) ; // TODO: cross baseline to left from left
+					else ; // TODO: cross baseline to right from left
+					break;
+				case MIDDLE:
+					if (left) ; // TODO: cross baseline to left from middle
+					else ; // TODO: cross baseline to right from middle
+					break;
+				case RIGHT:
+					if (left) ; // TODO: cross baseline to left from right
+					else ; // TODO: cross baseline to right from right
+				}
+			}
 		}
 	}
 

@@ -21,22 +21,18 @@ public interface HardwareAdapter extends Constants{
 	public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
 	public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
 	 
+	//Intake
 	public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
-	//public static WPI_TalonSRX rightIntakeMotor = new WPI_TalonSRX(RIGHT_Intake);
 	
 	//ELEVATOR
 	public static WPI_TalonSRX leftElevatorMaster = new WPI_TalonSRX(LEFT_Elevator_Master);
-	//public static WPI_TalonSRX rightElevatorMaster = new WPI_TalonSRX(RIGHT_Elevator_Master);
 	
 	//SENSORS
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
 	public static DigitalInput stage1BottomSwitch = new DigitalInput(STAGE1_Bottom);
 	public static DigitalInput stage1TopSwitch = new DigitalInput(STAGE1_Top);
 	public static DigitalInput cubeSensor1 = new DigitalInput(cubeSensor);
-	//public static DigitalInput stage2BottomSwitch = new tDigitalInput(STAGE2_Bottom);
-	//public static DigitalInput stage2TopSwitch = new DigitalInput(STAGE2_Top);
 	public static DigitalOutput driverAlerts = new DigitalOutput(driverAlertsPort);
-	//public static DigitalInput intakeSwitch = new DigitalInput(INTAKE_Switch);
 	
 	//PNEUMATICS
 	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);

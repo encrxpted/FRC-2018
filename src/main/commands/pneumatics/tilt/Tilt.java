@@ -1,4 +1,4 @@
-package main.commands.pnuematics.tilt;
+package main.commands.pneumatics.tilt;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
