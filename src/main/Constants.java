@@ -10,9 +10,7 @@ public interface Constants {
 	/*************
 	 * VARIABLES *
 	 *************/
-	// REV ROBOTICS SENSORS
-	public final int analogSensor = 0;
-	
+
 	// FILE WRITING
 	public final String outputPath = "/home/lvuser";
 	
@@ -73,4 +71,7 @@ public interface Constants {
 	public final int SHIFTER_EXT = 1;
 	public final int SHIFTER_RET = 0;
 	public final int PCM_Port = 1;
+	
+	// REV ROBOTICS SENSORS
+	public final int analogSensor = 0;
 }

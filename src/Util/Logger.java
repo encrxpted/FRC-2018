@@ -41,7 +41,7 @@ public class Logger implements Constants {
 	}
 	
 	public void deleteFile(String path) {
-		File file = new File(path);//outputPath +"/" + name + ".txt");
+		File file = new File(path);
 		System.out.println(file.getName());
 		System.out.println(file.exists());
 		if(file != null && file.exists())
@@ -103,8 +103,6 @@ public class Logger implements Constants {
 	}
 	
 	public void resetForWrite() {
-		// if(!file.exists())
-		// file.createNewFile();
 		if (file != null) {
 			try {
 				fw = new FileWriter(file);

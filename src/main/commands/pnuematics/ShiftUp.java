@@ -9,7 +9,6 @@ import main.Robot;
  *
  */
 public class ShiftUp extends CommandGroup implements Constants{
-    
     public  ShiftUp() {
     	addSequential(new Shift(RET));
     	addSequential(new WaitCommand(0.1));

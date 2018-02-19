@@ -8,10 +8,8 @@
 package main;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
@@ -44,7 +42,6 @@ public class Robot extends ImprovedRobot {
 	public static Logger lg;
     private static Looper autoLooper;
     private static SendableChooser<Command> fileChooser;
-    //private static Command autoPlayCommand = new StartPlay(); // add isCompetition if-statement???
     private static Command autoPlayCommand;
     private Command lastSelectedFile = new DoNothing();
     private static String newFileName = "";
@@ -69,13 +66,14 @@ public class Robot extends ImprovedRobot {
 		autoLooper.register(new Play()); 
 		
         //**************************************************SmartDashboard
-		SmartDashboard.putString("NOTICE:", "Whenever you redeploy restart shuffleboard. And whenever you "
-								+ "delete a file restart robot code.");
+		SmartDashboard.putString("NOTICE:", "Whenever you redeploy code you must restart shuffleboard; And whenever you "
+								+ "delete a file you must restart robot code.");
 		
 		if(!isCompetition) {
 			SmartDashboard.putData("Record", new StartRecord());
 			SmartDashboard.putData("Play", new StartPlay());
 		}
+		
 		//FileSelector
     	fileChooser = new SendableChooser<>();
     	fileChooser.addDefault("", new DoNothing());
@@ -88,10 +86,6 @@ public class Robot extends ImprovedRobot {
     	//FileRemover
     	if(!isCompetition)
     		SmartDashboard.putData("Delete a file", new FileDeletor());
-    	
-    	//Knowing Where You Are At
-//    	SmartDashboard.putString("Working File", lg.getWorkingFile());
-//    	SmartDashboard.putString("Working Path", outputPath);
 	}
 	
 	@Override
@@ -101,7 +95,6 @@ public class Robot extends ImprovedRobot {
 		}
 		autoLooper.stop();		
 	}
-	
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
@@ -155,7 +148,6 @@ public class Robot extends ImprovedRobot {
 			lastSelectedFile = fileChooser.getSelected();
 		}
 		
-		//if (lg.getFiles(outputPath).length != lastNumOfFiles) {
 		if (lg.getFiles(outputPath).length != lastNumOfFiles) {
 			for (File file : lg.getFiles(outputPath))
 				if (!fileNameInListOfFiles(listOfFiles, file)) {
@@ -178,7 +170,6 @@ public class Robot extends ImprovedRobot {
 		return fileChooser;
 	}
 	
-	//I ADDED THIS
 	public static Command getFile() {
 		return fileChooser.getSelected();
 	}
@@ -192,7 +183,7 @@ public class Robot extends ImprovedRobot {
 		oi.check();
 		// Knowing where you're at
 		if(!isCompetition) {
-			SmartDashboard.putString("Working File", lg.getWorkingFile()); // Later add if-statement to minimize data sent
+			SmartDashboard.putString("Working File", lg.getWorkingFile());
 			SmartDashboard.putString("Working Path", outputPath);
 		}
 	}

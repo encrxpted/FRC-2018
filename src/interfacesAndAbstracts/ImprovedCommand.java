@@ -5,5 +5,5 @@ import main.Constants;
 import main.HardwareAdapter;
 
 public abstract class ImprovedCommand extends Command implements Constants, HardwareAdapter {
-
+	
 }

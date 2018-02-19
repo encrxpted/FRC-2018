@@ -23,7 +23,6 @@ public class Play implements Loop, Constants {
 
 	@Override
 	public void onLoop() {
-		//System.out.println("Play- onLoop");
 		if(playOK)
 			execute();
 	}
@@ -33,10 +32,8 @@ public class Play implements Loop, Constants {
 	}
 	
 	private void execute() {
-		//System.out.println("Running play");
 		String line = Robot.lg.readLine();
 		if((line) != null) { 
-			//System.out.println("line is not null");
 			String[] robotState = line.split(",");
 			
 			if(robotState.length == 14 && robotState != null) {
@@ -62,7 +59,7 @@ public class Play implements Loop, Constants {
 		}
 		else {
 			finished = true;
-			System.out.println("Definately done now.");
+			System.out.println("Finished Playing");
 		}
 	}
 	

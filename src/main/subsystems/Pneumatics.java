@@ -13,8 +13,6 @@ public class Pneumatics extends RobotSubsystem {
 		comp.setClosedLoopControl(true);
 		shifter.set(EXT);
 		shifter.set(OFF);
-
-
 	}
 	
 
@@ -58,14 +56,12 @@ public class Pneumatics extends RobotSubsystem {
 	@Override
 	public void check() {
 		// TODO Auto-generated method stub
-		
 	}
 
 
 	@Override
 	public void zeroSensors() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public static Pneumatics newInstance() {

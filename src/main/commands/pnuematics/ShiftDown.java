@@ -9,7 +9,6 @@ import main.Robot;
  *
  */
 public class ShiftDown extends CommandGroup implements Constants{
-    
     public  ShiftDown() {
     	addSequential(new Shift(EXT));
     	addSequential(new WaitCommand(0.1));
