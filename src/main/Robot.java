@@ -72,9 +72,6 @@ public class Robot extends ImprovedRobot {
 		SmartDashboard.putString("NOTICE:", "Whenever you redeploy restart shuffleboard. And whenever you "
 								+ "delete a file restart robot code.");
 		
-		if(isCompetition) {
-			autoPlayCommand = new StartPlay();
-		}
 		if(!isCompetition) {
 			SmartDashboard.putData("Record", new StartRecord());
 			SmartDashboard.putData("Play", new StartPlay());
@@ -114,8 +111,9 @@ public class Robot extends ImprovedRobot {
 	@Override
 	public void autonomousInit() {
 		autoLooper.start();
-		if(isCompetition && autoPlayCommand != null) {
+		if(isCompetition) {
 			fileChooser.getSelected().start();
+			Command autoPlayCommand = new StartPlay();
 			autoPlayCommand.start();
 		}
 	}
