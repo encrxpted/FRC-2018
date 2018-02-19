@@ -1,15 +1,16 @@
 
-package main.commands.pnuematics;
+package main.commands.pneumatics.shift;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.Robot;
 
 /**
  *
  */
-public class Shift extends Command implements Constants{
+public class Shift extends ImprovedCommand implements Constants{
 
 	private DoubleSolenoid.Value v;
     public Shift(DoubleSolenoid.Value v) {

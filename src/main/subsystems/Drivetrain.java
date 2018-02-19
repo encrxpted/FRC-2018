@@ -12,8 +12,8 @@ import main.Constants;
 import main.HardwareAdapter;
 import main.OI;
 import main.commands.drivetrain.Drive;
-import main.commands.pnuematics.DisengagePTO;
-import main.commands.pnuematics.EngagePTO;
+import main.commands.pneumatics.pto.DisengagePTO;
+import main.commands.pneumatics.pto.EngagePTO;
 
 public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);

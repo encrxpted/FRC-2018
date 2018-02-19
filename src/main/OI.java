@@ -7,8 +7,8 @@ import main.commands.commandgroups.IntakeCube;
 import main.commands.commandgroups.IntakeCubeOff;
 import main.commands.commandgroups.PushOutCube;
 import main.commands.commandgroups.PushOutCubeOff;
-import main.commands.pnuematics.ShiftDown;
-import main.commands.pnuematics.ShiftUp;
+import main.commands.pneumatics.shift.ShiftDown;
+import main.commands.pneumatics.shift.ShiftUp;
 
 public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	public static OI instance;

@@ -1,4 +1,4 @@
-package main.commands.pnuematics;
+package main.commands.pneumatics.pto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

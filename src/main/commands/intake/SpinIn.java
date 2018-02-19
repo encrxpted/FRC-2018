@@ -1,11 +1,11 @@
 package main.commands.intake;
 
-import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.HardwareAdapter;
 import main.Robot;
 
-public class SpinIn extends Command implements Constants, HardwareAdapter {
+public class SpinIn extends ImprovedCommand implements Constants, HardwareAdapter {
 	
 	public SpinIn() {
 		requires(Robot.it);

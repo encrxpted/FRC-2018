@@ -1,12 +1,12 @@
 package main.commands.elevator;
 
-import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.HardwareAdapter;
 import main.OI;
 import main.Robot;
 
-public class MoveWithJoystick extends Command implements Constants, HardwareAdapter {
+public class MoveWithJoystick extends ImprovedCommand implements Constants, HardwareAdapter {
 	
 	public MoveWithJoystick() {
 		requires(Robot.el);

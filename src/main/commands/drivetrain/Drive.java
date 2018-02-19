@@ -1,13 +1,13 @@
 package main.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 import main.OI;
 
 /**
  *
  */
-public class Drive extends Command {
+public class Drive extends ImprovedCommand {
 
     public Drive() {
     	requires(Robot.dt);

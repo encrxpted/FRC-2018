@@ -1,16 +1,17 @@
-package main.commands.pnuematics;
+package main.commands.pneumatics.pto;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.HardwareAdapter;
 import main.Robot;
 
-public class Arm extends Command implements Constants, HardwareAdapter {
+public class PTO extends ImprovedCommand implements Constants, HardwareAdapter {
 	
 	public DoubleSolenoid.Value v;
 	
-	public Arm(DoubleSolenoid.Value v) {
+	public PTO(DoubleSolenoid.Value v) {
 		requires(Robot.pn);
 		this.v = v;
 	}

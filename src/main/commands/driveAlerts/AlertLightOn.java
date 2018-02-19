@@ -1,17 +1,13 @@
 package main.commands.driveAlerts;
 
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 import main.subsystems.DriverAlerts;
 
-public class AlertLightOn {
+public class AlertLightOn extends ImprovedCommand {
 
 	public AlertLightOn() {
 		requires(Robot.da);
-	}
-
-	private void requires(DriverAlerts da) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	// Called just before this Command runs the first time
