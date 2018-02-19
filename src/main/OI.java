@@ -13,9 +13,6 @@ import main.commands.pnuematics.ShiftUp;
 public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	public static OI instance;
 	
-	// true: one, false: two
-	public static boolean ControllerMode = false;
-	
 	public OI() {
 		xbox.leftBumper.whenPressed(new ShiftUp());
 		xbox.leftBumper.whenReleased(new ShiftDown());

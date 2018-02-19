@@ -268,5 +268,12 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 		setDefaultCommand(new Drive());
 	}
 	
+	public static Drivetrain newInstance() {
+		if (instance == null) {
+			instance = new Drivetrain();
+		}
+		return instance;
+	}
+	
 }
 
