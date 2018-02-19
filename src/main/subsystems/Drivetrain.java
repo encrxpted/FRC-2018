@@ -8,6 +8,7 @@ import Util.DriveHelper;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import interfacesAndAbstracts.RobotSubsystem;
 import main.Constants;
 import main.HardwareAdapter;
 import main.OI;
@@ -15,7 +16,7 @@ import main.commands.drivetrain.Drive;
 import main.commands.pneumatics.pto.DisengagePTO;
 import main.commands.pneumatics.pto.EngagePTO;
 
-public class Drivetrain extends Subsystem implements Constants, HardwareAdapter {
+public class Drivetrain extends RobotSubsystem implements Constants, HardwareAdapter {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private static Drivetrain instance;
 	private static boolean highGearState = defaultHighGearState;
@@ -273,6 +274,18 @@ public class Drivetrain extends Subsystem implements Constants, HardwareAdapter 
 			instance = new Drivetrain();
 		}
 		return instance;
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void zeroSensors() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
