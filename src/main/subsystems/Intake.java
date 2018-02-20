@@ -19,19 +19,19 @@ public class Intake extends Subsystem implements Constants, HardwareAdapter {
 	
 	public void spinIn() {
 		leftIntakeMotor.set(-1.0);
-//    	rightIntakeMotor.set(-1.0);
+    	rightIntakeMotor.set(1.0);
     	wheelStates = WheelStates.In;
 	}
 	
 	public void spinOut() {
 		leftIntakeMotor.set(1.0);
-//    	rightIntakeMotor.set(1.0);
+    	rightIntakeMotor.set(-1.0);
     	wheelStates = WheelStates.Out;
 	}
 	
 	public void spinOff() {
     	leftIntakeMotor.set(0.0);
-//    	rightIntakeMotor.set(0.0);
+    	rightIntakeMotor.set(0.0);
     	wheelStates = WheelStates.Off;
 	}
 	
