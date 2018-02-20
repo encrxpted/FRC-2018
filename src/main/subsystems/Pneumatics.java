@@ -56,7 +56,7 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 	}
 	
 	// Changes the tilter to up or down
-	public void tilt (DoubleSolenoid.Value v) {
+	public void tilt(DoubleSolenoid.Value v) {
 		if (v == EXT) liftStates = LiftStates.Down;
 		else if (v == RET) liftStates = LiftStates.Up;
 		else { liftStates = LiftStates.Off; }
@@ -65,6 +65,14 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 	
 	public void shiftPTO(DoubleSolenoid.Value v) {
 		pto.set(v);
+	}
+	
+	public void toggleForks(DoubleSolenoid.Value v) {
+		forklift.set(v);
+	}
+	
+	public void toggleHooks(DoubleSolenoid.Value v) {
+		hook.set(v);
 	}
 	
 	/**
