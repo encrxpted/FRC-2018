@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Spark;
 
 public interface HardwareAdapter extends Constants{
 	//OI
@@ -21,11 +22,13 @@ public interface HardwareAdapter extends Constants{
 	public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
 	public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
 	 
-	//Intake
-	public static WPI_TalonSRX leftIntakeMotor = new WPI_TalonSRX(LEFT_Intake);
+	//INTAKE
+	public static Spark leftIntakeMotor = new Spark(LEFT_Intake);
+	public static Spark rightIntakeMotor = new Spark(RIGHT_Intake);
 	
 	//ELEVATOR
 	public static WPI_TalonSRX leftElevatorMaster = new WPI_TalonSRX(LEFT_Elevator_Master);
+	public static WPI_TalonSRX rightElevatorMaster = new WPI_TalonSRX(RIGHT_Elevator_Master);
 	
 	//SENSORS
 	public static RevRoboticsAnalogPressureSensor analogPressureSensor1 = new RevRoboticsAnalogPressureSensor(analogSensor);
@@ -38,6 +41,7 @@ public interface HardwareAdapter extends Constants{
 	public static DoubleSolenoid shifter = new DoubleSolenoid(PCM_Port1, SHIFTER_EXT, SHIFTER_RET);
 	public static DoubleSolenoid tilter = new DoubleSolenoid(PCM_Port1, TILT_EXT, TILT_RET);
 	public static Compressor comp = new Compressor(PCM_Port1);
+	public static Compressor comp2 = new Compressor(PCM_Port2);
 	public static DoubleSolenoid arm = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
 	public static DoubleSolenoid pto = new DoubleSolenoid(PCM_Port1, PTO_EXT, PTO_RET);
     //Driver Alert

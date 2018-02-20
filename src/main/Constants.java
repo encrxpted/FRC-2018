@@ -89,7 +89,7 @@ public interface Constants {
 	// DRIVETRAIN TALONS (CAN BUS)
 	public final int LEFT_Drive_Master = 3;
 	public final int LEFT_Drive_Slave1 = 6;
-	public final int RIGHT_Drive_Master = 2;
+	public final int RIGHT_Drive_Master = 12;
 	public final int RIGHT_Drive_Slave1 = 5;
 	public final int LEFT_Drive_Slave2 = 9;
 	public final int RIGHT_Drive_Slave2 = 4;
@@ -104,6 +104,7 @@ public interface Constants {
 	
 	// PNEUMATICS CONTROL MODULE
 	public final int PCM_Port1 = 1;
+	public final int PCM_Port2 = 2;
 	
 	// INTAKE PNEUMATICS
 	public final int INTAKE_EXT = 0;
