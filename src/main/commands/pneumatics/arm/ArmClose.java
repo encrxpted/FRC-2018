@@ -12,5 +12,4 @@ public class ArmClose extends CommandGroup implements Constants, HardwareAdapter
     	addSequential(new WaitCommand(0.1));
     	addSequential(new Arm(OFF));
     }
-
 }

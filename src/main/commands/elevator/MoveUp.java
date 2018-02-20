@@ -6,9 +6,6 @@ import main.Constants;
 import main.HardwareAdapter;
 import main.Robot;
 
-/**
- *
- */
 public class MoveUp extends ImprovedCommand implements Constants, HardwareAdapter{	
     public MoveUp() {
     	requires(Robot.el);
@@ -20,8 +17,6 @@ public class MoveUp extends ImprovedCommand implements Constants, HardwareAdapte
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//System.out.println("D-Pad Up Pressed");
-    	//Robot.el.moveUp();
     	Robot.el.up();
     }
 

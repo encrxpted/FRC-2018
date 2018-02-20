@@ -6,7 +6,6 @@ import main.HardwareAdapter;
 import main.Robot;
 
 public class SpinOut extends ImprovedCommand implements Constants, HardwareAdapter {
-	
 	public SpinOut() {
 		requires(Robot.it);
 	}

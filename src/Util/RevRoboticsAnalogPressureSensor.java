@@ -20,6 +20,5 @@ public class RevRoboticsAnalogPressureSensor {
         	return value;
         else 
         	return 0.0;
-    }
-    
+    }    
 }

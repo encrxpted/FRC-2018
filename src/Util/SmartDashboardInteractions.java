@@ -6,7 +6,6 @@ public class SmartDashboardInteractions {
 					lastTSmallMaxV, lastTSmallMinV, lastTBigMaxV, lastTBigMinV,
 					lastDistance, lastDTolerance, lastDKP, lastDKI, lastDKD, lastDminV, lastDmaxV;
 	private int lastSwitchAngle;
-	
 	private double heading, Ttolerance;
 	private int switchAngle;
 	private double TSKP, TSKI, TSKD, TBKP, TBKI, TBKD, TSmallMaxV, TSmallMinV, TBigMaxV, TBigMinV;
@@ -214,5 +213,4 @@ public class SmartDashboardInteractions {
 	        return false;
 	    }
 	}*/
-
 }

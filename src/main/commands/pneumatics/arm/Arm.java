@@ -7,7 +7,6 @@ import main.HardwareAdapter;
 import main.Robot;
 
 public class Arm extends ImprovedCommand implements Constants, HardwareAdapter {
-	
 	public DoubleSolenoid.Value v;
 	
 	public Arm(DoubleSolenoid.Value v) {
@@ -21,8 +20,6 @@ public class Arm extends ImprovedCommand implements Constants, HardwareAdapter {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

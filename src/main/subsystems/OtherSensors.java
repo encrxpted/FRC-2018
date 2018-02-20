@@ -10,11 +10,8 @@ public class OtherSensors extends Subsystem implements Constants, HardwareAdapte
 	private boolean elevatorLastState;
 	private boolean elevatorCurrentState;
 	private Command flashLights = new AlertDriver();
-	// private InternalButton alertDriverButton = new InternalButton(); //Note to
-	// Self: Internal buttons crash robot code!
 
 	public OtherSensors() {
-
 	}
 
 	public void check() {
@@ -22,19 +19,13 @@ public class OtherSensors extends Subsystem implements Constants, HardwareAdapte
 	}
 
 	private void Elevator() {
-
-		// System.out.println(gearSwitchCurrentState);
 		if (elevatorLastState != elevatorCurrentState)
 			flashLights.start();
-		// alertDriverButton.setPressed(gearSwitchCurrentState != gearSwitchLastState);
-		// alertDriverButton.whenPressed(new AlertDriver());
 		elevatorLastState = elevatorCurrentState;
 	}
 
 	private boolean IntakeLastState;
 	private boolean IntakeCurrentState;
-	// private InternalButton alertDriverButton = new InternalButton(); //Note to
-	// Self: Internal buttons crash robot code!
 
 	@Override
 	protected void initDefaultCommand() {
@@ -57,7 +48,6 @@ public class OtherSensors extends Subsystem implements Constants, HardwareAdapte
 		System.out.println(IntakeCurrentState);
 		if (IntakeLastState != IntakeCurrentState)
 			flashLights.start();
-		// alertDriverButton.whenPressed(new AlertDriver());
 		IntakeLastState = IntakeCurrentState;
 	}
 
@@ -71,5 +61,4 @@ public class OtherSensors extends Subsystem implements Constants, HardwareAdapte
 	public void setElevatorLastState(boolean elevatorLastState) {
 		this.IntakeLastState = elevatorLastState;
 	}
-
 }

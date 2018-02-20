@@ -3,12 +3,8 @@ package main.commands.elevator;
 import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 
-/**
- *
- */
 public class StopElevator extends ImprovedCommand {
-
-    public StopElevator() {
+	public StopElevator() {
     	requires(Robot.el);
     }
 
@@ -18,8 +14,6 @@ public class StopElevator extends ImprovedCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//System.out.println("D-Pad Up Pressed");
-    	//Robot.el.moveUp();
     	Robot.el.stop();
     }
 

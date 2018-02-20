@@ -6,5 +6,4 @@ public class MathHelper {
 			return limit * Math.signum(val);
 		else return val;
 	}
-
 }

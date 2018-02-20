@@ -12,22 +12,21 @@ import edu.wpi.first.wpilibj.Timer;
  * Modified by Alexander Peters
  */
 public class TimeDelayedBoolean {
-
-  Timer t = new Timer();
-  double timeout;
+	Timer t = new Timer();
+	double timeout;
   
 
-  public TimeDelayedBoolean(double timeout) {
-    this.timeout = timeout;
-    t.start();
-  }
+	public TimeDelayedBoolean(double timeout) {
+		this.timeout = timeout;
+		t.start();
+	}
 
-  public boolean get() {
-    return t.get() > timeout;
-  }
+	public boolean get() {
+		return t.get() > timeout;
+	}
 
-  public void resetTimer(double timeout) {
-	  t.reset();
-	  this.timeout = timeout;
-  }
+	public void resetTimer(double timeout) {
+		t.reset();
+		this.timeout = timeout;
+	}
 }

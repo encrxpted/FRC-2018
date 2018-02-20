@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import interfacesAndAbstracts.RobotSubsystem;
 import main.HardwareAdapter;
 
-
 public class DriverAlerts extends RobotSubsystem implements HardwareAdapter {
 
 	/*public void setAlertLightState(boolean state) {
@@ -35,9 +34,6 @@ public class DriverAlerts extends RobotSubsystem implements HardwareAdapter {
 
 	@Override
 	public void zeroSensors() {
-		// TODO Auto-generated method stub
-
 	}
-
 }
 

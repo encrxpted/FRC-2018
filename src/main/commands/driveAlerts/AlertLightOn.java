@@ -5,7 +5,6 @@ import main.Robot;
 import main.subsystems.DriverAlerts;
 
 public class AlertLightOn extends ImprovedCommand {
-
 	public AlertLightOn() {
 		requires(Robot.da);
 	}
@@ -33,6 +32,5 @@ public class AlertLightOn extends ImprovedCommand {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-	}
-	
+	}	
 }

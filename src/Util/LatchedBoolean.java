@@ -24,7 +24,6 @@ public class LatchedBoolean {
 	public boolean getOutput(){
 		return output;
 	}
-
 }
 
 

@@ -8,7 +8,7 @@ public class StartRecord extends ImprovedCommand {
 	public StartRecord() {
     }
 
-    // Called just before this Command runs the first time
+	// Called just before this Command runs the first time
     protected void initialize() {
     	Robot.lg.resetForWrite();
     	Record.okToRecord(true);

@@ -152,14 +152,11 @@ public class Drivetrain extends RobotSubsystem  {
 	@Override
 	public void check() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void zeroSensors() {
 		// TODO Auto-generated method stub
-		
-	}
-	
+	}	
 }
 

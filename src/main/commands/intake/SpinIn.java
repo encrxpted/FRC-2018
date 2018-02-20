@@ -6,7 +6,6 @@ import main.HardwareAdapter;
 import main.Robot;
 
 public class SpinIn extends ImprovedCommand implements Constants, HardwareAdapter {
-	
 	public SpinIn() {
 		requires(Robot.it);
 	}
@@ -32,6 +31,5 @@ public class SpinIn extends ImprovedCommand implements Constants, HardwareAdapte
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    }
-    
+    }    
 }

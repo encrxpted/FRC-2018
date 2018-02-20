@@ -8,7 +8,6 @@ import main.HardwareAdapter;
 import main.Robot;
 
 public class Tilt extends ImprovedCommand implements Constants, HardwareAdapter {
-	
 	public DoubleSolenoid.Value v;
 	
 	public Tilt(DoubleSolenoid.Value v) {
@@ -22,8 +21,6 @@ public class Tilt extends ImprovedCommand implements Constants, HardwareAdapter 
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

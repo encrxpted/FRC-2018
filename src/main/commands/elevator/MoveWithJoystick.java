@@ -7,21 +7,16 @@ import main.OI;
 import main.Robot;
 
 public class MoveWithJoystick extends ImprovedCommand implements Constants, HardwareAdapter {
-	
 	public MoveWithJoystick() {
 		requires(Robot.el);
 	}
 	
 	protected void execute() {
-//		if(OI.getControllerMode())
-//			Robot.el.moveWithJoystick(OI.getXbox().getSmoothedAltY());
-//		else
-			Robot.el.moveWithJoystick(-OI.getXbox2().getSmoothedMainY());
+		Robot.el.moveWithJoystick(-OI.getXbox2().getSmoothedMainY());
 	}
 
 	@Override
 	protected boolean isFinished() {
 		return true;
 	}
-
 }

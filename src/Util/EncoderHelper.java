@@ -1,7 +1,6 @@
 package Util;
 
 public class EncoderHelper {
-	
 	// Converts inches to encoder revolutions.
 	// Inches is what you desire to convert. Circum is the circumference of the spindle that is moving
 	public double inchesToRevs(double inches, double circum) {
@@ -24,5 +23,4 @@ public class EncoderHelper {
 	public double encoderTicksToInches(double encoderTicks, double ticksPerRev, double circum) {
 		return encoderTicksToRevs(encoderTicks, ticksPerRev) * circum;
 	}
-
 }

@@ -4,12 +4,8 @@ import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 import main.OI;
 
-/**
- *
- */
 public class Drive extends ImprovedCommand {
-
-    public Drive() {
+	public Drive() {
     	requires(Robot.dt);
     }
 

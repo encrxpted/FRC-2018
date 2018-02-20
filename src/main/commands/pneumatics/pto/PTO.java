@@ -8,7 +8,6 @@ import main.HardwareAdapter;
 import main.Robot;
 
 public class PTO extends ImprovedCommand implements Constants, HardwareAdapter {
-	
 	public DoubleSolenoid.Value v;
 	
 	public PTO(DoubleSolenoid.Value v) {
@@ -22,8 +21,6 @@ public class PTO extends ImprovedCommand implements Constants, HardwareAdapter {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

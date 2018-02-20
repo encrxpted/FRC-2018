@@ -6,11 +6,9 @@ import main.Constants;
 import main.HardwareAdapter;
 
 public class EngagePTO extends CommandGroup implements Constants, HardwareAdapter {
-	
 	public EngagePTO() {
     	addSequential(new PTO(EXT));
     	addSequential(new WaitCommand(0.1));
     	addSequential(new PTO(OFF));
 	}
-
 }

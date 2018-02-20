@@ -41,6 +41,5 @@ public class Intake extends Subsystem implements Constants, HardwareAdapter {
 //	
 	@Override
 	protected void initDefaultCommand() {
-		
 	}
 }

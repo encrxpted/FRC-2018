@@ -200,8 +200,7 @@ public class Robot extends ImprovedRobot {
 		}
 		if(!isCompetition)
 			autoLooper.start();
-	}
-	
+	}	
 
 	@Override
 	public void teleopPeriodic() {

@@ -16,8 +16,6 @@ public class MoveFromPlay extends ImprovedCommand {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return true;
 	}
-
 }

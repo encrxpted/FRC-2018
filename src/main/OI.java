@@ -14,12 +14,16 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	public static OI instance;
 	
 	public OI() {
-		configure();
-	}
-	
-	public void check() {
-		xbox.check();
-		xbox2.check();
+		xbox.setInternalControl(false);
+		xbox2.setInternalControl(false);
+		
+		xbox.leftBumper.whenPressed(new ShiftUp());
+		xbox.leftBumper.whenReleased(new ShiftDown());
+
+		xbox2.a.whenReleased(new IntakeCubeOff());
+		xbox2.a.whenPressed(new IntakeCube());
+		xbox2.x.whenPressed(new PushOutCube());
+		xbox2.x.whenReleased(new PushOutCubeOff());
 	}
 	
 	public static XboxController getXbox() {
@@ -30,17 +34,11 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 		return xbox2;
 	}
     
-    public static void configure() {
-		xbox.leftBumper.whenPressed(new ShiftUp());
-		xbox.leftBumper.whenReleased(new ShiftDown());
+	public void check() {
+		xbox.check();
+		xbox2.check();
+	}
 
-		xbox2.a.whenReleased(new IntakeCubeOff());
-		xbox2.a.whenPressed(new IntakeCube());
-		xbox2.x.whenPressed(new PushOutCube());
-		xbox2.x.whenReleased(new PushOutCubeOff());
-    }
-    
-	
 	/**************
 	 * PLAY/RECORD *
 	 ***************/

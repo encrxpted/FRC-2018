@@ -22,8 +22,7 @@ public class DriveHelper implements Constants{
     
     public double calculateTurn(double turn, boolean highGear){
     	return handleOverPower(accountForInertia(smoothTurning(handleDeadband(turn, headingDeadband), highGear)));
-    }
-    
+    }    
     
     private double accountForInertia(double turn) {
         double newTurn = turn;
@@ -88,7 +87,6 @@ public class DriveHelper implements Constants{
     	else 
     		return throttle;
     }    
-    
     /*
     private double lastThrottleValue = 0.0;
     private int smoothingnum = 0;

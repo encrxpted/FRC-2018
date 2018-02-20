@@ -77,11 +77,9 @@ public interface Constants {
 	public final double elevator_kI = 0;
 	public final double elevator_kD = 0;*/
 	
-	
 	/*********
 	 * PORTS *
-	 *********/
-	
+	 *********/	
 	// XBOX PORTS
 	public final int Xbox_Port = 0;
 	public final int Xbox_Port2 = 1;
@@ -131,7 +129,5 @@ public interface Constants {
 	public final double alertOnTime = 0.125;
 	public final double alertOffTime = 0.125;
 	public final int driverAlertsPort = 10;
-	public final int DriverAlert_DigiOut = 2;
-
-	
+	public final int DriverAlert_DigiOut = 2;	
 }

@@ -13,8 +13,6 @@ public class AlertDriver extends CommandGroup implements Constants {
 	}
 
 	private void addSequential(AlertLightOnForTime alertLightOnForTime) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

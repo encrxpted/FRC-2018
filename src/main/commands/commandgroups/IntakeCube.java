@@ -7,13 +7,9 @@ import main.commands.intake.SpinIn;
 import main.commands.pneumatics.arm.ArmOpen;
 import main.commands.pneumatics.tilt.*;
 
-/**
- *
- */
 public class IntakeCube extends CommandGroup implements Constants, HardwareAdapter {
-
-    public IntakeCube() {
-    	//addParallel(new TiltDown());
+	public IntakeCube() {
+    	addParallel(new TiltDown());
     	addParallel(new ArmOpen());
     	addParallel(new SpinIn());
     }
