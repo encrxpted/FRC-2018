@@ -3,6 +3,8 @@ package main;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import lib.joystick.XboxController;
+import main.commands.commandgroups.Dance;
+import main.commands.commandgroups.DanceOff;
 import main.commands.commandgroups.DropCube;
 import main.commands.commandgroups.DropCubeOff;
 import main.commands.commandgroups.IntakeCube;
@@ -18,6 +20,8 @@ public class OI extends CommandGroup implements Constants, HardwareAdapter {
 	public OI() {
 		xbox.setInternalControl(false);
 		xbox2.setInternalControl(false);
+		xbox.start.whileHeld(new Dance());
+	    xbox.start.whileHeld(new DanceOff());
 		
 		xbox.leftBumper.whenPressed(new ShiftUp());
 		xbox.leftBumper.whenReleased(new ShiftDown());
