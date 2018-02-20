@@ -3,8 +3,8 @@ package main.subsystems;
 import edu.wpi.first.wpilibj.command.Command;
 import interfacesAndAbstracts.RobotSubsystem;
 import main.OI;
-import main.commands.pneumatics.forklifts.DeployForklift;
-import main.commands.pneumatics.hook.DeployHook;
+import main.commands.pneumatics.climber.forklifts.DeployForklift;
+import main.commands.pneumatics.climber.hook.DeployHook;
 
 public class Climb extends RobotSubsystem {
 
