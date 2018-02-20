@@ -44,6 +44,9 @@ public interface HardwareAdapter extends Constants{
 	public static Compressor comp2 = new Compressor(PCM_Port2);
 	public static DoubleSolenoid arm = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
 	public static DoubleSolenoid pto = new DoubleSolenoid(PCM_Port1, PTO_EXT, PTO_RET);
+	public static DoubleSolenoid forklift = new DoubleSolenoid(PCM_Port2, FORK_EXT, FORK_RET);
+	public static DoubleSolenoid hook = new DoubleSolenoid(PCM_Port2, HOOK_EXT, HOOK_RET);
+	
     //Driver Alert
 	//public static DigitalOutput alertRelay = new DigitalOutput(DriverAlert_DigiOut);
 }
