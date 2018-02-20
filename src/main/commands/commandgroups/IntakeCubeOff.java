@@ -7,8 +7,8 @@ import main.commands.pneumatics.tilt.TiltUp;
 
 public class IntakeCubeOff extends CommandGroup {
 	public IntakeCubeOff() {
-    	addParallel(new SpinOff());
-    	addParallel(new TiltUp());
-    	addParallel(new ArmClose());
+		addSequential(new ArmClose());
+    	addSequential(new TiltUp());
+    	addSequential(new SpinOff());
     }
 }

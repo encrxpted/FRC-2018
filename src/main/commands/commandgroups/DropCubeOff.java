@@ -6,7 +6,7 @@ import main.commands.pneumatics.tilt.TiltUp;
 
 public class DropCubeOff extends CommandGroup {
 	public DropCubeOff() {
-    	addParallel(new TiltUp());
-    	addParallel(new ArmClose());
+		addSequential(new ArmClose());
+    	addSequential(new TiltUp());
     }
 }

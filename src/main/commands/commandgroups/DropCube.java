@@ -10,8 +10,8 @@ import main.commands.pneumatics.tilt.TiltDown;;
 
 public class DropCube extends CommandGroup implements Constants, HardwareAdapter {
 	public DropCube() {
-		addParallel(new TiltDown());
-		addParallel(new ArmOpen());
+		addSequential(new TiltDown());
+		addSequential(new ArmOpen());
 	}
 }
 

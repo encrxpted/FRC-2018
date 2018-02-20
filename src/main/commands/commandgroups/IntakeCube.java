@@ -9,8 +9,8 @@ import main.commands.pneumatics.tilt.*;
 
 public class IntakeCube extends CommandGroup implements Constants, HardwareAdapter {
 	public IntakeCube() {
-    	addParallel(new TiltDown());
-    	addParallel(new ArmOpen());
-    	addParallel(new SpinIn());
+    	addSequential(new TiltDown());
+    	addSequential(new ArmOpen());
+    	addSequential(new SpinIn());
     }
 }
