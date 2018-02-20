@@ -10,7 +10,6 @@ public class StartRecord extends ImprovedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.getFileChooser().getSelected().start();
     	Robot.lg.resetForWrite();
     	Record.okToRecord(true);
     }

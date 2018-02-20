@@ -10,10 +10,8 @@ public class StartPlay extends ImprovedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.getFileChooser().getSelected().start();
     	Robot.lg.resetForRead();
     	Robot.oi.setInternalControl(true);
-    	Robot.dt.setTankDefaults();
     	Play.okToPlay(true);
     }
 
@@ -29,7 +27,6 @@ public class StartPlay extends ImprovedCommand {
     // Called once after isFinished returns true
     protected void end() {
     	Play.okToPlay(false);
-    	Robot.dt.setTalonDefaults();
     	Robot.oi.setInternalControl(false);
     	Play.reset();
     }

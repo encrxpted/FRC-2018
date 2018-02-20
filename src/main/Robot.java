@@ -3,20 +3,18 @@
 package main;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import interfacesAndAbstracts.ImprovedRobot;
 import loopController.Looper;
 import main.commands.controllerCommands.DoNothing;
 import main.commands.controllerCommands.FileCreator;
@@ -30,11 +28,8 @@ import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 
-public class Robot extends TimedRobot implements Constants, HardwareAdapter {
-	public enum RobotState {Driving, Climbing, Neither}
-	// TODO: change enum to capitalized
+public class Robot extends ImprovedRobot {
 	private enum StartPos {LEFT, MIDDLE, RIGHT}
-
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Intake it;
@@ -53,7 +48,7 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	// AUTO LOGIC
 	public static StartPos start_pos = StartPos.LEFT;
 	public static boolean auto_score = true;
-	private static SendableChooser<Runnable> teleopChooser, autoChooser, startPos;
+	private static SendableChooser<Runnable> autoChooser, startPos;
 
 	// auto modes
 	Command autoCommand;
@@ -77,32 +72,21 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
         //**************************************************SmartDashboard
 		SmartDashboard.putString("NOTICE:", "Whenever you redeploy code you must restart shuffleboard; And whenever you "
 								+ "delete a file you must restart robot code.");
-		if(!isCompetition) {
-			SmartDashboard.putData("Record", new StartRecord());
-			SmartDashboard.putData("Play", new StartPlay());
-		}
+
 		//FileSelector
     	fileChooser = new SendableChooser<>();
     	fileChooser.addDefault("", new DoNothing());
     	SmartDashboard.putData("File Selector", fileChooser);
-    	//FileAdder
+    	
     	if(!isCompetition) {
+    		SmartDashboard.putData("Record", new StartRecord());
+			SmartDashboard.putData("Play", new StartPlay());
+    		// File adder
     		SmartDashboard.putString("New File Name", "");
     		SmartDashboard.putData("Create a new file", new FileCreator()); 
-    	}
-    	//FileRemover
-    	if(!isCompetition)
+    		// File deleter
     		SmartDashboard.putData("Delete a file", new FileDeletor());
-		// teleop modes (joystick modes)
-		teleopChooser = new SendableChooser<>();
-		teleopChooser.addDefault("2 joysticks", () -> {
-			OI.TwoController();
-		});
-		teleopChooser.addObject("1 joystick", () -> {
-			OI.OneController();
-		});
-		SmartDashboard.putData("teleop mode chooser", teleopChooser);
-
+    	}
 		
 		// auto modes
 		autoChooser = new SendableChooser<>();
@@ -142,7 +126,8 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 	}
 
 	@Override
-	public void autonomousInit() {
+	public void autonomousInit() { 
+		//TODO: THIS NEEDS SOME SERIOUS WORK
 		autoLooper.start();
 		if(isCompetition) {
 			fileChooser.getSelected().start();
@@ -215,7 +200,6 @@ public class Robot extends TimedRobot implements Constants, HardwareAdapter {
 		SmartDashboard.putNumber("Total memory", runtime.totalMemory());
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
 		SmartDashboard.putBoolean("Cube Detected: ", cubeSensor1.get());
-		SmartDashboard.putNumber("Analog Sensor 1 value", HardwareAdapter.analogPressureSensor1.value());
 		allPeriodic();
 	}
 	

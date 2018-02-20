@@ -20,19 +20,14 @@ public interface Constants {
 	// REV ROBOTICS SENSORS
 	public final int analogSensor = 0;
 	
-	// PNEUMATICS
-	public final int armUp = 0;
-	public final int armDown = 0;
-	
 	// JOYSTICK DEADBANDS
-	public final double throttleDeadband = 0.03;
+	public final double throttleDeadband = 0.02;
 	public final double headingDeadband = 0.02;
 	
 	// DRIVEHELPER
 	public final double smoothThrottleDif = 0.1; //Set to max difference you want
 	
 	// SENSORS
-	public final boolean encodersInverted = true;
 	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.	
 	public final int cubeSensor = 0;
 	
@@ -41,15 +36,6 @@ public interface Constants {
 
 	// LOOPER CONSTANTS
 	public final double kLooperDt = 0.005;// 0.005
-
-	// DRIVETRAIN CONSTANTS
-	// false: default low gear - true: default high gear
-	public final boolean defaultHighGearState = false;
-	// Possible DriveTrain Control Configurations
-	public enum driveTrainControlConfig {
-		TalonDefault(), TankDefault()
-	}
-		
 	
 	/*************
 	 * CONSTANTS *
