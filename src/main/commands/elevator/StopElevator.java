@@ -1,12 +1,12 @@
 package main.commands.elevator;
 
-import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 
 /**
  *
  */
-public class StopElevator extends Command {
+public class StopElevator extends ImprovedCommand {
 
     public StopElevator() {
     	requires(Robot.el);

@@ -1,6 +1,7 @@
 package main.commands.elevator;
 
 import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.HardwareAdapter;
 import main.Robot;
@@ -8,7 +9,7 @@ import main.Robot;
 /**
  *
  */
-public class MoveUp extends Command implements Constants, HardwareAdapter{	
+public class MoveUp extends ImprovedCommand implements Constants, HardwareAdapter{	
     public MoveUp() {
     	requires(Robot.el);
     }

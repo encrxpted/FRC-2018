@@ -1,9 +1,9 @@
 package main.commands.elevator;
 
-import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 
-public class MoveFromPlay extends Command {
+public class MoveFromPlay extends ImprovedCommand {
 	private double voltage;
 	
 	public MoveFromPlay(double voltage) {

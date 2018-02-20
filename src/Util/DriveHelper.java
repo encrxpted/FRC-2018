@@ -7,27 +7,21 @@ import main.Constants;
  * @author Joseph Grube
  */
 public class DriveHelper implements Constants{
-    
     private double negInertiaScalar;
     private double negInertiaAccumulator;
     private double oldTurn;
     private double wheelNonLinearity;
 
-    
-    
     public DriveHelper(double negInertiaScalar) {
         this.negInertiaScalar = negInertiaScalar;
-        
     }
     
     public double calculateThrottle(double throttle) {
     	return handleOverPower(handleDeadband(throttle, throttleDeadband));
-    	
     }
     
     public double calculateTurn(double turn, boolean highGear){
     	return handleOverPower(accountForInertia(smoothTurning(handleDeadband(turn, headingDeadband), highGear)));
-    	
     }
     
     
@@ -76,24 +70,26 @@ public class DriveHelper implements Constants{
 		}
 		return turn;
 	}
+	
     public double handleDeadband(double val, double deadband) {
         return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
     }
+    
     public double handleOverPower(double joystickVal){
     	if(Math.abs(joystickVal) > 1.0)
     		return Math.signum(joystickVal);
     	else
     		return joystickVal;
     }
+    
     public double handleJoystickHatingMe(double throttle) {
     	if(Math.abs(throttle) >= 0.95)
     		return Math.signum(throttle);
     	else 
     		return throttle;
-    }
+    }    
     
-    
-    // changes we made
+    /*
     private double lastThrottleValue = 0.0;
     private int smoothingnum = 0;
     public double smoothThrottle(double throttle) {
@@ -115,5 +111,5 @@ public class DriveHelper implements Constants{
     	double v = handleOverPower(handleDeadband(throttle, throttleDeadband));
     	return v;
     }
-    // end of changes
+    */
 }

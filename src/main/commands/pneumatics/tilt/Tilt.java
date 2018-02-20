@@ -1,23 +1,24 @@
-package main.commands.pnuematics;
+package main.commands.pneumatics.tilt;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.HardwareAdapter;
 import main.Robot;
 
-public class PTO extends Command implements Constants, HardwareAdapter {
+public class Tilt extends ImprovedCommand implements Constants, HardwareAdapter {
 	
 	public DoubleSolenoid.Value v;
 	
-	public PTO(DoubleSolenoid.Value v) {
+	public Tilt(DoubleSolenoid.Value v) {
 		requires(Robot.pn);
 		this.v = v;
 	}
 	
-    protected void execute() {
-    	Robot.pn.toggleArm(v);
-    }
+	public void execute(DoubleSolenoid.Value v) {
+		Robot.pn.tilt(v);
+	}
 
 	@Override
 	protected boolean isFinished() {

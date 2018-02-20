@@ -1,23 +1,30 @@
-package main.commands.intake;
 
+package main.commands.pneumatics.shift;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.command.Command;
 import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
-import main.HardwareAdapter;
 import main.Robot;
 
-public class SpinOut extends ImprovedCommand implements Constants, HardwareAdapter {
-	
-	public SpinOut() {
-		requires(Robot.it);
-	}
-	
+/**
+ *
+ */
+public class Shift extends ImprovedCommand implements Constants{
+
+	private DoubleSolenoid.Value v;
+    public Shift(DoubleSolenoid.Value v) {
+    	requires(Robot.pn);
+    	this.v = v;
+    }
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.it.spinOut();
+    	Robot.pn.shift(v);
     }
 
     // Make this return true when this Command no longer needs to run execute()

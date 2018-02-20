@@ -1,26 +1,27 @@
-package main.commands.intake;
+package main.commands.drivetrain;
 
 import interfacesAndAbstracts.ImprovedCommand;
-import main.Constants;
-import main.HardwareAdapter;
 import main.Robot;
 
-public class SpinOut extends ImprovedCommand implements Constants, HardwareAdapter {
+public class DriveFromPlayer extends ImprovedCommand {
+	private double leftVoltage;
+	private double rightVoltage;
 	
-	public SpinOut() {
-		requires(Robot.it);
-	}
-	
+	public DriveFromPlayer(double leftVoltage, double rightVoltage) {
+    	requires(Robot.dt);
+    	this.leftVoltage = leftVoltage;
+    	this.rightVoltage = rightVoltage;
+    }
+
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.it.spinOut();
+    	Robot.dt.driveVoltageTank(leftVoltage, rightVoltage);
     }
-
-    // Make this return true when this Command no longer needs to run execute()
+    
     protected boolean isFinished() {
         return true;
     }

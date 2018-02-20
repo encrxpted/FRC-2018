@@ -30,7 +30,7 @@ public class AnalogButton extends Button {
 	   * @param threshold - The threshold to trigger above (positive) or below (negative)
 	   */
 	  public AnalogButton(GenericHID joystick, int axisNumber, double threshold) {
-	  	m_joystick = joystick;
+	  	  m_joystick = joystick;
 	      m_axisNumber = axisNumber;
 	      THRESHOLD = threshold;
 	  }

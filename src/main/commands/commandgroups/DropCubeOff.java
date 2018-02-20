@@ -1,8 +1,8 @@
 package main.commands.commandgroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import main.commands.pnuematics.ArmClose;
-import main.commands.pnuematics.TiltUp;
+import main.commands.pneumatics.arm.ArmClose;
+import main.commands.pneumatics.tilt.TiltUp;
 
 /**
  *

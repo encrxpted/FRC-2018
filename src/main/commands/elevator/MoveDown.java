@@ -1,11 +1,11 @@
 package main.commands.elevator;
 
-import edu.wpi.first.wpilibj.command.Command;
+import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.HardwareAdapter;
 import main.Robot;
 
-public class MoveDown extends Command implements Constants, HardwareAdapter{	
+public class MoveDown extends ImprovedCommand implements Constants, HardwareAdapter{	
     public MoveDown() {
     	requires(Robot.el);
     }
