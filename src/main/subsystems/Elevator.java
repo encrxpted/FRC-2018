@@ -44,8 +44,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	
 	//max velocity was 100523u/100ms	
 	public Elevator() {
-		//setElevatorEncoderDefaults();
-		setBrakeMode();
+		setElevatorDefaults();
 	}
 	
 	/************************
@@ -58,16 +57,16 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 		
 	private void setAccelAndVeloDefaults() {
-		leftElevatorMaster.configMotionCruiseVelocity(cruiseVelocity, 10);
-		leftElevatorMaster.configMotionAcceleration(acceleration, 10);
+		elevatorMaster.configMotionCruiseVelocity(cruiseVelocity, 10);
+		elevatorMaster.configMotionAcceleration(acceleration, 10);
 	}
 	
 	private void setPIDValues() {
-		leftElevatorMaster.selectProfileSlot(elevatorIdx, pidIdx);
-		leftElevatorMaster.config_kF(elevatorIdx, fGain, 10);
-		leftElevatorMaster.config_kP(elevatorIdx, elevator_kP, 10);
-		leftElevatorMaster.config_kI(elevatorIdx, elevator_kI, 10);
-		leftElevatorMaster.config_kD(elevatorIdx, elevator_kD, 10);
+		elevatorMaster.selectProfileSlot(elevatorIdx, pidIdx);
+		elevatorMaster.config_kF(elevatorIdx, fGain, 10);
+		elevatorMaster.config_kP(elevatorIdx, elevator_kP, 10);
+		elevatorMaster.config_kI(elevatorIdx, elevator_kI, 10);
+		elevatorMaster.config_kD(elevatorIdx, elevator_kD, 10);
 	}
 	
 	private void setMotionMagicDefaults() {
@@ -81,7 +80,34 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * TALON SUPPORT METHODS *
 	 ************************/
 	private void setBrakeMode() {
-		leftElevatorMaster.setNeutralMode(BRAKE_MODE);
+		elevatorMaster.setNeutralMode(BRAKE_MODE);
+		elevatorSlave.setNeutralMode(BRAKE_MODE);
+	}
+	
+	private void setCtrlMode() {
+		elevatorSlave.follow(elevatorMaster);
+	}
+	
+	public void setVoltageMode(boolean set, double voltage, int timeout) {
+		elevatorMaster.enableVoltageCompensation(set);
+		elevatorSlave.enableVoltageCompensation(set);
+		elevatorMaster.configVoltageCompSaturation(voltage, timeout);
+		elevatorSlave.configVoltageCompSaturation(voltage, timeout);
+
+		elevatorMaster.configPeakOutputForward(1.0, timeout);
+		elevatorMaster.configNominalOutputForward(1.0, timeout);
+		elevatorMaster.configPeakOutputReverse(1.0, timeout);
+		elevatorMaster.configNominalOutputReverse(1.0, timeout);
+		elevatorSlave.configPeakOutputForward(1.0, timeout);
+		elevatorSlave.configNominalOutputForward(1.0, timeout);
+		elevatorSlave.configPeakOutputReverse(1.0, timeout);
+		elevatorSlave.configNominalOutputReverse(1.0, timeout);
+	}
+	
+	private void setElevatorDefaults() {
+		setCtrlMode();
+		setBrakeMode();
+		setVoltageMode(true, 12, 10);
 	}
 
 	/**************************
@@ -89,7 +115,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 **************************/
 	
 	private void resetElevatorEncoder() {
-		leftElevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
+		elevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
 	// Checks if the intake is at bottom
@@ -138,16 +164,16 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 **********************/
 	
 	public double getElevatorVelocity() {
-		return leftElevatorMaster.getSensorCollection().getQuadratureVelocity();
+		return elevatorMaster.getSensorCollection().getQuadratureVelocity();
 	}
 	
 	// Gets the number of revolutions of the encoder
 	private double getElevatorRevs() {
-		return leftElevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev;
+		return elevatorMaster.getSensorCollection().getQuadraturePosition() / countsPerRev;
 	}
 	
 	public double getTicksTravelled() {
-		return leftElevatorMaster.getSensorCollection().getQuadraturePosition();
+		return elevatorMaster.getSensorCollection().getQuadraturePosition();
 	}
 	
 	// Get the distance the elevator has travelled
@@ -172,69 +198,63 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * RECORD/PLAY *
 	 ***************/
 	public double getElevatorVoltage() {
-		return leftElevatorMaster.getMotorOutputVoltage();
+		return elevatorMaster.getMotorOutputVoltage();
 	}
-	
-	public void setVoltageMode(boolean set, double voltage, int timeout) {
-		leftElevatorMaster.enableVoltageCompensation(set);
-			if(set == true) leftElevatorMaster.configVoltageCompSaturation(voltage, timeout);
-	}
-	
 	
 	/********************
 	 * MOVEMENT METHODS *
 	 ********************/
 	
 	public void moveFromPlay(double voltage) {
-		leftElevatorMaster.set(voltage);
+		elevatorMaster.set(voltage);
 	}
 	
 	public void moveToPosPID(double pos) {
 		setMotionMagicDefaults();
-		leftElevatorMaster.set(ControlMode.MotionMagic, inchesToElevatorEncoderTicks(pos));
+		elevatorMaster.set(ControlMode.MotionMagic, inchesToElevatorEncoderTicks(pos));
 	}
 	
 	public void moveWithJoystick(double throttle) {
-		leftElevatorMaster.set(driveHelper.handleDeadband(throttle, throttleDeadband));
+		elevatorMaster.set(driveHelper.handleDeadband(throttle, throttleDeadband));
 	}
 	
 	// Moves fast to a position if far away, slows down when it gets closer, and stops when it reaches
 	// the position within a tolerance.
 	public void moveToPos(double pos) {
 //		if(isIntakeAtPos(pos)) {
-//			leftElevatorMaster.set(0);
+//			elevatorMaster.set(0);
 //		}
 		if (isIntakeNearPos(pos, nearSetpoint)) {
-			if (isIntakeBelowPos(pos)) leftElevatorMaster.set(slowElevatorSpeed);
-			else leftElevatorMaster.set(-1 * slowElevatorSpeed);
+			if (isIntakeBelowPos(pos)) elevatorMaster.set(slowElevatorSpeed);
+			else elevatorMaster.set(-1 * slowElevatorSpeed);
 		}
 		else {
-			if (isIntakeBelowPos(pos)) leftElevatorMaster.set(defaultElevatorSpeed);
-			else leftElevatorMaster.set(defaultElevatorSpeed * -1); 
+			if (isIntakeBelowPos(pos)) elevatorMaster.set(defaultElevatorSpeed);
+			else elevatorMaster.set(defaultElevatorSpeed * -1); 
 		}
 	}
 
 	public void moveDown() {
 		if (isArmAtBottom()) {
-			leftElevatorMaster.set(PERCENT_VBUS_MODE, 0);
+			elevatorMaster.set(PERCENT_VBUS_MODE, 0);
 		}
 		else if (isIntakeNearPos(0, nearSetpointDown)) {
-			leftElevatorMaster.set(getDistanceTravelled() * (-1/36));
+			elevatorMaster.set(getDistanceTravelled() * (-1/36));
 		}
 		else {
-			leftElevatorMaster.set(-1 * defaultElevatorSpeed);
+			elevatorMaster.set(-1 * defaultElevatorSpeed);
 		}
 	}
 	
 	public void moveUp() {
 		if (isArmAtTop()) {
-			leftElevatorMaster.set(0);
+			elevatorMaster.set(0);
 		}
 		else if(isIntakeNearPos(elevatorHeight, nearSetpoint)) {
-			leftElevatorMaster.set(slowElevatorSpeed);
+			elevatorMaster.set(slowElevatorSpeed);
 		}
 		else {
-			leftElevatorMaster.set(defaultElevatorSpeed);
+			elevatorMaster.set(defaultElevatorSpeed);
 		}
 	}
 	
@@ -243,15 +263,15 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 *****************/
 	
 	public void up() {
-		leftElevatorMaster.set(-1.0);
+		elevatorMaster.set(-1.0);
 	}
 	
 	public void down() {
-		leftElevatorMaster.set(1.0);
+		elevatorMaster.set(1.0);
 	}
 	
 	public void stop() {
-		leftElevatorMaster.set(0);
+		elevatorMaster.set(0);
 	}
 	
 	@Override

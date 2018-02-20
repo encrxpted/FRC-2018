@@ -100,7 +100,7 @@ public interface Constants {
 	
 	// ELEVATOR MOTORS
 	public final int LEFT_Elevator_Master = 8;
-	public final int RIGHT_Elevator_Master = 7;
+	public final int Elevator_Slave = 7;
 	
 	// PNEUMATICS CONTROL MODULE
 	public final int PCM_Port1 = 1;
