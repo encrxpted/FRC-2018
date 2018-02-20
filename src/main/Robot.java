@@ -8,7 +8,6 @@ import java.util.List;
 import Util.Logger;
 import controllers.Play;
 import controllers.Record;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -23,6 +22,7 @@ import main.commands.controllerCommands.FilePicker;
 import main.commands.controllerCommands.StartPlay;
 import main.commands.controllerCommands.StartRecord;
 import main.subsystems.DriverAlerts;
+import main.subsystems.DriverCamera;
 import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
 import main.subsystems.Intake;
@@ -34,6 +34,7 @@ public class Robot extends ImprovedRobot {
 	public static Pneumatics pn;
 	public static Intake it;
 	public static Elevator el;
+	public static DriverCamera dc;
 	public static DriverAlerts da;	
 	public static OI oi;
 	// PLAY AND RECORD
@@ -51,12 +52,13 @@ public class Robot extends ImprovedRobot {
 	private static SendableChooser<Runnable> autoChooser, startPos;
 
 	// auto modes
-	Command autoCommand;
+	//Command autoCommand;
 
 	@Override
 	public void robotInit() {
 		// camera
-		CameraServer.getInstance().startAutomaticCapture();
+		//CameraServer.getInstance().startAutomaticCapture();
+		dc = new DriverCamera();
 		// OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
@@ -223,6 +225,7 @@ public class Robot extends ImprovedRobot {
 	private void checkForSmartDashboardUpdates() {
 		if (!isCompetition && !newFileName.equals(SmartDashboard.getString("New File Name", "")))
 			newFileName = SmartDashboard.getString("New File Name", "");
+		
 		if (fileChooser.getSelected() != lastSelectedFile && fileChooser.getSelected() != null) {
 			fileChooser.getSelected().start();
 			lastSelectedFile = fileChooser.getSelected();
