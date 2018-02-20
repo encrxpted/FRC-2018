@@ -133,41 +133,54 @@ public class Robot extends ImprovedRobot {
 			fileChooser.getSelected().start();
 			Command autoPlayCommand = new StartPlay();
 			autoPlayCommand.start();
-		}
-		String gmsg = DriverStation.getInstance().getGameSpecificMessage();
-		
-		if (gmsg != null && gmsg.length() == 3) {
-			// game message is correct
-			
-			boolean left=gmsg.charAt(0)=='L';
-			
-			if (auto_score) {
-				switch (start_pos) {
-				case LEFT:
-					if (left) ; // TODO: score cube to left from left
-					else ; // TODO: score cube to right from left
-					break;
-				case MIDDLE:
-					if (left) ; // TODO: score cube to left from middle
-					else ; // TODO: score cube to right from middle
-					break;
-				case RIGHT:
-					if (left) ; // TODO: score cube to left from right
-					else ; // TODO: score cube to right from right
-				}
-			} else {
-				switch (start_pos) {
-				case LEFT:
-					if (left) ; // TODO: cross baseline to left from left
-					else ; // TODO: cross baseline to right from left
-					break;
-				case MIDDLE:
-					if (left) ; // TODO: cross baseline to left from middle
-					else ; // TODO: cross baseline to right from middle
-					break;
-				case RIGHT:
-					if (left) ; // TODO: cross baseline to left from right
-					else ; // TODO: cross baseline to right from right
+
+			String gmsg = DriverStation.getInstance().getGameSpecificMessage();
+
+			if (gmsg != null && gmsg.length() == 3) {
+				// game message is correct
+
+				boolean left = gmsg.charAt(0) == 'L';
+
+				if (auto_score) {
+					switch (start_pos) {
+					case LEFT:
+						if (left)
+							; // TODO: score cube to left from left
+						else
+							; // TODO: score cube to right from left
+						break;
+					case MIDDLE:
+						if (left)
+							; // TODO: score cube to left from middle
+						else
+							; // TODO: score cube to right from middle
+						break;
+					case RIGHT:
+						if (left)
+							; // TODO: score cube to left from right
+						else
+							; // TODO: score cube to right from right
+					}
+				} else {
+					switch (start_pos) {
+					case LEFT:
+						if (left)
+							; // TODO: cross baseline to left from left
+						else
+							; // TODO: cross baseline to right from left
+						break;
+					case MIDDLE:
+						if (left)
+							; // TODO: cross baseline to left from middle
+						else
+							; // TODO: cross baseline to right from middle
+						break;
+					case RIGHT:
+						if (left)
+							; // TODO: cross baseline to left from right
+						else
+							; // TODO: cross baseline to right from right
+					}
 				}
 			}
 		}
