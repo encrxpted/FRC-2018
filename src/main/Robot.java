@@ -21,6 +21,7 @@ import main.commands.controllerCommands.FileDeletor;
 import main.commands.controllerCommands.FilePicker;
 import main.commands.controllerCommands.StartPlay;
 import main.commands.controllerCommands.StartRecord;
+import main.subsystems.Climb;
 import main.subsystems.DriverAlerts;
 import main.subsystems.DriverCamera;
 import main.subsystems.Drivetrain;
@@ -36,6 +37,7 @@ public class Robot extends ImprovedRobot {
 	public static Elevator el;
 	public static DriverCamera dc;
 	public static DriverAlerts da;	
+	public static Climb cl;
 	public static OI oi;
 	// PLAY AND RECORD
 	public static Logger lg;
@@ -64,6 +66,7 @@ public class Robot extends ImprovedRobot {
 		pn = new Pneumatics();
 		it = new Intake();
 		el = new Elevator();
+		cl = new Climb();
 		oi = OI.newInstance();
 		// da = new DriverAlerts();	
 		lg = new Logger();

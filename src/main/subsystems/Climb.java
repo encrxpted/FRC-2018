@@ -3,6 +3,7 @@ package main.subsystems;
 import edu.wpi.first.wpilibj.command.Command;
 import interfacesAndAbstracts.RobotSubsystem;
 import main.OI;
+import main.commands.pneumatics.climber.DeployClimber;
 import main.commands.pneumatics.climber.forklifts.DeployForklift;
 import main.commands.pneumatics.climber.hook.DeployHook;
 
@@ -28,8 +29,7 @@ public class Climb extends RobotSubsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new DeployClimber());
 	}
 
 }
