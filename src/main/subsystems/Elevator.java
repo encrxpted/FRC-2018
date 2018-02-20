@@ -198,7 +198,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * RECORD/PLAY *
 	 ***************/
 	public double getElevatorVoltage() {
-		return elevatorMaster.getMotorOutputVoltage();
+		return (elevatorMaster.getMotorOutputVoltage() + elevatorSlave.getMotorOutputVoltage())/2;
 	}
 	
 	/********************
@@ -215,7 +215,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	}
 	
 	public void moveWithJoystick(double throttle) {
-		elevatorMaster.set(driveHelper.handleDeadband(throttle, throttleDeadband));
+		elevatorMaster.set(driveHelper.handleOverPower(driveHelper.handleDeadband(throttle, throttleDeadband)));
 	}
 	
 	// Moves fast to a position if far away, slows down when it gets closer, and stops when it reaches
