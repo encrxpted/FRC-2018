@@ -10,3 +10,4 @@ public class DanceOff extends CommandGroup implements Constants, HardwareAdapter
 	public DanceOff() {
 		addSequential(new SpinOff());
 	}
+}
