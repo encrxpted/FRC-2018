@@ -1,4 +1,4 @@
-package main.commands.pneumatics.forklifts;
+package main.commands.pneumatics.climber.forklifts;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

@@ -1,19 +1,19 @@
-package main.commands.pneumatics.hook;
+package main.commands.pneumatics.climber.forklifts;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 
-public class Hook extends ImprovedCommand {
+public class Forklift extends ImprovedCommand {
 	private DoubleSolenoid.Value v;
-	
-	public Hook(DoubleSolenoid.Value v) {
+
+	public Forklift(DoubleSolenoid.Value v) {
 		requires(Robot.pn);
 		this.v = v;
 	}
 	
 	protected void execute() {
-		Robot.pn.toggleHooks(v);
+		Robot.pn.toggleForks(v);
 	}
 
 	@Override
