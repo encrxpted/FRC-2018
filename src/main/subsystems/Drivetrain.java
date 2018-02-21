@@ -2,13 +2,10 @@ package main.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import Util.DriveHelper;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import interfacesAndAbstracts.RobotSubsystem;
-import main.OI;
 import main.commands.drivetrain.Drive;
-import main.commands.pneumatics.pto.DisengagePTO;
-import main.commands.pneumatics.pto.EngagePTO;
+
 
 public class Drivetrain extends RobotSubsystem  {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
@@ -22,25 +19,10 @@ public class Drivetrain extends RobotSubsystem  {
 		setTalonDefaults();
 	}
 	
-	//DRIVE FOR TELEOP
+	// DRIVE FOR TELEOP
 	public void driveVelocity(double throttle, double heading) {
-		if(!OI.getXbox().start.get() || !OI.getXbox2().start.get()) { // Either/both not pressed- normal drive and disengage PTO
-			if(engaged) {
-				Command disengagePto = new DisengagePTO();
-				disengagePto.start();
-				engaged = false;
-			}
-			driveTrain.arcadeDrive(helper.handleOverPower(helper.handleDeadband(throttle, throttleDeadband)),
-									helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
-		}
-		else { // Both pressed- can only drive forward and engage PTO
-			if(!engaged) {
-				Command engagePto = new EngagePTO();
-				engagePto.start();
-				engaged = true;
-			}
-			driveTrain.arcadeDrive(Math.abs(helper.handleOverPower(helper.handleDeadband(throttle, throttleDeadband))), 0.0);
-		}
+		driveTrain.arcadeDrive(helper.handleOverPower(helper.handleDeadband(throttle, throttleDeadband)),
+				helper.handleOverPower(helper.handleDeadband(heading, headingDeadband)));
 	}
 	
 	//Drive for playing back
