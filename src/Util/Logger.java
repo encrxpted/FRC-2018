@@ -197,6 +197,7 @@ public class Logger implements Constants {
 					leftBumper2 || rightBumper2 || select2 || start2 || leftJoystickPress2 || rightJoystickPress2 || leftTrigger2 || rightTrigger2) {
 					
 					firstNonZeroValueLine = i;
+					break;
 				}
 			}
 		} catch (NumberFormatException e) {
