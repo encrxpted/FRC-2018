@@ -95,13 +95,13 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 		elevatorSlave.configVoltageCompSaturation(voltage, timeout);
 
 		elevatorMaster.configPeakOutputForward(1.0, timeout);
-		elevatorMaster.configNominalOutputForward(1.0, timeout);
-		elevatorMaster.configPeakOutputReverse(1.0, timeout);
-		elevatorMaster.configNominalOutputReverse(1.0, timeout);
+		elevatorMaster.configNominalOutputForward(0, timeout);
+		elevatorMaster.configPeakOutputReverse(-1.0, timeout);
+		elevatorMaster.configNominalOutputReverse(0, timeout);
 		elevatorSlave.configPeakOutputForward(1.0, timeout);
-		elevatorSlave.configNominalOutputForward(1.0, timeout);
-		elevatorSlave.configPeakOutputReverse(1.0, timeout);
-		elevatorSlave.configNominalOutputReverse(1.0, timeout);
+		elevatorSlave.configNominalOutputForward(0, timeout);
+		elevatorSlave.configPeakOutputReverse(-1, timeout);
+		elevatorSlave.configNominalOutputReverse(0, timeout);
 	}
 	
 	private void setElevatorDefaults() {

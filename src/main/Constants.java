@@ -115,13 +115,13 @@ public interface Constants {
 	public final int SHIFTER_RET = 3;
 	
 	// CLIMB AND RELATED PNEUMATICS
-	public final int PTO_EXT = 6;
-	public final int PTO_RET = 7;
-	public final int FORK_EXT = 1;
-	public final int FORK_RET = 2;
-	public final int HOOK_EXT = 3;
-	public final int HOOK_RET = 4;
-	
+//	public final int PTO_EXT = 6;
+//	public final int PTO_RET = 7;
+//	public final int FORK_EXT = 1;
+//	public final int FORK_RET = 2;
+//	public final int HOOK_EXT = 3;
+//	public final int HOOK_RET = 4;
+//	
 	// SWITCHES
 	public final int STAGE1_Bottom = 8;
 	public final int STAGE1_Top = 2;

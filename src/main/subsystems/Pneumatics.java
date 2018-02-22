@@ -15,8 +15,12 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		tilter.set(OFF);
 		arm.set(EXT);
 		arm.set(OFF);
-		pto.set(RET);
-		pto.set(OFF);
+//		pto.set(RET);
+//		pto.set(OFF);
+//		forklift.set(EXT);
+//		forklift.set(OFF);
+//		hook.set(EXT);
+//		hook.set(OFF);
 	}
 	
 	public static enum ArmStates {
@@ -62,19 +66,19 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 		else { liftStates = LiftStates.Off; }
 		tilter.set(v);
 	}
-	
-	public void shiftPTO(DoubleSolenoid.Value v) {
-		pto.set(v);
-	}
-	
-	public void toggleForks(DoubleSolenoid.Value v) {
-		forklift.set(v);
-	}
-	
-	public void toggleHooks(DoubleSolenoid.Value v) {
-		hook.set(v);
-	}
-	
+//	
+//	public void shiftPTO(DoubleSolenoid.Value v) {
+//		pto.set(v);
+//	}
+//	
+//	public void toggleForks(DoubleSolenoid.Value v) {
+//		forklift.set(v);
+//	}
+//	
+//	public void toggleHooks(DoubleSolenoid.Value v) {
+//		hook.set(v);
+//	}
+//	
 	/**
 	 * Toggles the compressor (ON/OFF)
 	 */

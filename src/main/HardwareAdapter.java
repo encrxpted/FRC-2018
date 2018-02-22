@@ -19,8 +19,8 @@ public interface HardwareAdapter extends Constants{
 	public static WPI_TalonSRX leftDriveSlave1 = new WPI_TalonSRX(LEFT_Drive_Slave1);
 	public static WPI_TalonSRX rightDriveMaster = new WPI_TalonSRX(RIGHT_Drive_Master);
 	public static WPI_TalonSRX rightDriveSlave1 = new WPI_TalonSRX(RIGHT_Drive_Slave1);
-	public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
-	public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
+	//public static WPI_TalonSRX leftDriveSlave2 = new WPI_TalonSRX(LEFT_Drive_Slave2);
+	//public static WPI_TalonSRX rightDriveSlave2 = new WPI_TalonSRX(RIGHT_Drive_Slave2);
 	 
 	//INTAKE
 	public static Spark leftIntakeMotor = new Spark(LEFT_Intake);
@@ -43,9 +43,9 @@ public interface HardwareAdapter extends Constants{
 	public static Compressor comp = new Compressor(PCM_Port1);
 	public static Compressor comp2 = new Compressor(PCM_Port2);
 	public static DoubleSolenoid arm = new DoubleSolenoid(PCM_Port1, INTAKE_EXT, INTAKE_RET);
-	public static DoubleSolenoid pto = new DoubleSolenoid(PCM_Port1, PTO_EXT, PTO_RET);
-	public static DoubleSolenoid forklift = new DoubleSolenoid(PCM_Port2, FORK_EXT, FORK_RET);
-	public static DoubleSolenoid hook = new DoubleSolenoid(PCM_Port2, HOOK_EXT, HOOK_RET);
+//	public static DoubleSolenoid pto = new DoubleSolenoid(PCM_Port1, PTO_EXT, PTO_RET);
+//	public static DoubleSolenoid forklift = new DoubleSolenoid(PCM_Port2, FORK_EXT, FORK_RET);
+//	public static DoubleSolenoid hook = new DoubleSolenoid(PCM_Port2, HOOK_EXT, HOOK_RET);
 	
     //Driver Alert
 	//public static DigitalOutput alertRelay = new DigitalOutput(DriverAlert_DigiOut);
