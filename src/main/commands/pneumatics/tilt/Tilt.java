@@ -1,7 +1,6 @@
 package main.commands.pneumatics.tilt;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Command;
 import interfacesAndAbstracts.ImprovedCommand;
 import main.Constants;
 import main.HardwareAdapter;

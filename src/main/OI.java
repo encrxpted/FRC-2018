@@ -3,8 +3,6 @@ package main;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 import lib.joystick.XboxController;
-import main.commands.commandgroups.Dance;
-import main.commands.commandgroups.DanceOff;
 import main.commands.commandgroups.DropCube;
 import main.commands.commandgroups.DropCubeOff;
 import main.commands.commandgroups.IntakeCube;
