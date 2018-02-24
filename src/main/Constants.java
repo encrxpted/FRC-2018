@@ -15,7 +15,21 @@ public interface Constants {
 	public final boolean isCompetition = false;
 	
 	// FILE OUTPUT PATH
-	public final String outputPath = "/home/lvuser";
+	public final String outputPath = "/home/lvuser"; // USB output path: /U
+	
+	// FILE NAMES
+	public final String LEFT_LeftSwitch = "LEFT_LSwitch";
+	public final String LEFT_Scale = "LEFT_Scale";
+	public final String LEFT_RightSwitch = "LEFT_RSwitch";
+	public final String LEFT_SwitchAndScale = "LEFT_SwitchScale";
+	public final String RIGHT_RightSwitch = "RIGHT_RSwitch";
+	public final String RIGHT_Scale = "RIGHT_Scale";
+	public final String RIGHT_LeftSwitch = "RIGHT_LSwitch";
+	public final String RIGHT_SwitchAndScale = "RIGHT_SwitchScale";
+	public final String MID_RightSwitch = "MID_RSwitch";
+	public final String MID_LeftSwitch = "MID_LSwitch";
+	public final String baseline = "Baseline";
+	// Do nothing file?
 	
 	// REV ROBOTICS SENSORS
 	public final int analogSensor = 0;
