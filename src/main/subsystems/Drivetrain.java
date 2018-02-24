@@ -13,7 +13,6 @@ public class Drivetrain extends RobotSubsystem  {
 	
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
-	private boolean engaged = false;
 
 	public Drivetrain() {
 		setTalonDefaults();

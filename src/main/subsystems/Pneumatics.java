@@ -1,11 +1,9 @@
 package main.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import main.Constants;
-import main.HardwareAdapter;
+import interfacesAndAbstracts.RobotSubsystem;
 
-public class Pneumatics extends Subsystem implements Constants, HardwareAdapter {
+public class Pneumatics extends RobotSubsystem {
 	private boolean down = false;
 
 	public Pneumatics() {
@@ -99,5 +97,17 @@ public class Pneumatics extends Subsystem implements Constants, HardwareAdapter 
 	 *******************/
 	public void initDefaultCommand() {
 		setDefaultCommand(null);
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void zeroSensors() {
+		// TODO Auto-generated method stub
+		
 	}
 }

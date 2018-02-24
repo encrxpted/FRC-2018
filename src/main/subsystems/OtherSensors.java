@@ -1,12 +1,10 @@
 package main.subsystems;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import main.Constants;
-import main.HardwareAdapter;
+import interfacesAndAbstracts.RobotSubsystem;
 import main.commands.driveAlerts.AlertDriver;
 
-public class OtherSensors extends Subsystem implements Constants, HardwareAdapter {
+public class OtherSensors extends RobotSubsystem {
 	private boolean elevatorLastState;
 	private boolean elevatorCurrentState;
 	private Command flashLights = new AlertDriver();
@@ -15,10 +13,10 @@ public class OtherSensors extends Subsystem implements Constants, HardwareAdapte
 	}
 
 	public void check() {
-		Elevator();
+		elevator();
 	}
 
-	private void Elevator() {
+	private void elevator() {
 		if (elevatorLastState != elevatorCurrentState)
 			flashLights.start();
 		elevatorLastState = elevatorCurrentState;
@@ -40,10 +38,10 @@ public class OtherSensors extends Subsystem implements Constants, HardwareAdapte
 	}
 
 	public void check1() {
-		Intake();
+		intake();
 	}
 
-	private void Intake() {
+	private void intake() {
 
 		System.out.println(IntakeCurrentState);
 		if (IntakeLastState != IntakeCurrentState)
@@ -60,5 +58,11 @@ public class OtherSensors extends Subsystem implements Constants, HardwareAdapte
 
 	public void setElevatorLastState(boolean elevatorLastState) {
 		this.IntakeLastState = elevatorLastState;
+	}
+
+	@Override
+	public void zeroSensors() {
+		// TODO Auto-generated method stub
+		
 	}
 }

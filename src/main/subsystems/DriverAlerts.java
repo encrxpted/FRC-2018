@@ -1,6 +1,5 @@
 package main.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import interfacesAndAbstracts.RobotSubsystem;
 import main.HardwareAdapter;
 

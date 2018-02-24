@@ -1,13 +1,10 @@
 package main.commands.pneumatics.tilt;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Command;
 import interfacesAndAbstracts.ImprovedCommand;
-import main.Constants;
-import main.HardwareAdapter;
 import main.Robot;
 
-public class Tilt extends ImprovedCommand implements Constants, HardwareAdapter {
+public class Tilt extends ImprovedCommand {
 	public DoubleSolenoid.Value v;
 	
 	public Tilt(DoubleSolenoid.Value v) {

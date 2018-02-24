@@ -1,10 +1,7 @@
 package main;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-
+import interfacesAndAbstracts.RobotClass;
 import lib.joystick.XboxController;
-import main.commands.commandgroups.Dance;
-import main.commands.commandgroups.DanceOff;
 import main.commands.commandgroups.DropCube;
 import main.commands.commandgroups.DropCubeOff;
 import main.commands.commandgroups.IntakeCube;
@@ -14,7 +11,7 @@ import main.commands.commandgroups.PushOutCubeOff;
 import main.commands.pneumatics.shift.ShiftDown;
 import main.commands.pneumatics.shift.ShiftUp;
 
-public class OI extends CommandGroup implements Constants, HardwareAdapter {
+public class OI extends RobotClass {
 	public static OI instance;
 	
 	public OI() {

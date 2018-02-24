@@ -1,10 +1,8 @@
 package main.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import main.Constants;
-import main.HardwareAdapter;
+import interfacesAndAbstracts.RobotSubsystem;
 
-public class Intake extends Subsystem implements Constants, HardwareAdapter {
+public class Intake extends RobotSubsystem {
 	public static enum WheelStates {
 		In, Out, Off
 	}
@@ -41,5 +39,17 @@ public class Intake extends Subsystem implements Constants, HardwareAdapter {
 //	
 	@Override
 	protected void initDefaultCommand() {
+	}
+
+	@Override
+	public void check() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void zeroSensors() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,15 +1,12 @@
 package main.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import Util.DriveHelper;
 import Util.EncoderHelper;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import main.Constants;
-import main.HardwareAdapter;
+import interfacesAndAbstracts.RobotSubsystem;
 import main.commands.elevator.MoveWithJoystick;
 
-public class Elevator extends Subsystem implements Constants, HardwareAdapter {
+public class Elevator extends RobotSubsystem {
 	// GET F-GAIN
 	// TEST ERROR AND CALCULATE P
 	// TEST FOR COASTING- BRAKE MODE WORKS GREAT
@@ -114,7 +111,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	 * SENSOR SUPPORT METHODS *
 	 **************************/
 	
-	private void resetElevatorEncoder() {
+	public void zeroSensors() {
 		elevatorMaster.getSensorCollection().setQuadraturePosition(0, 10);
 	}
 	
@@ -134,7 +131,7 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	// Sets encoders to 0 if the arm is at the bottom (this helps to avoid offset)
 	public void check() {
 		if (isArmAtBottom())
-			resetElevatorEncoder();
+			zeroSensors();
 	}
 	
 	// Returns whether or not the intake has reached the set position. Pos is in inches
@@ -278,4 +275,5 @@ public class Elevator extends Subsystem implements Constants, HardwareAdapter {
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MoveWithJoystick());
 	}
+
 }
