@@ -72,14 +72,6 @@ public class Robot extends ImprovedRobot {
 		autoLooper.register(new Play()); 
 
         //**************************************************SmartDashboard
-		SmartDashboard.putString("NOTICE:", "Whenever you redeploy code you must restart shuffleboard; And whenever you "
-								+ "delete a file you must restart robot code.");
-
-		//FileSelector
-    	fileChooser = new SendableChooser<>();
-    	fileChooser.addDefault("", new DoNothing());
-    	SmartDashboard.putData("File Selector", fileChooser);
-    	
     	if(!isCompetition) {
     		SmartDashboard.putData("Record", new StartRecord());
 			SmartDashboard.putData("Play", new StartPlay());
@@ -88,6 +80,13 @@ public class Robot extends ImprovedRobot {
     		SmartDashboard.putData("Create a new file", new FileCreator()); 
     		// File deleter
     		SmartDashboard.putData("Delete a file", new FileDeletor());
+    		//FileSelector
+        	fileChooser = new SendableChooser<>();
+        	fileChooser.addDefault("", new DoNothing());
+        	SmartDashboard.putData("File Selector", fileChooser);
+    		
+    		SmartDashboard.putString("NOTICE:", "Whenever you redeploy code you must restart shuffleboard; And whenever you "
+					+ "delete a file you must restart robot code.");
     	}
 		
 		// auto modes
