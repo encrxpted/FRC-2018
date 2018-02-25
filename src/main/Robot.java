@@ -48,8 +48,12 @@ public class Robot extends ImprovedRobot {
     private static int lastNumOfFiles = 0;
 	// AUTO LOGIC
 	public static StartPos start_pos = StartPos.LEFT;
-	public static boolean auto_score = true;
-	private static SendableChooser<Runnable> autoChooser, startPos;
+	private boolean doNothing = true;
+	private boolean baseline = true;
+	private static Command competitionPlayCommand;
+	private static Command competitionFileChooser;
+	private String fileToPlay = "";
+	private static SendableChooser<Runnable> autoChooser, startPos, autoChooser2;
 
 	// auto modes
 	//Command autoCommand;
@@ -88,15 +92,32 @@ public class Robot extends ImprovedRobot {
     	}
     	
     	else {
+    		/* AUTO EXPLAINATION:
+    		 * Do Nothing- Robot won't move during auto
+    		 * Do Something- Robot decides what to do during auto, depending on the game data
+    		 * Baseline or score- If neither the scale or switch is on the same side as the robot, then
+    		 * you can choose whether or not you want it to cross baseline or score a cube on the opposite switch
+    		 */
+    		
 			// auto modes
 			autoChooser = new SendableChooser<>();
-			autoChooser.addObject("Score Cube", () -> {
-				auto_score = true;
+			autoChooser.addDefault("Do Nothing", () -> {
+				doNothing = true;
 			});
-			autoChooser.addDefault("Baseline", () -> {
-				auto_score = true;
+			autoChooser.addObject("Do Something", () -> {
+				doNothing = false;
 			});
-			SmartDashboard.putData("Auto Chooser", autoChooser);
+			SmartDashboard.putData("To move or not to move", autoChooser);
+			
+			// 2nd chooser
+			autoChooser2 = new SendableChooser<>();
+			autoChooser2.addDefault("Baseline", () -> {
+				baseline = true;
+			});
+			autoChooser2.addObject("Score cube", () -> {
+				baseline = false;
+			});
+			SmartDashboard.putData("Baseline or score", autoChooser2);
 
 			// Starting Pos
 			startPos = new SendableChooser<>();
@@ -127,63 +148,60 @@ public class Robot extends ImprovedRobot {
 	}
 
 	@Override
-	public void autonomousInit() { 
-		//TODO: THIS NEEDS SOME SERIOUS WORK
+	public void autonomousInit() {
 		autoLooper.start();
-		if(isCompetition) {
-			fileChooser.getSelected().start();
-			Command autoPlayCommand = new StartPlay();
-			autoPlayCommand.start();
-
+		if (isCompetition) {
 			String gmsg = DriverStation.getInstance().getGameSpecificMessage();
+			while (gmsg == null || gmsg.length() != 3) {
+				gmsg = DriverStation.getInstance().getGameSpecificMessage();
+			} // makes sure game message is correct
 
-			if (gmsg != null && gmsg.length() == 3) {
-				// game message is correct
+			boolean leftSwitch = (gmsg.charAt(0) == 'L');
+			boolean leftScale = (gmsg.charAt(1) == 'L');
 
-				boolean left = gmsg.charAt(0) == 'L';
-
-				if (auto_score) {
-					switch (start_pos) {
-					case LEFT:
-						if (left)
-							; // TODO: score cube to left from left
-						else
-							; // TODO: score cube to right from left
-						break;
-					case MIDDLE:
-						if (left)
-							; // TODO: score cube to left from middle
-						else
-							; // TODO: score cube to right from middle
-						break;
-					case RIGHT:
-						if (left)
-							; // TODO: score cube to left from right
-						else
-							; // TODO: score cube to right from right
+			if (!doNothing) { // Do something chosen
+				switch (start_pos) { // Checks which starting position was chosen
+				// Following code choose auto mode based on starting position for switch and scale
+				case LEFT:
+					if (leftSwitch && leftScale)
+						fileToPlay = LEFT_SwitchAndScale;
+					else if (leftSwitch && !leftScale)
+						fileToPlay = LEFT_LeftSwitch;
+					else if (!leftSwitch && leftScale)
+						fileToPlay = LEFT_Scale;
+					else {
+						if (baseline) fileToPlay = driveBaseline;
+						else fileToPlay = LEFT_RightSwitch;
 					}
-				} else {
-					switch (start_pos) {
-					case LEFT:
-						if (left)
-							; // TODO: cross baseline to left from left
-						else
-							; // TODO: cross baseline to right from left
-						break;
-					case MIDDLE:
-						if (left)
-							; // TODO: cross baseline to left from middle
-						else
-							; // TODO: cross baseline to right from middle
-						break;
-					case RIGHT:
-						if (left)
-							; // TODO: cross baseline to left from right
-						else
-							; // TODO: cross baseline to right from right
+					break;
+				case MIDDLE:
+					if (leftSwitch)
+						fileToPlay = MID_LeftSwitch;
+					else
+						fileToPlay = MID_RightSwitch;
+					break;
+				case RIGHT:
+					if (!leftSwitch && !leftScale)
+						fileToPlay = RIGHT_SwitchAndScale;
+					else if (leftSwitch && !leftScale)
+						fileToPlay = RIGHT_Scale;
+					else if (!leftSwitch && leftScale)
+						fileToPlay = RIGHT_RightSwitch;
+					else {
+						if (baseline) fileToPlay = driveBaseline;
+						else fileToPlay = RIGHT_LeftSwitch;
 					}
 				}
+				competitionFileChooser = new FilePicker(fileToPlay);
+				competitionFileChooser.start(); // changes path to the chosen file
+				competitionPlayCommand = new StartPlay();
+			} 
+			else { // Do nothing chosen
+				competitionPlayCommand = new DoNothing();
 			}
+
+			if (competitionPlayCommand != null)
+				competitionPlayCommand.start(); // starts the command
 		}
 	}
 

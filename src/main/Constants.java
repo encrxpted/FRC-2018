@@ -28,7 +28,7 @@ public interface Constants {
 	public final String RIGHT_SwitchAndScale = "RIGHT_SwitchScale";
 	public final String MID_RightSwitch = "MID_RSwitch";
 	public final String MID_LeftSwitch = "MID_LSwitch";
-	public final String baseline = "Baseline";
+	public final String driveBaseline = "Baseline";
 	// Do nothing file?
 	
 	// REV ROBOTICS SENSORS
