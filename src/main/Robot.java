@@ -46,13 +46,13 @@ public class Robot extends ImprovedRobot {
     private static String newFileName = "";
     private static List<File> listOfFiles = new ArrayList<File>();
     private static int lastNumOfFiles = 0;
+    
 	// AUTO LOGIC
 	private enum StartPos {LEFT, MIDDLE, RIGHT}
 	private enum RobotAction{DO_Nothing, EDGECASE_DoNothing, EDGECASE_Baseline, EDGECASE_DelayedSwitch}
 	public static StartPos start_pos = StartPos.LEFT;
 	public static RobotAction robot_act = RobotAction.DO_Nothing;
 	private static SendableChooser<Runnable> autoChooser, startPos;
-	
 	// Competition Mode: Picking a recording and running it
 	private static Command competitionFilePicker;
 	private String fileToPlay = null;
@@ -100,6 +100,14 @@ public class Robot extends ImprovedRobot {
     		 * EDGECASE_DelayedSwitch- Robot will act upon given game data except in the Edge Case; in which case it waits a specified
     		 * 							length of time and then places a cube in the switch.
     		 */
+    		SmartDashboard.putString("Do nothing", "Doesn't move during auto");
+    		SmartDashboard.putString("Edgecases", "When the robot is in the left or right starting position and both the scale" + 
+    									"and switch are in the opposite position");
+    		SmartDashboard.putString("No edgecase", "If edgecase doesn't occur, the robot will do an auto depending on starting" +
+    									"position and switch/scale lineup as long as Do Nothing is NOT chosen");
+    		SmartDashboard.putString("If edgecase occurs", "If the edgecase occurs, then the robot will either do nothing," +
+    									"cross baseline, or score in the switch after a 5-sec delay depending on the edgecase" +
+    									"mode that is chosen");
     		
 			// Auto modes
 			autoChooser = new SendableChooser<>();
