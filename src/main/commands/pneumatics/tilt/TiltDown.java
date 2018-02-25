@@ -1,11 +1,9 @@
 package main.commands.pneumatics.tilt;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
-import main.Constants;
-import main.HardwareAdapter;
+import interfacesAndAbstracts.ImprovedCommandGroup;
 
-public class TiltDown extends CommandGroup implements Constants, HardwareAdapter{
+public class TiltDown extends ImprovedCommandGroup {
     // Called just before this Command runs the first time
     public TiltDown() {
     	addSequential(new Tilt(EXT));

@@ -1,13 +1,11 @@
-package main.commands.commandgroups;
+package main.commands.commandgroups.cubeManipulator;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import main.Constants;
-import main.HardwareAdapter;
+import interfacesAndAbstracts.ImprovedCommandGroup;
 import main.commands.intake.SpinIn;
 import main.commands.pneumatics.arm.ArmOpen;
 import main.commands.pneumatics.tilt.*;
 
-public class IntakeCube extends CommandGroup implements Constants, HardwareAdapter {
+public class IntakeCube extends ImprovedCommandGroup {
 	public IntakeCube() {
     	addSequential(new TiltDown());
     	addSequential(new ArmOpen());

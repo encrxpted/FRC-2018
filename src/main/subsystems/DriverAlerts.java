@@ -1,10 +1,8 @@
 package main.subsystems;
 
-import interfacesAndAbstracts.RobotSubsystem;
-import main.HardwareAdapter;
+import interfacesAndAbstracts.ImprovedSubsystem;
 
-public class DriverAlerts extends RobotSubsystem implements HardwareAdapter {
-
+public class DriverAlerts extends ImprovedSubsystem {
 	/*public void setAlertLightState(boolean state) {
 		alertRelay.set(!state);
 	}
@@ -28,11 +26,13 @@ public class DriverAlerts extends RobotSubsystem implements HardwareAdapter {
 	@Override
 	public void check() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void zeroSensors() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

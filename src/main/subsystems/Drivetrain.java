@@ -3,13 +3,11 @@ package main.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import Util.DriveHelper;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import interfacesAndAbstracts.RobotSubsystem;
+import interfacesAndAbstracts.ImprovedSubsystem;
 import main.commands.drivetrain.Drive;
 
-
-public class Drivetrain extends RobotSubsystem  {
+public class Drivetrain extends ImprovedSubsystem  {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
-	private static Drivetrain instance;
 	
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
@@ -121,13 +119,6 @@ public class Drivetrain extends RobotSubsystem  {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Drive());
-	}
-	
-	public static Drivetrain newInstance() {
-		if (instance == null) {
-			instance = new Drivetrain();
-		}
-		return instance;
 	}
 
 	@Override

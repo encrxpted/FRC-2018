@@ -2,10 +2,9 @@ package main.commands.pneumatics.shift;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import interfacesAndAbstracts.ImprovedCommand;
-import main.Constants;
 import main.Robot;
 
-public class Shift extends ImprovedCommand implements Constants{
+public class Shift extends ImprovedCommand {
 
 	private DoubleSolenoid.Value v;
     public Shift(DoubleSolenoid.Value v) {

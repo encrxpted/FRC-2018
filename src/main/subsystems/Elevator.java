@@ -3,10 +3,10 @@ package main.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import Util.DriveHelper;
 import Util.EncoderHelper;
-import interfacesAndAbstracts.RobotSubsystem;
+import interfacesAndAbstracts.ImprovedSubsystem;
 import main.commands.elevator.MoveWithJoystick;
 
-public class Elevator extends RobotSubsystem {
+public class Elevator extends ImprovedSubsystem {
 	// GET F-GAIN
 	// TEST ERROR AND CALCULATE P
 	// TEST FOR COASTING- BRAKE MODE WORKS GREAT

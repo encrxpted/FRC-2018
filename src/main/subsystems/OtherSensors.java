@@ -1,10 +1,10 @@
 package main.subsystems;
 
 import edu.wpi.first.wpilibj.command.Command;
-import interfacesAndAbstracts.RobotSubsystem;
+import interfacesAndAbstracts.ImprovedSubsystem;
 import main.commands.driveAlerts.AlertDriver;
 
-public class OtherSensors extends RobotSubsystem {
+public class OtherSensors extends ImprovedSubsystem {
 	private boolean elevatorLastState;
 	private boolean elevatorCurrentState;
 	private Command flashLights = new AlertDriver();

@@ -1,12 +1,10 @@
 package main.commands.elevator;
 
 import interfacesAndAbstracts.ImprovedCommand;
-import main.Constants;
-import main.HardwareAdapter;
 import main.OI;
 import main.Robot;
 
-public class MoveWithJoystick extends ImprovedCommand implements Constants, HardwareAdapter {
+public class MoveWithJoystick extends ImprovedCommand {
 	public MoveWithJoystick() {
 		requires(Robot.el);
 	}

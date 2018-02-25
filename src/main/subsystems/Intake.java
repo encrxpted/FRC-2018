@@ -1,8 +1,8 @@
 package main.subsystems;
 
-import interfacesAndAbstracts.RobotSubsystem;
+import interfacesAndAbstracts.ImprovedSubsystem;
 
-public class Intake extends RobotSubsystem {
+public class Intake extends ImprovedSubsystem {
 	public static enum WheelStates {
 		In, Out, Off
 	}

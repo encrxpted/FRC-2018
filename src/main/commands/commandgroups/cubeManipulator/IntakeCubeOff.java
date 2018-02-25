@@ -1,11 +1,11 @@
-package main.commands.commandgroups;
+package main.commands.commandgroups.cubeManipulator;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import interfacesAndAbstracts.ImprovedCommandGroup;
 import main.commands.intake.SpinOff;
 import main.commands.pneumatics.arm.ArmClose;
 import main.commands.pneumatics.tilt.TiltUp;
 
-public class IntakeCubeOff extends CommandGroup {
+public class IntakeCubeOff extends ImprovedCommandGroup {
 	public IntakeCubeOff() {
 		addSequential(new ArmClose());
     	addSequential(new TiltUp());

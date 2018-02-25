@@ -32,7 +32,7 @@ public class Robot extends ImprovedRobot {
 	private enum StartPos {LEFT, MIDDLE, RIGHT}
 	public static Drivetrain dt;
 	public static Pneumatics pn;
-	public static Intake it;
+	public static Intake in;
 	public static Elevator el;
 	public static DriverCamera dc;
 	public static DriverAlerts da;	
@@ -56,15 +56,13 @@ public class Robot extends ImprovedRobot {
 
 	@Override
 	public void robotInit() {
-		// camera
-		//CameraServer.getInstance().startAutomaticCapture();
-		dc = new DriverCamera();
 		// OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
-		it = new Intake();
+		in = new Intake();
 		el = new Elevator();
-		oi = OI.newInstance();
+		oi = new OI();
+		dc = new DriverCamera();
 		// da = new DriverAlerts();	
 		lg = new Logger();
 		autoLooper = new Looper(kLooperDt);
@@ -260,8 +258,10 @@ public class Robot extends ImprovedRobot {
 		SmartDashboard.updateValues();
 		checkForSmartDashboardUpdates();
 		autoLooper.outputToSmartDashboard();
-//		dt.check();
-//		pn.check();
+		dt.check();
+		pn.check();
+		in.check();
+		el.check();
 		oi.check();
 		// Knowing where you're at
 		if(!isCompetition) {

@@ -1,13 +1,11 @@
 package main.commands.intake;
 
 import interfacesAndAbstracts.ImprovedCommand;
-import main.Constants;
-import main.HardwareAdapter;
 import main.Robot;
 
-public class SpinOut extends ImprovedCommand implements Constants, HardwareAdapter {
+public class SpinOut extends ImprovedCommand {
 	public SpinOut() {
-		requires(Robot.it);
+		requires(Robot.in);
 	}
 	
     // Called just before this Command runs the first time
@@ -16,7 +14,7 @@ public class SpinOut extends ImprovedCommand implements Constants, HardwareAdapt
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.it.spinOut();
+    	Robot.in.spinOut();
     }
 
     // Make this return true when this Command no longer needs to run execute()

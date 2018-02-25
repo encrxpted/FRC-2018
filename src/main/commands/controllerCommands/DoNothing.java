@@ -1,9 +1,14 @@
 package main.commands.controllerCommands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import interfacesAndAbstracts.ImprovedCommand;
 
-public class DoNothing extends CommandGroup {
+public class DoNothing extends ImprovedCommand {
 	public DoNothing() {
         // Don't put anything here
     }
+
+	@Override
+	protected boolean isFinished() {
+		return false;
+	}
 }

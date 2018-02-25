@@ -1,9 +1,9 @@
 package main.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import interfacesAndAbstracts.RobotSubsystem;
+import interfacesAndAbstracts.ImprovedSubsystem;
 
-public class Pneumatics extends RobotSubsystem {
+public class Pneumatics extends ImprovedSubsystem {
 	private boolean down = false;
 
 	public Pneumatics() {

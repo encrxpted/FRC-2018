@@ -1,19 +1,17 @@
 package main;
 
-import interfacesAndAbstracts.RobotClass;
+import interfacesAndAbstracts.ImprovedClass;
 import lib.joystick.XboxController;
-import main.commands.commandgroups.DropCube;
-import main.commands.commandgroups.DropCubeOff;
-import main.commands.commandgroups.IntakeCube;
-import main.commands.commandgroups.IntakeCubeOff;
-import main.commands.commandgroups.PushOutCube;
-import main.commands.commandgroups.PushOutCubeOff;
+import main.commands.commandgroups.cubeManipulator.DropCube;
+import main.commands.commandgroups.cubeManipulator.DropCubeOff;
+import main.commands.commandgroups.cubeManipulator.IntakeCube;
+import main.commands.commandgroups.cubeManipulator.IntakeCubeOff;
+import main.commands.commandgroups.cubeManipulator.PushOutCube;
+import main.commands.commandgroups.cubeManipulator.PushOutCubeOff;
 import main.commands.pneumatics.shift.ShiftDown;
 import main.commands.pneumatics.shift.ShiftUp;
 
-public class OI extends RobotClass {
-	public static OI instance;
-	
+public class OI extends ImprovedClass {	
 	public OI() {
 		xbox.setInternalControl(false);
 		xbox2.setInternalControl(false);
@@ -64,13 +62,6 @@ public class OI extends RobotClass {
 	public void setInternalControl(boolean internalControl) {
 		xbox.setInternalControl(internalControl);
 		xbox2.setInternalControl(internalControl);
-	}
-
-	public static OI newInstance() {
-		if (instance == null) {
-			instance = new OI();
-		}
-		return instance;
 	}
 }
  
