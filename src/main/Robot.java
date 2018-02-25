@@ -88,29 +88,31 @@ public class Robot extends ImprovedRobot {
     		SmartDashboard.putString("NOTICE:", "Whenever you redeploy code you must restart shuffleboard; And whenever you "
 					+ "delete a file you must restart robot code.");
     	}
-		
-		// auto modes
-		autoChooser = new SendableChooser<>();
-		autoChooser.addObject("Score Cube", () -> {
-			auto_score=true;
-		});
-		autoChooser.addDefault("Baseline", () -> {
-			auto_score=true;
-		});
-		SmartDashboard.putData("Auto Chooser", autoChooser);
+    	
+    	else {
+			// auto modes
+			autoChooser = new SendableChooser<>();
+			autoChooser.addObject("Score Cube", () -> {
+				auto_score = true;
+			});
+			autoChooser.addDefault("Baseline", () -> {
+				auto_score = true;
+			});
+			SmartDashboard.putData("Auto Chooser", autoChooser);
 
-		// Starting Pos
-		startPos = new SendableChooser<>();
-		startPos.addDefault("Left", () -> {
-			start_pos=StartPos.LEFT;
-		});
-		startPos.addObject("Middle", () -> {
-			start_pos=StartPos.MIDDLE;
-		});
-		startPos.addObject("Right", () -> {
-			start_pos=StartPos.RIGHT;
-		});
-		SmartDashboard.putData("Starting Position", startPos);
+			// Starting Pos
+			startPos = new SendableChooser<>();
+			startPos.addDefault("Left", () -> {
+				start_pos = StartPos.LEFT;
+			});
+			startPos.addObject("Middle", () -> {
+				start_pos = StartPos.MIDDLE;
+			});
+			startPos.addObject("Right", () -> {
+				start_pos = StartPos.RIGHT;
+			});
+			SmartDashboard.putData("Starting Position", startPos);
+		}
 	}
 	
 	@Override
@@ -258,7 +260,9 @@ public class Robot extends ImprovedRobot {
 	
 	public void allPeriodic() {
 		SmartDashboard.updateValues();
-		checkForSmartDashboardUpdates();
+		if(!isCompetition) {
+			checkForSmartDashboardUpdates();
+		}
 		autoLooper.outputToSmartDashboard();
 //		dt.check();
 //		pn.check();
