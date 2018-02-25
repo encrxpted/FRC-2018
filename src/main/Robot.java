@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import interfacesAndAbstracts.ImprovedRobot;
 import loopController.Looper;
+import main.commands.controllerCommands.DelayedPlay;
 import main.commands.controllerCommands.DoNothing;
 import main.commands.controllerCommands.FileCreator;
 import main.commands.controllerCommands.FileDeletor;
@@ -29,7 +30,6 @@ import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 
 public class Robot extends ImprovedRobot {
-	private enum StartPos {LEFT, MIDDLE, RIGHT}
 	public static Drivetrain dt;
 	public static Pneumatics pn;
 	public static Intake in;
@@ -47,17 +47,17 @@ public class Robot extends ImprovedRobot {
     private static List<File> listOfFiles = new ArrayList<File>();
     private static int lastNumOfFiles = 0;
 	// AUTO LOGIC
+	private enum StartPos {LEFT, MIDDLE, RIGHT}
+	private enum RobotAction{DO_Nothing, EDGECASE_DoNothing, EDGECASE_Baseline, EDGECASE_DelayedSwitch}
 	public static StartPos start_pos = StartPos.LEFT;
-	private boolean doNothing = true;
-	private boolean baseline = true;
+	public static RobotAction robot_act = RobotAction.DO_Nothing;
+	private static SendableChooser<Runnable> autoChooser, startPos;
+	
+	// Competition Mode: Picking a recording and running it
+	private static Command competitionFilePicker;
+	private String fileToPlay = null;
 	private static Command competitionPlayCommand;
-	private static Command competitionFileChooser;
-	private String fileToPlay = "";
-	private static SendableChooser<Runnable> autoChooser, startPos, autoChooser2;
-
-	// auto modes
-	//Command autoCommand;
-
+	
 	@Override
 	public void robotInit() {
 		// OI must be at end
@@ -93,31 +93,29 @@ public class Robot extends ImprovedRobot {
     	
     	else {
     		/* AUTO EXPLAINATION:
+    		 * EDGECASE- The case where the robot is in the left or right position and neither the switch nor the scale line up.
     		 * Do Nothing- Robot won't move during auto
-    		 * Do Something- Robot decides what to do during auto, depending on the game data
-    		 * Baseline or score- If neither the scale or switch is on the same side as the robot, then
-    		 * you can choose whether or not you want it to cross baseline or score a cube on the opposite switch
+    		 * EDGECASE_DoNothing- Robot will act upon given game data except in the Edge Case; in which case it does nothing.
+    		 * EDGECASE_Baseline- Robot will act upon given game data except in the Edge Case; in which case it crosses the baseline.
+    		 * EDGECASE_DelayedSwitch- Robot will act upon given game data except in the Edge Case; in which case it waits a specified
+    		 * 							length of time and then places a cube in the switch.
     		 */
     		
-			// auto modes
+			// Auto modes
 			autoChooser = new SendableChooser<>();
 			autoChooser.addDefault("Do Nothing", () -> {
-				doNothing = true;
+				robot_act = RobotAction.DO_Nothing;
 			});
-			autoChooser.addObject("Do Something", () -> {
-				doNothing = false;
+			autoChooser.addObject("Go Robot Go!: EdgeCase_DoNothing", () -> {
+				robot_act = RobotAction.EDGECASE_DoNothing;
 			});
-			SmartDashboard.putData("To move or not to move", autoChooser);
-			
-			// 2nd chooser
-			autoChooser2 = new SendableChooser<>();
-			autoChooser2.addDefault("Baseline", () -> {
-				baseline = true;
+			autoChooser.addObject("Go Robot Go!: EdgeCase_BaseLine", () -> {
+				robot_act = RobotAction.EDGECASE_Baseline;
 			});
-			autoChooser2.addObject("Score cube", () -> {
-				baseline = false;
+			autoChooser.addObject("Go Robot Go!: EdgeCase_DelayedSwitch", () -> {
+				robot_act = RobotAction.EDGECASE_DelayedSwitch;
 			});
-			SmartDashboard.putData("Baseline or score", autoChooser2);
+			SmartDashboard.putData("Auto Mode", autoChooser);
 
 			// Starting Pos
 			startPos = new SendableChooser<>();
@@ -151,15 +149,22 @@ public class Robot extends ImprovedRobot {
 	public void autonomousInit() {
 		autoLooper.start();
 		if (isCompetition) {
+			// Makes sure game message is correct
 			String gmsg = DriverStation.getInstance().getGameSpecificMessage();
 			while (gmsg == null || gmsg.length() != 3) {
 				gmsg = DriverStation.getInstance().getGameSpecificMessage();
-			} // makes sure game message is correct
+				try {
+					Thread.sleep(5);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
 			boolean leftSwitch = (gmsg.charAt(0) == 'L');
 			boolean leftScale = (gmsg.charAt(1) == 'L');
+			boolean delayedSwitch = false;
 
-			if (!doNothing) { // Do something chosen
+			if (robot_act != RobotAction.DO_Nothing) { // Do something chosen
 				switch (start_pos) { // Checks which starting position was chosen
 				// Following code choose auto mode based on starting position for switch and scale
 				case LEFT:
@@ -170,8 +175,11 @@ public class Robot extends ImprovedRobot {
 					else if (!leftSwitch && leftScale)
 						fileToPlay = LEFT_Scale;
 					else {
-						if (baseline) fileToPlay = driveBaseline;
-						else fileToPlay = LEFT_RightSwitch;
+						if (robot_act == RobotAction.EDGECASE_Baseline) fileToPlay = driveBaseline;
+						else if(robot_act == RobotAction.EDGECASE_DelayedSwitch) {
+							fileToPlay = LEFT_RightSwitch;
+							delayedSwitch = true;
+						}
 					}
 					break;
 				case MIDDLE:
@@ -188,20 +196,31 @@ public class Robot extends ImprovedRobot {
 					else if (!leftSwitch && leftScale)
 						fileToPlay = RIGHT_RightSwitch;
 					else {
-						if (baseline) fileToPlay = driveBaseline;
-						else fileToPlay = RIGHT_LeftSwitch;
+						if (robot_act == RobotAction.EDGECASE_Baseline) fileToPlay = driveBaseline;
+						else if(robot_act == RobotAction.EDGECASE_DelayedSwitch) {
+							fileToPlay = RIGHT_LeftSwitch;
+							delayedSwitch = true;
+						}							
 					}
+					break;
 				}
-				competitionFileChooser = new FilePicker(fileToPlay);
-				competitionFileChooser.start(); // changes path to the chosen file
-				competitionPlayCommand = new StartPlay();
+				if(fileToPlay != null && !delayedSwitch) {
+					competitionFilePicker = new FilePicker(fileToPlay);
+					competitionFilePicker.start(); // Changes path to the chosen file
+					competitionPlayCommand = new StartPlay();
+				}
+				else if(fileToPlay != null && delayedSwitch)
+					competitionPlayCommand = new DelayedPlay(fileToPlay, autoDelay);
+				else
+					competitionPlayCommand = new DoNothing();
+					
 			} 
 			else { // Do nothing chosen
 				competitionPlayCommand = new DoNothing();
 			}
 
 			if (competitionPlayCommand != null)
-				competitionPlayCommand.start(); // starts the command
+				competitionPlayCommand.start(); // Starts the appropriate command
 		}
 	}
 
@@ -225,7 +244,7 @@ public class Robot extends ImprovedRobot {
 	public void teleopPeriodic() {
 		Runtime runtime = Runtime.getRuntime();
 
-		// smartdashboard stuff goes here
+		// SmartDashboard stuff goes here
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Free memory", runtime.freeMemory());
 		SmartDashboard.putNumber("Total memory", runtime.totalMemory());

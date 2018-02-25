@@ -29,7 +29,10 @@ public interface Constants {
 	public final String MID_RightSwitch = "MID_RSwitch";
 	public final String MID_LeftSwitch = "MID_LSwitch";
 	public final String driveBaseline = "Baseline";
-	// Do nothing file?
+	
+	// Auto Delay Time
+	// This is the time that the robot will wait before executing the selected auto in an EDGECASE situation.
+	public final int autoDelay = 5; 
 	
 	// REV ROBOTICS SENSORS
 	public final int analogSensor = 0;
