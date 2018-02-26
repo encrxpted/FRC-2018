@@ -11,8 +11,8 @@ public class Pneumatics extends ImprovedSubsystem {
 		shifter.set(OFF);
 		tilter.set(EXT);
 		tilter.set(OFF);
-		arm.set(EXT);
-		arm.set(OFF);
+		intakeArm.set(EXT);
+		intakeArm.set(OFF);
 //		pto.set(RET);
 //		pto.set(OFF);
 //		forklift.set(EXT);
@@ -54,7 +54,7 @@ public class Pneumatics extends ImprovedSubsystem {
 		if (v == EXT) armStates = ArmStates.Closed;
 		else if (v == RET) armStates = ArmStates.Opened;
 		else { armStates = ArmStates.Off; }
-		arm.set(v);
+		intakeArm.set(v);
 	}
 	
 	// Changes the tilter to up or down

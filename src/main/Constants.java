@@ -12,7 +12,8 @@ public interface Constants {
 	/*************
 	 * VARIABLES *
 	 *************/
-	public final boolean isCompetition = false;
+	public final boolean isCompetitionMatch = false;
+	public final boolean isCompetitionRobot = false;
 	
 	// FILE OUTPUT PATH
 	public final String outputPath = "/home/lvuser"; // USB output path: /U
@@ -42,11 +43,11 @@ public interface Constants {
 	public final double headingDeadband = 0.02;
 	
 	// DRIVEHELPER
-	public final double smoothThrottleDif = 0.1; //Set to max difference you want
+//	public final double smoothThrottleDif = 0.1; //Set to max difference you want
 	
 	// SENSORS
-	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.	
-	public final int cubeSensor = 0;
+//	public final int sensorTimeoutMs = 10; //timeout for sensor methods. 10ms will allow checking to be performed.	
+//	public final int cubeSensor = 0;
 	
 	// TALON VOLTAGE COMPENSATION
 	public final double voltageCompensationVoltage = 12.0;
@@ -110,11 +111,11 @@ public interface Constants {
 	public final int RIGHT_Drive_Slave2 = 4;
 	
 	// INTAKE MOTORS	
-	public final int LEFT_Intake = 11;
-	public final int RIGHT_Intake = 10;
+	public final int LEFT_Intake = (isCompetitionRobot? 11:11);// compBot:practiceBot
+	public final int RIGHT_Intake = (isCompetitionRobot? 10:10);// compBot:practiceBot
 	
 	// ELEVATOR MOTORS
-	public final int LEFT_Elevator_Master = 8;
+	public final int Elevator_Master = 8;
 	public final int Elevator_Slave = 7;
 	
 	// PNEUMATICS CONTROL MODULE
@@ -122,14 +123,14 @@ public interface Constants {
 	public final int PCM_Port2 = 2;
 	
 	// INTAKE PNEUMATICS
-	public final int INTAKE_EXT = 0;
-	public final int INTAKE_RET = 1;	
-	public final int TILT_EXT = 5;
-	public final int TILT_RET = 4;
+	public final int INTAKE_EXT = (isCompetitionRobot? 0:0);// compBot:practiceBot
+	public final int INTAKE_RET = (isCompetitionRobot? 1:1);// compBot:practiceBot	
+	public final int TILT_EXT = (isCompetitionRobot? 5:5);// compBot:practiceBot
+	public final int TILT_RET = (isCompetitionRobot? 4:4);// compBot:practiceBot
 	
 	// SHIFTING
-	public final int SHIFTER_EXT = 2;
-	public final int SHIFTER_RET = 3;
+	public final int SHIFTER_EXT = (isCompetitionRobot? 2:2);// compBot:practiceBot
+	public final int SHIFTER_RET = (isCompetitionRobot? 3:3);// compBot:practiceBot
 	
 	// CLIMB AND RELATED PNEUMATICS
 //	public final int PTO_EXT = 6;
@@ -140,15 +141,15 @@ public interface Constants {
 //	public final int HOOK_RET = 4;
 //	
 	// SWITCHES
-	public final int STAGE1_Bottom = 8;
-	public final int STAGE1_Top = 2;
-	public final int STAGE2_Bottom = 1;
-	public final int STAGE2_Top = 3;
-	public final int INTAKE_Switch = 5;
+//	public final int STAGE1_Bottom = 8;
+//	public final int STAGE1_Top = 2;
+//	public final int STAGE2_Bottom = 1;
+//	public final int STAGE2_Top = 3;
+//	public final int INTAKE_Switch = 5;
 
 	//Driver Alert
-	public final double alertOnTime = 0.125;
-	public final double alertOffTime = 0.125;
-	public final int driverAlertsPort = 10;
-	public final int DriverAlert_DigiOut = 2;	
+//	public final double alertOnTime = 0.125;
+//	public final double alertOffTime = 0.125;
+//	public final int driverAlertsPort = 10;
+//	public final int DriverAlert_DigiOut = 2;	
 }

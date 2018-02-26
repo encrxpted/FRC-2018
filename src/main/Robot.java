@@ -74,7 +74,7 @@ public class Robot extends ImprovedRobot {
 		autoLooper.register(new Play()); 
 
         //**************************************************SmartDashboard
-    	if(!isCompetition) {
+    	if(!isCompetitionMatch) {
     		SmartDashboard.putData("Record", new StartRecord());
 			SmartDashboard.putData("Play", new StartPlay());
     		// File adder
@@ -142,7 +142,7 @@ public class Robot extends ImprovedRobot {
 	
 	@Override
 	public void disabledInit() {
-		if(isCompetition) {
+		if(isCompetitionMatch) {
 			if(autoPlayCommand.isRunning()) autoPlayCommand.cancel();
 		}
 		autoLooper.stop();		
@@ -156,7 +156,7 @@ public class Robot extends ImprovedRobot {
 	@Override
 	public void autonomousInit() {
 		autoLooper.start();
-		if (isCompetition) {
+		if (isCompetitionMatch) {
 			// Makes sure game message is correct
 			String gmsg = DriverStation.getInstance().getGameSpecificMessage();
 			while (gmsg == null || gmsg.length() != 3) {
@@ -240,11 +240,11 @@ public class Robot extends ImprovedRobot {
 
 	@Override
 	public void teleopInit() {
-		if(isCompetition) {
+		if(isCompetitionMatch) {
 			if(autoPlayCommand.isRunning())
 				autoPlayCommand.cancel();
 		}
-		if(!isCompetition)
+		if(!isCompetitionMatch)
 			autoLooper.start();
 	}	
 
@@ -267,7 +267,7 @@ public class Robot extends ImprovedRobot {
 	}
 	
 	private void checkForSmartDashboardUpdates() {
-		if (!isCompetition && !newFileName.equals(SmartDashboard.getString("New File Name", "")))
+		if (!isCompetitionMatch && !newFileName.equals(SmartDashboard.getString("New File Name", "")))
 			newFileName = SmartDashboard.getString("New File Name", "");
 		
 		if (fileChooser.getSelected() != lastSelectedFile && fileChooser.getSelected() != null) {
@@ -303,7 +303,7 @@ public class Robot extends ImprovedRobot {
 	
 	public void allPeriodic() {
 		SmartDashboard.updateValues();
-		if(!isCompetition) {
+		if(!isCompetitionMatch) {
 			checkForSmartDashboardUpdates();
 		}
 		autoLooper.outputToSmartDashboard();
@@ -313,7 +313,7 @@ public class Robot extends ImprovedRobot {
 		el.check();
 		oi.check();
 		// Knowing where you're at
-		if(!isCompetition) {
+		if(!isCompetitionMatch) {
 			SmartDashboard.putString("Working File", lg.getWorkingFile());
 			SmartDashboard.putString("Working Path", outputPath);
 		}
