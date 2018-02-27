@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
 public interface Constants {
 	
@@ -67,6 +68,10 @@ public interface Constants {
 	// ENCODERS STUFF
 	public final double countsPerRev = 4096; // what is this actually supposed to be?
 	public final FeedbackDevice encoder = FeedbackDevice.CTRE_MagEncoder_Relative;
+	
+	// XBOX RUMBLE
+	public final RumbleType LEFT_Rumble = RumbleType.kLeftRumble;
+	public final RumbleType RIGHT_Rumble = RumbleType.kRightRumble;
 	
 	// ELEVATOR LENGTHS
 	/*public final double spindleDiameter = 2; //placeholder

@@ -1,5 +1,6 @@
 package main;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import interfacesAndAbstracts.ImprovedClass;
 import lib.joystick.XboxController;
 import main.commands.commandgroups.cubeManipulator.DropCube;
@@ -62,6 +63,24 @@ public class OI extends ImprovedClass {
 	public void setInternalControl(boolean internalControl) {
 		xbox.setInternalControl(internalControl);
 		xbox2.setInternalControl(internalControl);
+	}
+	
+	public void xbox1Rumble(double intensity) {
+		xbox.setRumble(LEFT_Rumble, intensity);
+		xbox.setRumble(RIGHT_Rumble, intensity);
+	}
+	
+	public void xbox1Rumble(RumbleType side, double intensity) {
+		xbox.setRumble(side, intensity);
+	}
+	
+	public void xbox2Rumble(double intensity) {
+		xbox.setRumble(LEFT_Rumble, intensity);
+		xbox.setRumble(RIGHT_Rumble, intensity);
+	}
+	
+	public void xbox2Rumble(RumbleType side, double intensity) {
+		xbox.setRumble(side, intensity);
 	}
 }
  
