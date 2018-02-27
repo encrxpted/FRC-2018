@@ -27,6 +27,7 @@ import main.subsystems.Drivetrain;
 import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
+import main.subsystems.Rumble;
 
 public class Robot extends ImprovedRobot {
 	private enum StartPos {LEFT, MIDDLE, RIGHT}
@@ -36,6 +37,7 @@ public class Robot extends ImprovedRobot {
 	public static Elevator el;
 	public static DriverCamera dc;
 	public static DriverAlerts da;	
+	public static Rumble rb;
 	public static OI oi;
 	// PLAY AND RECORD
 	public static Logger lg;
@@ -61,6 +63,7 @@ public class Robot extends ImprovedRobot {
 		pn = new Pneumatics();
 		in = new Intake();
 		el = new Elevator();
+		rb = new Rumble();
 		oi = new OI();
 		dc = new DriverCamera();
 		// da = new DriverAlerts();	

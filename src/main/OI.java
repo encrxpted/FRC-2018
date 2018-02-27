@@ -1,6 +1,5 @@
 package main;
 
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import interfacesAndAbstracts.ImprovedClass;
 import lib.joystick.XboxController;
 import main.commands.commandgroups.cubeManipulator.DropCube;
@@ -11,13 +10,13 @@ import main.commands.commandgroups.cubeManipulator.PushOutCube;
 import main.commands.commandgroups.cubeManipulator.PushOutCubeOff;
 import main.commands.pneumatics.shift.ShiftDown;
 import main.commands.pneumatics.shift.ShiftUp;
+import main.commands.rumble.Xbox1Rumble;
 
 public class OI extends ImprovedClass {	
 	public OI() {
 		xbox.setInternalControl(false);
 		xbox2.setInternalControl(false);
 	
-		
 		xbox.leftBumper.whenPressed(new ShiftUp());
 		xbox.leftBumper.whenReleased(new ShiftDown());
 
@@ -27,6 +26,8 @@ public class OI extends ImprovedClass {
 		xbox2.x.whenReleased(new PushOutCubeOff());
 		xbox2.b.whenPressed(new DropCube());
 		xbox2.b.whenReleased(new DropCubeOff());
+		
+		xbox.start.whileHeld(new Xbox1Rumble(1.0));
 		
 	}
 	
@@ -63,24 +64,7 @@ public class OI extends ImprovedClass {
 	public void setInternalControl(boolean internalControl) {
 		xbox.setInternalControl(internalControl);
 		xbox2.setInternalControl(internalControl);
-	}
-	
-	public void xbox1Rumble(double intensity) {
-		xbox.setRumble(LEFT_Rumble, intensity);
-		xbox.setRumble(RIGHT_Rumble, intensity);
-	}
-	
-	public void xbox1Rumble(RumbleType side, double intensity) {
-		xbox.setRumble(side, intensity);
-	}
-	
-	public void xbox2Rumble(double intensity) {
-		xbox2.setRumble(LEFT_Rumble, intensity);
-		xbox2.setRumble(RIGHT_Rumble, intensity);
-	}
-	
-	public void xbox2Rumble(RumbleType side, double intensity) {
-		xbox2.setRumble(side, intensity);
-	}
+	}	
+
 }
  
