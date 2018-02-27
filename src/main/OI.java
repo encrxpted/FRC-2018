@@ -75,12 +75,12 @@ public class OI extends ImprovedClass {
 	}
 	
 	public void xbox2Rumble(double intensity) {
-		xbox.setRumble(LEFT_Rumble, intensity);
-		xbox.setRumble(RIGHT_Rumble, intensity);
+		xbox2.setRumble(LEFT_Rumble, intensity);
+		xbox2.setRumble(RIGHT_Rumble, intensity);
 	}
 	
 	public void xbox2Rumble(RumbleType side, double intensity) {
-		xbox.setRumble(side, intensity);
+		xbox2.setRumble(side, intensity);
 	}
 }
  
