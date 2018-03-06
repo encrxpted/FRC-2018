@@ -5,12 +5,10 @@ import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 
 public class StartRecord extends ImprovedCommand {
-	public StartRecord() {
-    }
-
+	
 	// Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.lg.resetForWrite();
+    	//Robot.lg.resetForWrite();
     	Record.okToRecord(true);
     }
 
@@ -26,7 +24,7 @@ public class StartRecord extends ImprovedCommand {
     // Called once after isFinished returns true
     protected void end() {
     	Record.okToRecord(false);
-    	Robot.lg.trim();
+    	//Robot.lg.trim();
     }
 
     // Called when another command which requires one or more of the same

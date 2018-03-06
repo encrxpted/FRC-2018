@@ -175,11 +175,11 @@ public class Drivetrain extends ImprovedSubsystem  {
 		return rightDriveMaster.getSensorCollection().getQuadratureVelocity();
 	}
 	
-	private double getLeftEncoderPosition() {
+	public double getLeftEncoderPosition() {
 		return leftDriveMaster.getSensorCollection().getQuadraturePosition();
 	}
 	
-	private double getRightEncoderPosition() {
+	public double getRightEncoderPosition() {
 		return rightDriveMaster.getSensorCollection().getQuadraturePosition();
 	}
 

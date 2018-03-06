@@ -14,13 +14,13 @@ public class MotionProfile implements Constants {
 	private Notifier notifier = new Notifier(new PeriodicRunnable(talon));
 	private MotionProfileStatus status = new MotionProfileStatus();
 	
-	private int loopTimeout = -1; // this  is just something that makes sure we arent stuck. -1 is disabled.
+	//private int loopTimeout = -1; // this  is just something that makes sure we arent stuck. -1 is disabled.
 	private boolean start = false;
 	private enum MPState { NotMPMode, StartingMPE, InMPMode }
 	private SetValueMotionProfile setValue = SetValueMotionProfile.Disable;
 	
 	private final int minPointsInTalon = 5;
-	private final int numLoopTimeout = 10;
+	//private final int numLoopTimeout = 10;
 	private final TrajectoryDuration duration = TrajectoryDuration.Trajectory_Duration_10ms;
 	private MPState state = MPState.NotMPMode;
 
@@ -35,29 +35,27 @@ public class MotionProfile implements Constants {
 		System.out.println("UNDERRUN");
 	}
 	
-	private void ifNoProgress() {
-		System.out.println("NO PROGRESS");
-	}
-	
 	public void reset() {
 		talon.clearMotionProfileTrajectories();
-		loopTimeout = -1;
+		//loopTimeout = -1;
 		setValue = SetValueMotionProfile.Disable;
 		state = MPState.NotMPMode;
 		start = false;
+	}
+	
+	public void checkLoops() {
+		// Checks loop timeout
+		//if(loopTimeout == 0) ifNoProgress();
+		//else loopTimeout--;
 	}
 
 	public void check() { // Intended to be called in a loop
 		talon.getMotionProfileStatus(status);
 
-		// Checks loop timeout
-		if(loopTimeout == 0) ifNoProgress();
-		else loopTimeout--;
-		
 		if(talon.getControlMode() != MOTION_PROFILE_MODE) {
 			// checks control mode. Disables if not in motion profile mode.
 			state = MPState.NotMPMode;
-			loopTimeout = -1;
+			//loopTimeout = -1;
 		}
 		else {
 			// does motion profiling if it is in motion profile mode.
@@ -66,27 +64,27 @@ public class MotionProfile implements Constants {
 				if(start) {
 					start = false;
 					setValue = SetValueMotionProfile.Disable;
-					//fill(); stream trajectory points
+					//fill(); stream trajectory points... I need the points tho
 					state = MPState.StartingMPE;
-					loopTimeout = numLoopTimeout;
+					//loopTimeout = numLoopTimeout;
 				}
 				break;
 			case StartingMPE:
 				if (status.btmBufferCnt > minPointsInTalon) {
 					setValue = SetValueMotionProfile.Enable; // starts motion profile
 					state = MPState.InMPMode;
-					loopTimeout = numLoopTimeout;
+					//loopTimeout = numLoopTimeout;
 				}
 				break;
 			case InMPMode:
 				if(!status.isUnderrun) {
-					loopTimeout = numLoopTimeout;
+					//loopTimeout = numLoopTimeout;
 				}
 				if(status.activePointValid && status.isLast) { 
 					//this checks if we have reached the last point, and stops if we have reached the last point.
 					setValue = SetValueMotionProfile.Hold;
 					state = MPState.NotMPMode;
-					loopTimeout = -1;
+					//loopTimeout = -1;
 				}
 				break;
 			}
