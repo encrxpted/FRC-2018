@@ -75,7 +75,12 @@ public interface Constants {
 	
 	// MOTION PROFILING
 	public final int timeout = 10;
-	public final int baseTimeout = 0;
+	public final int baseTimeout = 10;
+	public final int frameRate = 10;
+	public final int pidIdx = 0;
+	
+	public final int leftDriveIdx = 1;
+	public final int rightDriveIdx = 2;
 	
 	// ELEVATOR LENGTHS
 	/*public final double spindleDiameter = 2; //placeholder

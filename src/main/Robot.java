@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import Util.Logger;
+import Util.MotionProfile;
 import controllers.Play;
 import controllers.Record;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -65,7 +66,7 @@ public class Robot extends ImprovedRobot {
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		in = new Intake();
-		el = new Elevator();
+		el = new Elevator();		
 		oi = new OI();
 		dc = new DriverCamera();
 		// da = new DriverAlerts();	

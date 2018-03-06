@@ -106,7 +106,7 @@ public class MotionProfile implements Constants {
 			talon.clearMotionProfileHasUnderrun(0);
 		}
 		talon.clearMotionProfileTrajectories();
-		talon.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
+		talon.configMotionProfileTrajectoryPeriod(0, timeout);
 
 		for(int i = 0; i < numOfPoints; ++i) {
 			double encUnits = profile[i][0];
