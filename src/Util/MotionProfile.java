@@ -16,9 +16,7 @@ public class MotionProfile implements Constants {
 	
 	private int loopTimeout = -1; // this  is just something that makes sure we arent stuck. -1 is disabled.
 	private boolean start = false;
-	private enum MPState {
-		NotMPMode, StartingMPE, InMPMode
-	}
+	private enum MPState { NotMPMode, StartingMPE, InMPMode }
 	private SetValueMotionProfile setValue = SetValueMotionProfile.Disable;
 	
 	private final int minPointsInTalon = 5;
@@ -43,14 +41,13 @@ public class MotionProfile implements Constants {
 	
 	public void reset() {
 		talon.clearMotionProfileTrajectories();
-		
 		loopTimeout = -1;
 		setValue = SetValueMotionProfile.Disable;
 		state = MPState.NotMPMode;
 		start = false;
 	}
 
-	public void check() {
+	public void check() { // Intended to be called in a loop
 		talon.getMotionProfileStatus(status);
 
 		// Checks loop timeout

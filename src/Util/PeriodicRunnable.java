@@ -11,7 +11,7 @@ public class PeriodicRunnable implements java.lang.Runnable {
 
 	@Override
 	public void run() {
-		talon.processMotionProfileBuffer();
+		if(talon != null) talon.processMotionProfileBuffer();
 	}
 
 }
