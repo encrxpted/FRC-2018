@@ -52,7 +52,8 @@ public class Robot extends ImprovedRobot {
 	private enum RobotAction{DO_Nothing, EDGECASE_DoNothing, EDGECASE_Baseline, EDGECASE_DelayedSwitch}
 	public static StartPos start_pos = StartPos.LEFT;
 	public static RobotAction robot_act = RobotAction.DO_Nothing;
-	private static SendableChooser<Runnable> autoChooser, startPos;
+	private static SendableChooser<RobotAction> autoChooser;
+	private static SendableChooser<StartPos> startPos;
 	// Competition Mode: Picking a recording and running it
 	private static Command competitionFilePicker;
 	private String fileToPlay = null;
@@ -92,14 +93,6 @@ public class Robot extends ImprovedRobot {
     	}
     	
     	else {
-    		/* AUTO EXPLAINATION:
-    		 * EDGECASE- The case where the robot is in the left or right position and neither the switch nor the scale line up.
-    		 * Do Nothing- Robot won't move during auto
-    		 * EDGECASE_DoNothing- Robot will act upon given game data except in the Edge Case; in which case it does nothing.
-    		 * EDGECASE_Baseline- Robot will act upon given game data except in the Edge Case; in which case it crosses the baseline.
-    		 * EDGECASE_DelayedSwitch- Robot will act upon given game data except in the Edge Case; in which case it waits a specified
-    		 * 							length of time and then places a cube in the switch.
-    		 */
     		SmartDashboard.putString("Do nothing", "Doesn't move during auto");
     		SmartDashboard.putString("Edgecases", "When the robot is in the left or right starting position and both the scale" + 
     									"and switch are in the opposite position");
@@ -111,31 +104,17 @@ public class Robot extends ImprovedRobot {
     		
 			// Auto modes
 			autoChooser = new SendableChooser<>();
-			autoChooser.addDefault("Do Nothing", () -> {
-				robot_act = RobotAction.DO_Nothing;
-			});
-			autoChooser.addObject("Go Robot Go!: EdgeCase_DoNothing", () -> {
-				robot_act = RobotAction.EDGECASE_DoNothing;
-			});
-			autoChooser.addObject("Go Robot Go!: EdgeCase_BaseLine", () -> {
-				robot_act = RobotAction.EDGECASE_Baseline;
-			});
-			autoChooser.addObject("Go Robot Go!: EdgeCase_DelayedSwitch", () -> {
-				robot_act = RobotAction.EDGECASE_DelayedSwitch;
-			});
+			autoChooser.addDefault("Do Nothing", RobotAction.DO_Nothing);
+			autoChooser.addObject("Go Robot Go!: EdgeCase_DoNothing", RobotAction.DO_Nothing);
+			autoChooser.addObject("Go Robot Go!: EdgeCase_BaseLine", RobotAction.EDGECASE_Baseline);
+			autoChooser.addObject("Go Robot Go!: EdgeCase_DelayedSwitch", RobotAction.EDGECASE_DelayedSwitch);
 			SmartDashboard.putData("Auto Mode", autoChooser);
 
 			// Starting Pos
 			startPos = new SendableChooser<>();
-			startPos.addDefault("Left", () -> {
-				start_pos = StartPos.LEFT;
-			});
-			startPos.addObject("Middle", () -> {
-				start_pos = StartPos.MIDDLE;
-			});
-			startPos.addObject("Right", () -> {
-				start_pos = StartPos.RIGHT;
-			});
+			startPos.addDefault("Left", StartPos.LEFT);
+			startPos.addObject("Middle", StartPos.MIDDLE);
+			startPos.addObject("Right", StartPos.RIGHT);
 			SmartDashboard.putData("Starting Position", startPos);
 		}
 	}
@@ -171,10 +150,12 @@ public class Robot extends ImprovedRobot {
 			boolean leftSwitch = (gmsg.charAt(0) == 'L');
 			boolean leftScale = (gmsg.charAt(1) == 'L');
 			boolean delayedSwitch = false;
+			
+			robot_act = autoChooser.getSelected();
+			start_pos = startPos.getSelected();
 
 			if (robot_act != RobotAction.DO_Nothing) { // Do something chosen
 				switch (start_pos) { // Checks which starting position was chosen
-				// Following code choose auto mode based on starting position for switch and scale
 				case LEFT:
 					if (leftSwitch && leftScale)
 						fileToPlay = LEFT_SwitchAndScale;
@@ -257,7 +238,6 @@ public class Robot extends ImprovedRobot {
 		SmartDashboard.putNumber("Free memory", runtime.freeMemory());
 		SmartDashboard.putNumber("Total memory", runtime.totalMemory());
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
-		SmartDashboard.putBoolean("Cube Detected: ", cubeSensor1.get());
 		allPeriodic();
 	}
 	
