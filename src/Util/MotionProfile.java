@@ -16,12 +16,15 @@ public class MotionProfile implements Constants {
 	
 	private int loopTimeout = -1; // this  is just something that makes sure we arent stuck. -1 is disabled.
 	private boolean start = false;
-	private int state = 0; // I will make this an enum later...
+	private enum MPState {
+		NotMPMode, StartingMPE, InMPMode
+	}
 	private SetValueMotionProfile setValue = SetValueMotionProfile.Disable;
 	
-	private static final int minPointsInTalon = 5;
-	private static final int numLoopTimeout = 10;
+	private final int minPointsInTalon = 5;
+	private final int numLoopTimeout = 10;
 	private final TrajectoryDuration duration = TrajectoryDuration.Trajectory_Duration_10ms;
+	private MPState state = MPState.NotMPMode;
 
 	
 	public MotionProfile(WPI_TalonSRX talon) {
@@ -43,7 +46,7 @@ public class MotionProfile implements Constants {
 		
 		loopTimeout = -1;
 		setValue = SetValueMotionProfile.Disable;
-		state = 0;
+		state = MPState.NotMPMode;
 		start = false;
 	}
 
@@ -56,36 +59,36 @@ public class MotionProfile implements Constants {
 		
 		if(talon.getControlMode() != MOTION_PROFILE_MODE) {
 			// checks control mode. Disables if not in motion profile mode.
-			state = 0;
+			state = MPState.NotMPMode;
 			loopTimeout = -1;
 		}
 		else {
 			// does motion profiling if it is in motion profile mode.
 			switch(state) {
-			case 0:
+			case NotMPMode:
 				if(start) {
 					start = false;
 					setValue = SetValueMotionProfile.Disable;
 					//fill(); stream trajectory points
-					state = 1;
+					state = MPState.StartingMPE;
 					loopTimeout = numLoopTimeout;
 				}
 				break;
-			case 1:
+			case StartingMPE:
 				if (status.btmBufferCnt > minPointsInTalon) {
 					setValue = SetValueMotionProfile.Enable; // starts motion profile
-					state = 2;
+					state = MPState.InMPMode;
 					loopTimeout = numLoopTimeout;
 				}
 				break;
-			case 2:
+			case InMPMode:
 				if(!status.isUnderrun) {
 					loopTimeout = numLoopTimeout;
 				}
 				if(status.activePointValid && status.isLast) { 
 					//this checks if we have reached the last point, and stops if we have reached the last point.
 					setValue = SetValueMotionProfile.Hold;
-					state = 0;
+					state = MPState.NotMPMode;
 					loopTimeout = -1;
 				}
 				break;
@@ -94,7 +97,7 @@ public class MotionProfile implements Constants {
 		}
 	}
 	
-	// Streams trajectoryp points to the talon
+	// Streams trajectory points to the talon
 	private void fill(double[][] profile, int numOfPoints, int profileSlot) {
 		TrajectoryPoint point = new TrajectoryPoint();
 		
