@@ -67,10 +67,15 @@ public interface Constants {
 	public final ControlMode SLAVE_MODE = ControlMode.Follower;
 	public final ControlMode PERCENT_VBUS_MODE = ControlMode.PercentOutput;
 	public final NeutralMode BRAKE_MODE = NeutralMode.Brake;
+	public final ControlMode MOTION_PROFILE_MODE = ControlMode.MotionProfile;
 	
 	// ENCODERS STUFF
 	public final double countsPerRev = 4096; // what is this actually supposed to be?
 	public final FeedbackDevice encoder = FeedbackDevice.CTRE_MagEncoder_Relative;
+	
+	// MOTION PROFILING
+	public final int timeout = 10;
+	public final int baseTimeout = 0;
 	
 	// ELEVATOR LENGTHS
 	/*public final double spindleDiameter = 2; //placeholder
