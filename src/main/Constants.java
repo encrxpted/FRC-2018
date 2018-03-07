@@ -1,5 +1,7 @@
 package main;
 
+import com.ctre.phoenix.motion.SetValueMotionProfile;
+import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -74,10 +76,16 @@ public interface Constants {
 	public final FeedbackDevice encoder = FeedbackDevice.CTRE_MagEncoder_Relative;
 	
 	// MOTION PROFILING
+	public final SetValueMotionProfile MPDisable = SetValueMotionProfile.Disable;
+	public final SetValueMotionProfile MPHold = SetValueMotionProfile.Hold;
+	public final SetValueMotionProfile MPEnable = SetValueMotionProfile.Enable;
+
 	public final int timeout = 10;
 	public final int baseTimeout = 10;
 	public final int frameRate = 10;
 	public final int pidIdx = 0;
+	public final TrajectoryDuration duration = TrajectoryDuration.Trajectory_Duration_10ms;
+
 	
 	public final int leftDriveIdx = 1;
 	public final int rightDriveIdx = 2;

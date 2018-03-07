@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import Util.Logger;
-import Util.MotionProfile;
 import controllers.Play;
 import controllers.Record;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -30,6 +29,7 @@ import main.subsystems.Elevator;
 import main.subsystems.Intake;
 import main.subsystems.Pneumatics;
 
+//TODO CHECKING FOR ISUNDERRUN
 public class Robot extends ImprovedRobot {
 	public static Drivetrain dt;
 	public static Pneumatics pn;
@@ -60,13 +60,15 @@ public class Robot extends ImprovedRobot {
 	private String fileToPlay = null;
 	private static Command competitionPlayCommand;
 	
+
+	
 	@Override
 	public void robotInit() {
 		// OI must be at end
 		dt = new Drivetrain();
 		pn = new Pneumatics();
 		in = new Intake();
-		el = new Elevator();		
+		el = new Elevator();	
 		oi = new OI();
 		dc = new DriverCamera();
 		// da = new DriverAlerts();	

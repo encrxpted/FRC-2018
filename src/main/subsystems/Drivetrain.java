@@ -1,16 +1,24 @@
 package main.subsystems;
 
+import com.ctre.phoenix.motion.MotionProfileStatus;
+import com.ctre.phoenix.motion.SetValueMotionProfile;
+import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 import Util.DriveHelper;
+import Util.PeriodicRunnable;
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import interfacesAndAbstracts.ImprovedSubsystem;
 import main.commands.drivetrain.Drive;
 
 public class Drivetrain extends ImprovedSubsystem  {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
+	private MotionProfileStatus status = new MotionProfileStatus();
+	private Notifier leftNotifier = new Notifier(new PeriodicRunnable(rightDriveMaster));
+	private Notifier rightNotifier = new Notifier(new PeriodicRunnable(leftDriveMaster));
 	
 	private final double maxSpeed = 1000; // TODO TEST FOR THIS VALUE
 	private final double fGain = 1023 / maxSpeed;
@@ -25,6 +33,8 @@ public class Drivetrain extends ImprovedSubsystem  {
 		setTalonDefaults();
 		setFeedBackDefaults();
 		setPIDDefaults();
+		leftNotifier.startPeriodic(0.005);
+		rightNotifier.startPeriodic(0.005);
 	}
 	
 	// DRIVE FOR TELEOP
@@ -134,11 +144,12 @@ public class Drivetrain extends ImprovedSubsystem  {
 
 	@Override
 	public void check() {
-		// TODO Auto-generated method stub
+		leftDriveMaster.getMotionProfileStatus(status);
+		rightDriveMaster.getMotionProfileStatus(status);
 	}
 	
 	/***
-	 * ENCODERS
+	 * PID SETTINGS
 	 */
 	
 	private void setFeedBackDefaults() {
@@ -165,7 +176,13 @@ public class Drivetrain extends ImprovedSubsystem  {
 		rightDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
 		leftDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
 		rightDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
+		leftDriveMaster.changeMotionControlFramePeriod(5);
+		rightDriveMaster.changeMotionControlFramePeriod(5);
 	}
+	
+	/***
+	 * ENCODER METHODS
+	 */
 	
 	public double getLeftVelocity() {
 		return leftDriveMaster.getSensorCollection().getQuadratureVelocity();
@@ -181,6 +198,26 @@ public class Drivetrain extends ImprovedSubsystem  {
 	
 	public double getRightEncoderPosition() {
 		return rightDriveMaster.getSensorCollection().getQuadraturePosition();
+	}
+	
+	/**
+	 * MP SUPPORT METHODS
+	 */
+	
+	public void resetMP() {
+		leftDriveMaster.clearMotionProfileTrajectories();
+		rightDriveMaster.clearMotionProfileTrajectories();
+		setMPMode(MPDisable);
+	}
+	
+	public void pushPoints(TrajectoryPoint leftPoint, TrajectoryPoint rightPoint) {
+		leftDriveMaster.pushMotionProfileTrajectory(leftPoint);
+		rightDriveMaster.pushMotionProfileTrajectory(rightPoint);
+	}
+	
+	public void setMPMode(SetValueMotionProfile MPMode) {
+		leftDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
+		rightDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 	}
 
 	@Override

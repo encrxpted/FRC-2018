@@ -1,16 +1,21 @@
 
 package controllers;
 
+import java.io.IOException;
+
+import com.ctre.phoenix.motion.TrajectoryPoint;
+
 import edu.wpi.first.wpilibj.command.Command;
 import loopController.Loop;
 import main.Constants;
 import main.Robot;
-import main.commands.drivetrain.DriveFromPlayer;
+import main.commands.drivetrain.DriveMotionProfile;
 import main.commands.elevator.MoveFromPlay;
 
 public class Play implements Loop, Constants {
 	private static boolean playOK = false;
 	private static boolean finished = false;
+	private boolean isFirstLine = true;
 	
 	public static void okToPlay(boolean okToPlay) {
 		playOK = okToPlay;
@@ -20,6 +25,7 @@ public class Play implements Loop, Constants {
 	
 	@Override
 	public void onStart() {
+		isFirstLine = false;
 	}
 
 	@Override
@@ -34,12 +40,19 @@ public class Play implements Loop, Constants {
 	
 	private void execute() {
 		String line = Robot.lg.readLine();
+		TrajectoryPoint leftPoint = new TrajectoryPoint();
+		TrajectoryPoint rightPoint = new TrajectoryPoint();
+		int count = 0;
+		//TODO CHECKING MP STATUS USING ISUNDERRUN
 		if((line) != null) { 
+			Robot.dt.setMPMode(MPDisable);
 			String[] robotState = line.split(",");
 			
-			if(robotState.length == 26 && robotState != null) {
-				double leftVoltage = Double.parseDouble(robotState[0]);
-				double rightVoltage = Double.parseDouble(robotState[1]);
+			if(robotState.length == 28 && robotState != null) {
+				double leftPosition = Double.parseDouble(robotState[0]);
+				double rightPosition = Double.parseDouble(robotState[1]);
+				double leftVelocity = Double.parseDouble(robotState[27]);
+				double rightVelocity = Double.parseDouble(robotState[28]);
 				boolean a = Boolean.parseBoolean(robotState[2]);
 				boolean b = Boolean.parseBoolean(robotState[3]);
 				boolean x = Boolean.parseBoolean(robotState[4]);
@@ -65,8 +78,36 @@ public class Play implements Loop, Constants {
 				boolean rightJoystickPress2 = Boolean.parseBoolean(robotState[24]);
 				boolean leftTrigger2 = Boolean.parseBoolean(robotState[25]);
 				boolean rightTrigger2 = Boolean.parseBoolean(robotState[26]);
-			
-				Command drive = new DriveFromPlayer(leftVoltage, rightVoltage);
+								
+				leftPoint.position = leftPosition;
+				rightPoint.position = rightPosition;
+				leftPoint.velocity = leftVelocity;
+				rightPoint.velocity = rightVelocity;
+				leftPoint.headingDeg = 0;
+				rightPoint.headingDeg = 0;
+				leftPoint.profileSlotSelect0 = leftDriveIdx;
+				rightPoint.profileSlotSelect0 = rightDriveIdx;
+				leftPoint.timeDur = duration;
+				rightPoint.timeDur = duration;
+				leftPoint.zeroPos = false;
+				rightPoint.zeroPos = false;
+				leftPoint.isLastPoint = false;
+				rightPoint.isLastPoint = false;
+				if(isFirstLine) {
+					leftPoint.zeroPos = true;
+					rightPoint.zeroPos = true;
+				}
+				try {
+					if(count + 1 == Robot.lg.countLines()) { //TODO check if counting is done right here
+						leftPoint.isLastPoint = true;
+						rightPoint.isLastPoint = true;
+					}		
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				count++;			
+				Command drive = new DriveMotionProfile(leftPoint, rightPoint);
 				Command move = new MoveFromPlay(elevatorVoltage);
 				drive.start();
 				move.start();
