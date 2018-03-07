@@ -8,9 +8,8 @@ public class StartPlay extends ImprovedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.lg.resetForRead();
+    	Robot.lg.resetForRead();
 		Robot.dt.resetMP();
-		Robot.dt.setMPMode(MPDisable);
     	Robot.oi.setInternalControl(true);
     	Play.okToPlay(true);
     }
@@ -27,7 +26,7 @@ public class StartPlay extends ImprovedCommand {
     // Called once after isFinished returns true
     protected void end() {
     	Play.okToPlay(false);
-    	Robot.dt.resetMP();
+		Robot.dt.setMPMode(MPDisable);
     	Robot.oi.setInternalControl(false);
     	Play.reset();
     }
