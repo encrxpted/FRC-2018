@@ -1,8 +1,9 @@
 package main.commands.drivetrain;
 
-import Util.GeneratedMotionProfile;
+
 import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
+
 
 public class DriveToDistance extends ImprovedCommand {
 	
@@ -10,7 +11,7 @@ public class DriveToDistance extends ImprovedCommand {
 		Robot.dt.resetMP();
 		Robot.dt.setMPMode(MPDisable);
     	Robot.oi.setInternalControl(true);
-    	Robot.dt.fillMPE(GeneratedMotionProfile.Points, GeneratedMotionProfile.Points);
+    	//Robot.dt.fillMPE(GeneratedMotionProfile.Points, GeneratedMotionProfile.Points);
 	}
 	
 	protected void execute() {
