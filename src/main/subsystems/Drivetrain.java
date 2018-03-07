@@ -16,11 +16,16 @@ public class Drivetrain extends ImprovedSubsystem  {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private MotionProfileStatus status = new MotionProfileStatus();
 	
-	private final double maxSpeed = 1000; // TODO TEST FOR THIS VALUE
-	private final double fGain = 1023 / maxSpeed;
-	private final double kD = 0;
-	private final double kP = 2;
-	private final double kI = 0;
+	private final double leftMaxSpeed = 1000; // TODO TEST FOR THIS VALUE
+	private final double leftFGain = 1023 / leftMaxSpeed;
+	private final double leftkD = 0;
+	private final double leftkP = 2;
+	private final double leftkI = 0;
+	private final double rightMaxSpeed = 1000; // TODO TEST FOR THIS VALUE
+	private final double rightFGain = 1023 / rightMaxSpeed;
+	private final double rightkD = 0;
+	private final double rightkP = 2;
+	private final double rightkI = 0;
 	
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
@@ -156,16 +161,16 @@ public class Drivetrain extends ImprovedSubsystem  {
 	
 	private void setPIDDefaults() {
 		leftDriveMaster.selectProfileSlot(leftDriveIdx, pidIdx);
-		leftDriveMaster.config_kF(leftDriveIdx, fGain, timeout);
-		leftDriveMaster.config_kP(leftDriveIdx, kP, timeout);
-		leftDriveMaster.config_kI(leftDriveIdx, kI, timeout);
-		leftDriveMaster.config_kD(leftDriveIdx, kD, timeout);
+		leftDriveMaster.config_kF(leftDriveIdx, leftFGain, timeout);
+		leftDriveMaster.config_kP(leftDriveIdx, leftkP, timeout);
+		leftDriveMaster.config_kI(leftDriveIdx, leftkI, timeout);
+		leftDriveMaster.config_kD(leftDriveIdx, leftkD, timeout);
 		
 		rightDriveMaster.selectProfileSlot(rightDriveIdx, pidIdx);
-		rightDriveMaster.config_kF(rightDriveIdx, fGain, timeout);
-		rightDriveMaster.config_kP(rightDriveIdx, kP, timeout);
-		rightDriveMaster.config_kI(rightDriveIdx, kI, timeout);
-		rightDriveMaster.config_kD(rightDriveIdx, kD, timeout);
+		rightDriveMaster.config_kF(rightDriveIdx, rightFGain, timeout);
+		rightDriveMaster.config_kP(rightDriveIdx, rightkP, timeout);
+		rightDriveMaster.config_kI(rightDriveIdx, rightkI, timeout);
+		rightDriveMaster.config_kD(rightDriveIdx, rightkD, timeout);
 		
 		leftDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
 		rightDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);

@@ -241,6 +241,8 @@ public class Robot extends ImprovedRobot {
 		SmartDashboard.putNumber("Free memory", runtime.freeMemory());
 		SmartDashboard.putNumber("Total memory", runtime.totalMemory());
 		SmartDashboard.putNumber("Pressure: ", HardwareAdapter.analogPressureSensor1.value());
+		SmartDashboard.putNumber("Left velocity", dt.getLeftVelocity());
+		SmartDashboard.putNumber("Right velocity", dt.getRightVelocity());
 		allPeriodic();
 	}
 	
