@@ -13,7 +13,7 @@ public class CheckMPB implements Loop {
 
 	@Override
 	public void onLoop() {
-		Robot.dt.checkMPB();
+		Robot.dt.checkMPB(); //TODO 5 ms delay
 	}
 
 	@Override
