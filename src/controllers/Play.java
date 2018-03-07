@@ -1,15 +1,10 @@
 
 package controllers;
 
-import java.io.IOException;
-
-import com.ctre.phoenix.motion.TrajectoryPoint;
-
 import edu.wpi.first.wpilibj.command.Command;
 import loopController.Loop;
 import main.Constants;
 import main.Robot;
-import main.commands.drivetrain.DriveMotionProfile;
 import main.commands.elevator.MoveFromPlay;
 
 public class Play implements Loop, Constants {

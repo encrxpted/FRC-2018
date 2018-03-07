@@ -1,6 +1,5 @@
 package main.subsystems;
 
-import java.io.IOException;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
@@ -11,7 +10,6 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import Util.DriveHelper;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import interfacesAndAbstracts.ImprovedSubsystem;
-import main.Robot;
 import main.commands.drivetrain.Drive;
 
 public class Drivetrain extends ImprovedSubsystem  {
@@ -143,8 +141,6 @@ public class Drivetrain extends ImprovedSubsystem  {
 	public void check() {
 		leftDriveMaster.getMotionProfileStatus(status);
 		rightDriveMaster.getMotionProfileStatus(status);
-		leftDriveMaster.processMotionProfileBuffer(); //TODO 5MS DELAY
-		rightDriveMaster.processMotionProfileBuffer();
 	}
 	
 	/***
@@ -207,6 +203,11 @@ public class Drivetrain extends ImprovedSubsystem  {
 		leftDriveMaster.clearMotionProfileTrajectories();
 		rightDriveMaster.clearMotionProfileTrajectories();
 		///setMPMode(MPDisable);
+	}
+	
+	public void checkMPB() {
+		leftDriveMaster.processMotionProfileBuffer();
+		rightDriveMaster.processMotionProfileBuffer();
 	}
 	
 	public void pushPoints(TrajectoryPoint leftPoint, TrajectoryPoint rightPoint) {
