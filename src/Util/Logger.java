@@ -34,7 +34,7 @@ public class Logger implements Constants {
 		restrictedFilesList.add(new File(outputPath +"/crash_tracking.txt"));
 	}
 	
-	public double[][] getLeftMPArray() {
+	public double[][] getLeftMPArray() { //TODO counting correct??
 		try {
 			for(int i = 0; i + 1 < countLines(); i++) {
 				String[] splitLine = getLine(i).split(",");
