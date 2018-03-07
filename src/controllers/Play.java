@@ -15,7 +15,8 @@ import main.commands.elevator.MoveFromPlay;
 public class Play implements Loop, Constants {
 	private static boolean playOK = false;
 	private static boolean finished = false;
-	private boolean isFirstLine = true;
+	private TrajectoryPoint leftPoint = new TrajectoryPoint();
+	private TrajectoryPoint rightPoint = new TrajectoryPoint();
 	
 	public static void okToPlay(boolean okToPlay) {
 		playOK = okToPlay;
@@ -25,7 +26,6 @@ public class Play implements Loop, Constants {
 	
 	@Override
 	public void onStart() {
-		isFirstLine = false;
 	}
 
 	@Override
@@ -40,12 +40,10 @@ public class Play implements Loop, Constants {
 	
 	private void execute() {
 		String line = Robot.lg.readLine();
-		TrajectoryPoint leftPoint = new TrajectoryPoint();
-		TrajectoryPoint rightPoint = new TrajectoryPoint();
 		int count = 0;
+		Robot.dt.setMPMode(MPDisable);
 		//TODO CHECKING MP STATUS USING ISUNDERRUN
 		if((line) != null) { 
-			Robot.dt.setMPMode(MPDisable);
 			String[] robotState = line.split(",");
 			
 			if(robotState.length == 28 && robotState != null) {
@@ -93,10 +91,6 @@ public class Play implements Loop, Constants {
 				rightPoint.zeroPos = false;
 				leftPoint.isLastPoint = false;
 				rightPoint.isLastPoint = false;
-				if(isFirstLine) {
-					leftPoint.zeroPos = true;
-					rightPoint.zeroPos = true;
-				}
 				try {
 					if(count + 1 == Robot.lg.countLines()) { //TODO check if counting is done right here
 						leftPoint.isLastPoint = true;
@@ -105,8 +99,8 @@ public class Play implements Loop, Constants {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 				count++;			
+				
 				Command drive = new DriveMotionProfile(leftPoint, rightPoint);
 				Command move = new MoveFromPlay(elevatorVoltage);
 				drive.start();
