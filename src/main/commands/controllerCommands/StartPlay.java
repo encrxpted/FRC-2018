@@ -10,7 +10,9 @@ public class StartPlay extends ImprovedCommand {
     protected void initialize() {
     	Robot.lg.resetForRead();
 		Robot.dt.resetMP();
+		Robot.dt.setMPMode(MPDisable);
     	Robot.oi.setInternalControl(true);
+    	Robot.dt.fillMPE(Robot.lg.getLeftMPArray(), Robot.lg.getRightMPArray());
     	Play.okToPlay(true);
     }
 

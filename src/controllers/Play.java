@@ -15,8 +15,6 @@ import main.commands.elevator.MoveFromPlay;
 public class Play implements Loop, Constants {
 	private static boolean playOK = false;
 	private static boolean finished = false;
-	private TrajectoryPoint leftPoint = new TrajectoryPoint();
-	private TrajectoryPoint rightPoint = new TrajectoryPoint();
 	
 	public static void okToPlay(boolean okToPlay) {
 		playOK = okToPlay;
@@ -40,17 +38,11 @@ public class Play implements Loop, Constants {
 	
 	private void execute() {
 		String line = Robot.lg.readLine();
-		int count = 0;
-		Robot.dt.setMPMode(MPDisable);
 		//TODO CHECKING MP STATUS USING ISUNDERRUN
 		if((line) != null) { 
 			String[] robotState = line.split(",");
 			
 			if(robotState.length == 28 && robotState != null) {
-				double leftPosition = Double.parseDouble(robotState[0]);
-				double rightPosition = Double.parseDouble(robotState[1]);
-				double leftVelocity = Double.parseDouble(robotState[27]);
-				double rightVelocity = Double.parseDouble(robotState[28]);
 				boolean a = Boolean.parseBoolean(robotState[2]);
 				boolean b = Boolean.parseBoolean(robotState[3]);
 				boolean x = Boolean.parseBoolean(robotState[4]);
@@ -77,33 +69,8 @@ public class Play implements Loop, Constants {
 				boolean leftTrigger2 = Boolean.parseBoolean(robotState[25]);
 				boolean rightTrigger2 = Boolean.parseBoolean(robotState[26]);
 								
-				leftPoint.position = leftPosition;
-				rightPoint.position = rightPosition;
-				leftPoint.velocity = leftVelocity;
-				rightPoint.velocity = rightVelocity;
-				leftPoint.headingDeg = 0;
-				rightPoint.headingDeg = 0;
-				leftPoint.profileSlotSelect0 = leftDriveIdx;
-				rightPoint.profileSlotSelect0 = rightDriveIdx;
-				leftPoint.timeDur = duration;
-				rightPoint.timeDur = duration;
-				leftPoint.zeroPos = false;
-				rightPoint.zeroPos = false;
-				leftPoint.isLastPoint = false;
-				rightPoint.isLastPoint = false;
-				try {
-					if(count + 1 == Robot.lg.countLines()) { //TODO check if counting is done right here
-						leftPoint.isLastPoint = true;
-						rightPoint.isLastPoint = true;
-					}		
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				count++;			
-				
-				Command drive = new DriveMotionProfile(leftPoint, rightPoint);
-				Command move = new MoveFromPlay(elevatorVoltage);
-				drive.start();
+		    	Robot.dt.setMPMode(MPEnable);
+		    	Command move = new MoveFromPlay(elevatorVoltage);
 				move.start();
 				Robot.oi.setButtonValues(a, b, x, y, leftBumper, rightBumper, select, start, leftJoystickPress, rightJoystickPress, leftTrigger, rightTrigger);
 				Robot.oi.setButtonValues2(a2, b2, x2, y2, leftBumper2, rightBumper2, select2, start2, leftJoystickPress2, rightJoystickPress2, leftTrigger2, rightTrigger2);

@@ -1,7 +1,8 @@
 package main.subsystems;
 
-import com.ctre.phoenix.motion.MotionProfileStatus;
+import java.io.IOException;
 
+import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -10,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import Util.DriveHelper;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import interfacesAndAbstracts.ImprovedSubsystem;
+import main.Robot;
 import main.commands.drivetrain.Drive;
 
 public class Drivetrain extends ImprovedSubsystem  {
@@ -141,7 +143,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	public void check() {
 		leftDriveMaster.getMotionProfileStatus(status);
 		rightDriveMaster.getMotionProfileStatus(status);
-		leftDriveMaster.processMotionProfileBuffer();
+		leftDriveMaster.processMotionProfileBuffer(); //TODO 5MS DELAY
 		rightDriveMaster.processMotionProfileBuffer();
 	}
 	
@@ -173,8 +175,8 @@ public class Drivetrain extends ImprovedSubsystem  {
 		rightDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
 		leftDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
 		rightDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
-		leftDriveMaster.changeMotionControlFramePeriod(10);
-		rightDriveMaster.changeMotionControlFramePeriod(10);
+		leftDriveMaster.changeMotionControlFramePeriod(timeout/2);
+		rightDriveMaster.changeMotionControlFramePeriod(timeout/2);
 	}
 	
 	/***
@@ -204,7 +206,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	public void resetMP() {
 		leftDriveMaster.clearMotionProfileTrajectories();
 		rightDriveMaster.clearMotionProfileTrajectories();
-		setMPMode(MPDisable);
+		///setMPMode(MPDisable);
 	}
 	
 	public void pushPoints(TrajectoryPoint leftPoint, TrajectoryPoint rightPoint) {
@@ -222,5 +224,46 @@ public class Drivetrain extends ImprovedSubsystem  {
 		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, 10);
 		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, 10); 
 	}	
+	
+	public void fillMPE(double[][] leftProfile, double[][] rightProfile) {
+		TrajectoryPoint leftPoint = new TrajectoryPoint();
+		TrajectoryPoint rightPoint = new TrajectoryPoint();
+		resetMP();
+		
+		int lineNum = leftProfile.length; //TODO right dimension??
+		
+		for(int i = 0; i < lineNum; i++) {
+			double leftPosition = leftProfile[i][0];
+			double leftVelocity = leftProfile[i][1];
+			double rightPosition = rightProfile[i][0];
+			double rightVelocity = rightProfile[i][1];
+			
+			leftPoint.position = leftPosition;
+			rightPoint.position = rightPosition;
+			leftPoint.velocity = leftVelocity;
+			rightPoint.velocity = rightVelocity;
+			leftPoint.headingDeg = 0;
+			rightPoint.headingDeg = 0;
+			leftPoint.profileSlotSelect0 = leftDriveIdx;
+			rightPoint.profileSlotSelect0 = rightDriveIdx;
+			leftPoint.timeDur = duration;
+			rightPoint.timeDur = duration;
+			leftPoint.zeroPos = false;
+			rightPoint.zeroPos = false;
+			leftPoint.isLastPoint = false;
+			rightPoint.isLastPoint = false;
+			if (i + 1 == lineNum) { // TODO check if counting is done right here
+				leftPoint.isLastPoint = true;
+				rightPoint.isLastPoint = true;
+			}
+			if(i == 0) {
+				leftPoint.zeroPos = true;
+				rightPoint.zeroPos = true;
+			}
+		}
+		
+		leftDriveMaster.pushMotionProfileTrajectory(leftPoint);
+		rightDriveMaster.pushMotionProfileTrajectory(rightPoint);
+	}
 }
 

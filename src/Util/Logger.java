@@ -25,11 +25,47 @@ public class Logger implements Constants {
 	private boolean fileSelected = false;
 	//Restricted Files List
 	private final List<File> restrictedFilesList = new ArrayList<File>();
+	public double [][]LeftPoints = new double[][] {};	
+	public double [][]RightPoints = new double[][] {};	
 	
 	public Logger() {
 		//Adding Restricted Files
 		restrictedFilesList.add(new File(outputPath +"/README_File_Paths.txt"));
 		restrictedFilesList.add(new File(outputPath +"/crash_tracking.txt"));
+	}
+	
+	public double[][] getLeftMPArray() {
+		try {
+			for(int i = 0; i + 1 < countLines(); i++) {
+				String[] splitLine = getLine(i).split(",");
+				
+				double leftPosition = Double.parseDouble(splitLine[0]);
+				double leftVelocity = Double.parseDouble(splitLine[27]);
+				
+				LeftPoints[i][0] = leftPosition;
+				LeftPoints[i][1] = leftVelocity;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		return LeftPoints;
+	}
+
+	public double[][] getRightMPArray() {
+		try {
+			for(int i = 0; i + 1 < countLines(); i++) {
+				String[] splitLine = getLine(i).split(",");
+				
+				double rightPosition = Double.parseDouble(splitLine[1]);
+				double rightVelocity = Double.parseDouble(splitLine[28]);
+				
+				RightPoints[i][0] = rightPosition;
+				RightPoints[i][1] = rightVelocity;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return RightPoints;	
 	}
 	
 	public void createNewFile(String name) {
