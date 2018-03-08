@@ -142,22 +142,9 @@ public class Drivetrain extends ImprovedSubsystem  {
 		setDefaultCommand(new Drive());
 	}
 
-	@Override
-	public void check() {
-		leftDriveMaster.getMotionProfileStatus(status);
-		rightDriveMaster.getMotionProfileStatus(status);
-	}
-	
-	/***
-	 * PID SETTINGS
-	 */
-	
-	private void setFeedBackDefaults() {
-		leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, leftDriveIdx, timeout);
-		rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, rightDriveIdx, timeout);
-		leftDriveMaster.setSensorPhase(true);
-		rightDriveMaster.setSensorPhase(true);
-	}
+	/****************
+	 * PID SETTINGS *
+	 ****************/
 	
 	private void setPIDDefaults() {
 		leftDriveMaster.selectProfileSlot(leftDriveIdx, pidIdx);
@@ -180,9 +167,15 @@ public class Drivetrain extends ImprovedSubsystem  {
 		rightDriveMaster.changeMotionControlFramePeriod(timeout/2);
 	}
 	
-	/***
-	 * ENCODER METHODS
-	 */
+	/*******************
+	 * ENCODER METHODS *
+	 *******************/
+	private void setFeedBackDefaults() {
+		leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, leftDriveIdx, timeout);
+		rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, rightDriveIdx, timeout);
+		leftDriveMaster.setSensorPhase(true);
+		rightDriveMaster.setSensorPhase(true);
+	}
 	
 	public double getLeftVelocity() {
 		return leftDriveMaster.getSensorCollection().getQuadratureVelocity();
@@ -200,42 +193,30 @@ public class Drivetrain extends ImprovedSubsystem  {
 		return rightDriveMaster.getSensorCollection().getQuadraturePosition();
 	}
 	
-	/**
-	 * MP SUPPORT METHODS
-	 */
+	/**********************
+	 * MP SUPPORT METHODS *
+	 **********************/
 	
 	public void resetMP() {
 		leftDriveMaster.clearMotionProfileTrajectories();
 		rightDriveMaster.clearMotionProfileTrajectories();
-		///setMPMode(MPDisable);
+		zeroSensors();
 	}
 	
-	public void checkMPB() {
+	public void checkMPB() { //TODO i still need to run this in a loop w/ 5ms delay...
 		leftDriveMaster.processMotionProfileBuffer();
 		rightDriveMaster.processMotionProfileBuffer();
 	}
-	
-	public void pushPoints(TrajectoryPoint leftPoint, TrajectoryPoint rightPoint) {
-		leftDriveMaster.pushMotionProfileTrajectory(leftPoint);
-		rightDriveMaster.pushMotionProfileTrajectory(rightPoint);
-	}
-	
+
 	public void setMPMode(SetValueMotionProfile MPMode) {
 		leftDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 		rightDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 	}
-
-	@Override
-	public void zeroSensors() {
-		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, 10);
-		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, 10); 
-	}	
 	
 	public void fillMPE(double[][] leftProfile, double[][] rightProfile) {
 		TrajectoryPoint leftPoint = new TrajectoryPoint();
 		TrajectoryPoint rightPoint = new TrajectoryPoint();
 		resetMP();
-		
 		int lineNum = leftProfile.length; //TODO right dimension??
 		
 		for(int i = 0; i < lineNum; i++) {
@@ -267,8 +248,22 @@ public class Drivetrain extends ImprovedSubsystem  {
 				rightPoint.zeroPos = true;
 			}
 			leftDriveMaster.pushMotionProfileTrajectory(leftPoint);
-			rightDriveMaster.pushMotionProfileTrajectory(rightPoint);
+			rightDriveMaster.pushMotionProfileTrajectory(rightPoint);		
 		}
 	}
+
+	@Override
+	public void check() {
+		leftDriveMaster.getMotionProfileStatus(status);
+		rightDriveMaster.getMotionProfileStatus(status);
+		if(status.isUnderrun) System.out.println("underrun");
+	}
+	
+	@Override
+	public void zeroSensors() {
+		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, 10);
+		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, 10); 
+	}	
+	
 }
 

@@ -1,20 +1,24 @@
 package main.commands.drivetrain;
 
-import com.ctre.phoenix.motion.TrajectoryPoint;
-
 import interfacesAndAbstracts.ImprovedCommand;
 import main.Robot;
 
 public class DriveMotionProfile extends ImprovedCommand {
-	private TrajectoryPoint leftPoint, rightPoint;
+	private double [][]leftProfile;
+	private double [][]rightProfile;
+
+	public DriveMotionProfile(double [][]leftProfile, double [][]rightProfile) {
+		this.leftProfile = leftProfile;
+		this.rightProfile = rightProfile;
+	}
 	
-	public DriveMotionProfile(TrajectoryPoint leftPoint, TrajectoryPoint rightPoint) {
-		this.leftPoint = leftPoint;
-		this.rightPoint = rightPoint;
+	protected void initialize() {
+		Robot.dt.resetMP();
+		Robot.dt.setMPMode(MPDisable);
+		Robot.dt.fillMPE(leftProfile, rightProfile);
 	}
 	
 	protected void execute() {
-		Robot.dt.pushPoints(leftPoint, rightPoint);
 		Robot.dt.setMPMode(MPEnable);
 	}
 
