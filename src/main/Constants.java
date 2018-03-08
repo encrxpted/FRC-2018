@@ -81,11 +81,10 @@ public interface Constants {
 	public final SetValueMotionProfile MPEnable = SetValueMotionProfile.Enable;
 
 	public final int timeout = 10;
-	public final int baseTimeout = 10;
+	public final int baseTimeout = 0;
 	public final int frameRate = 10;
 	public final int pidIdx = 0;
 	public final TrajectoryDuration duration = TrajectoryDuration.Trajectory_Duration_10ms;
-
 	
 	public final int leftDriveIdx = 1;
 	public final int rightDriveIdx = 2;

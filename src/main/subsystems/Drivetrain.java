@@ -16,16 +16,17 @@ public class Drivetrain extends ImprovedSubsystem  {
 	private static DifferentialDrive driveTrain = new DifferentialDrive(leftDriveMaster, rightDriveMaster);
 	private MotionProfileStatus status = new MotionProfileStatus();
 	
+	// MOTION PROFILE PID CONSTANTS
 	private final double leftMaxSpeed = 1000; // TODO TEST FOR THIS VALUE
 	private final double leftFGain = 1023 / leftMaxSpeed;
-	private final double leftkD = 0;
 	private final double leftkP = 2;
 	private final double leftkI = 0;
+	private final double leftkD = 0;
 	private final double rightMaxSpeed = 1000; // TODO TEST FOR THIS VALUE
 	private final double rightFGain = 1023 / rightMaxSpeed;
-	private final double rightkD = 0;
 	private final double rightkP = 2;
 	private final double rightkI = 0;
+	private final double rightkD = 0;
 	
 	//TELEOP DRIVING
 	private DriveHelper helper = new DriveHelper(7.5);
@@ -147,8 +148,10 @@ public class Drivetrain extends ImprovedSubsystem  {
 	 * PID SETTINGS *
 	 ****************/
 	
+	// Configures the PID loops, f-gain, p-gain, I-gain, and D-gain for each talon
 	private void setPIDDefaults() {
-		// Configures the PID loops, f-gain, p-gain, I-gain, and D-gain for each talon
+		// selectProfileSlot: You can have up to 4 different PID loops. This method chooses which loop you are using
+		// for each talon. 
 		leftDriveMaster.selectProfileSlot(leftDriveIdx, pidIdx);
 		leftDriveMaster.config_kF(leftDriveIdx, leftFGain, timeout);
 		leftDriveMaster.config_kP(leftDriveIdx, leftkP, timeout);
@@ -162,21 +165,22 @@ public class Drivetrain extends ImprovedSubsystem  {
 		rightDriveMaster.config_kD(rightDriveIdx, rightkD, timeout);
 	}
 	
+	// Configures settings for the motion profile
 	private void setMPDefaults() {
-		// Configures settings for the motion profile
 		leftDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
 		rightDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
 		leftDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
 		rightDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
-		leftDriveMaster.changeMotionControlFramePeriod(timeout/2);
-		rightDriveMaster.changeMotionControlFramePeriod(timeout/2);
+		leftDriveMaster.changeMotionControlFramePeriod(frameRate/2);
+		rightDriveMaster.changeMotionControlFramePeriod(frameRate/2);
 	}
 	
 	/*******************
 	 * ENCODER METHODS *
 	 *******************/
+	
+	// "Instantiates" the encoders and sets them to spin in the same direction as the wheels
 	private void setEncoderDefaults() {
-		// "Instantiates" the encoders and sets them to spin in the same direction as the wheels
 		leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, leftDriveIdx, timeout);
 		rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, rightDriveIdx, timeout);
 		leftDriveMaster.setSensorPhase(true);
@@ -203,24 +207,28 @@ public class Drivetrain extends ImprovedSubsystem  {
 	 * MP SUPPORT METHODS *
 	 **********************/
 	
+	// Resets the motion profile by clearing the buffered motion profile and resetting encoders
 	public void resetMP() {
-		// Resets the motion profile by clearing the buffered motion profile and resetting encoders
 		leftDriveMaster.clearMotionProfileTrajectories();
 		rightDriveMaster.clearMotionProfileTrajectories();
+		leftDriveMaster.clearStickyFaults(0);
+		rightDriveMaster.clearStickyFaults(0);
 		zeroSensors();
 	}
 	
-	public void checkMPB() { //TODO i still need to run this in a loop w/ 5ms delay...
+	// This is called periodically and processes the trajectory points
+	public void checkMPB() {
 		leftDriveMaster.processMotionProfileBuffer();
 		rightDriveMaster.processMotionProfileBuffer();
 	}
 
+	// Sets talons on motion profile mode. Param is enum which has states of enable, disable
 	public void setMPMode(SetValueMotionProfile MPMode) {
-		// Sets talons on motion profile mode. Param is enabled, disabled, or hold
 		leftDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 		rightDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 	}
 	
+	// This method fills each talon with trajectory points. 
 	public void fillMPE(double[][] leftProfile, double[][] rightProfile) {
 		TrajectoryPoint leftPoint = new TrajectoryPoint();
 		TrajectoryPoint rightPoint = new TrajectoryPoint();
@@ -239,7 +247,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 			rightPoint.position = rightPosition;
 			leftPoint.velocity = leftVelocity;
 			rightPoint.velocity = rightVelocity;
-			leftPoint.headingDeg = 0;
+			leftPoint.headingDeg = 0; // Future feature... leaving it here once this can be used
 			rightPoint.headingDeg = 0;
 			leftPoint.profileSlotSelect0 = leftDriveIdx;
 			rightPoint.profileSlotSelect0 = rightDriveIdx;
@@ -250,11 +258,11 @@ public class Drivetrain extends ImprovedSubsystem  {
 			leftPoint.isLastPoint = false;
 			rightPoint.isLastPoint = false;
 			if (i + 1 == lineNum) { // TODO check if counting is done right here
-				leftPoint.isLastPoint = true;
+				leftPoint.isLastPoint = true; // If we're on the last row, set isLastPoint to true
 				rightPoint.isLastPoint = true;
 			}
 			if(i == 0) {
-				leftPoint.zeroPos = true;
+				leftPoint.zeroPos = true; // If we're on the first point, set zeroPos to true
 				rightPoint.zeroPos = true;
 			}
 			// Pushes the trajectory point whose values were just assigned to the talons
@@ -263,20 +271,20 @@ public class Drivetrain extends ImprovedSubsystem  {
 		}
 	}
 	
+	// checks if there are at least 5 trajectory points loaded
 	public boolean isEnoughPoints() {
-		// checks if there are at least 5 trajectory points 
 		if(status.btmBufferCnt > 5) return true;
 		else return false;
 	}
 	
+	// Checks if the current point is the last one
 	public boolean isLastPoint() {
-		// Checks if the current point is the last one
 		return status.isLast && status.activePointValid;
 	}
-
+	
+	// check method called each loop to check if motion profile is underrun and clears the underrun flag if it is.
 	@Override
 	public void check() {
-		// check method called each loop to check if motion profile is underrun and clears the underrun flag if it is.
 		leftDriveMaster.getMotionProfileStatus(status);
 		rightDriveMaster.getMotionProfileStatus(status);
 		if(status.isUnderrun) {
@@ -288,8 +296,8 @@ public class Drivetrain extends ImprovedSubsystem  {
 	
 	@Override
 	public void zeroSensors() {
-		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, 10);
-		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, 10); 
+		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, timeout);
+		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, timeout); 
 	}	
 	
 }
