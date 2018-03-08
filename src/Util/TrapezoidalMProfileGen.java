@@ -8,7 +8,6 @@ public class TrapezoidalMProfileGen {
 	/** cruiseVelocity- units per 100ms
  	 * acceleration- units per 100ms per sec
 	 * distance- distance to travel in encoder units*/
-	
 	private static List<Double> speedList = new ArrayList<Double>();
 	private static List<Double> posList = new ArrayList<Double>();
 	

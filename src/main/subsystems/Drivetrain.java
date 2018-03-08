@@ -239,10 +239,10 @@ public class Drivetrain extends ImprovedSubsystem  {
 		int lineNum = leftProfile.length; //TODO right dimension??
 		
 		for(int i = 0; i < lineNum; i++) {
-			double leftPosition = leftProfile[i][0];
-			double leftVelocity = leftProfile[i][1];
-			double rightPosition = rightProfile[i][0];
-			double rightVelocity = rightProfile[i][1];
+			double leftPosition = leftProfile[i][1];
+			double leftVelocity = leftProfile[i][0];
+			double rightPosition = rightProfile[i][1];
+			double rightVelocity = rightProfile[i][0];
 			
 			leftPoint.position = leftPosition;
 			rightPoint.position = rightPosition;
@@ -266,10 +266,9 @@ public class Drivetrain extends ImprovedSubsystem  {
 				leftPoint.zeroPos = true;
 				rightPoint.zeroPos = true;
 			}
+			leftDriveMaster.pushMotionProfileTrajectory(leftPoint);
+			rightDriveMaster.pushMotionProfileTrajectory(rightPoint);
 		}
-		
-		leftDriveMaster.pushMotionProfileTrajectory(leftPoint);
-		rightDriveMaster.pushMotionProfileTrajectory(rightPoint);
 	}
 }
 
