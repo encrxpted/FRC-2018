@@ -32,7 +32,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 
 	public Drivetrain() {
 		setTalonDefaults();
-		setFeedBackDefaults();
+		setEncoderDefaults();
 		setPIDDefaults();
 		setMPDefaults();
 		zeroSensors();
@@ -175,7 +175,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	/*******************
 	 * ENCODER METHODS *
 	 *******************/
-	private void setFeedBackDefaults() {
+	private void setEncoderDefaults() {
 		// "Instantiates" the encoders and sets them to spin in the same direction as the wheels
 		leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, leftDriveIdx, timeout);
 		rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, rightDriveIdx, timeout);
@@ -204,7 +204,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	 **********************/
 	
 	public void resetMP() {
-		// Resets the motion profile 
+		// Resets the motion profile by clearing the buffered motion profile and resetting encoders
 		leftDriveMaster.clearMotionProfileTrajectories();
 		rightDriveMaster.clearMotionProfileTrajectories();
 		zeroSensors();
@@ -216,6 +216,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	}
 
 	public void setMPMode(SetValueMotionProfile MPMode) {
+		// Sets talons on motion profile mode. Param is enabled, disabled, or hold
 		leftDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 		rightDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 	}
@@ -223,15 +224,17 @@ public class Drivetrain extends ImprovedSubsystem  {
 	public void fillMPE(double[][] leftProfile, double[][] rightProfile) {
 		TrajectoryPoint leftPoint = new TrajectoryPoint();
 		TrajectoryPoint rightPoint = new TrajectoryPoint();
-		resetMP();
+		resetMP(); // reset just in case
 		
 		int lineNum = leftProfile.length; //TODO right dimension??
 		for(int i = 0; i < lineNum; i++) {
+			// Gets the position and velocity of right/left profiles at each line
 			double leftPosition = leftProfile[i][1];
 			double leftVelocity = leftProfile[i][0];
 			double rightPosition = rightProfile[i][1];
-			double rightVelocity = rightProfile[i][0];
+			double rightVelocity = rightProfile[i][0]; 
 			
+			// sets trajectory points to a certain value
 			leftPoint.position = leftPosition;
 			rightPoint.position = rightPosition;
 			leftPoint.velocity = leftVelocity;
@@ -254,22 +257,26 @@ public class Drivetrain extends ImprovedSubsystem  {
 				leftPoint.zeroPos = true;
 				rightPoint.zeroPos = true;
 			}
+			// Pushes the trajectory point whose values were just assigned to the talons
 			leftDriveMaster.pushMotionProfileTrajectory(leftPoint);
 			rightDriveMaster.pushMotionProfileTrajectory(rightPoint);		
 		}
 	}
 	
 	public boolean isEnoughPoints() {
+		// checks if there are at least 5 trajectory points 
 		if(status.btmBufferCnt > 5) return true;
 		else return false;
 	}
 	
 	public boolean isLastPoint() {
+		// Checks if the current point is the last one
 		return status.isLast && status.activePointValid;
 	}
 
 	@Override
 	public void check() {
+		// check method called each loop to check if motion profile is underrun and clears the underrun flag if it is.
 		leftDriveMaster.getMotionProfileStatus(status);
 		rightDriveMaster.getMotionProfileStatus(status);
 		if(status.isUnderrun) {

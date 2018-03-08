@@ -63,8 +63,9 @@ public class Play implements Loop, Constants {
 				boolean rightJoystickPress2 = Boolean.parseBoolean(robotState[24]);
 				boolean leftTrigger2 = Boolean.parseBoolean(robotState[25]);
 				boolean rightTrigger2 = Boolean.parseBoolean(robotState[26]);
-								
+				
 		    	Robot.dt.setMPMode(MPEnable);
+		    	if(Robot.dt.isLastPoint()) Robot.dt.setMPMode(MPHold);
 		    	Command move = new MoveFromPlay(elevatorVoltage);
 				move.start();
 				Robot.oi.setButtonValues(a, b, x, y, leftBumper, rightBumper, select, start, leftJoystickPress, rightJoystickPress, leftTrigger, rightTrigger);
