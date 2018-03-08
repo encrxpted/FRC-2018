@@ -19,12 +19,16 @@ public class DriveMotionProfile extends ImprovedCommand {
 	}
 	
 	protected void execute() {
-		Robot.dt.setMPMode(MPEnable);
+		if(Robot.dt.isEnoughPoints()) Robot.dt.setMPMode(MPEnable);
 	}
 
 	@Override
 	protected boolean isFinished() {
 		return true;
+	}
+	
+	protected void end() {
+		Robot.dt.setMPMode(MPDisable);
 	}
 
 }

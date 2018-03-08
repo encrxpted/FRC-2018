@@ -34,6 +34,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 		setTalonDefaults();
 		setFeedBackDefaults();
 		setPIDDefaults();
+		setMPDefaults();
 		zeroSensors();
 	}
 	
@@ -147,6 +148,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	 ****************/
 	
 	private void setPIDDefaults() {
+		// Configures the PID loops, f-gain, p-gain, I-gain, and D-gain for each talon
 		leftDriveMaster.selectProfileSlot(leftDriveIdx, pidIdx);
 		leftDriveMaster.config_kF(leftDriveIdx, leftFGain, timeout);
 		leftDriveMaster.config_kP(leftDriveIdx, leftkP, timeout);
@@ -158,7 +160,10 @@ public class Drivetrain extends ImprovedSubsystem  {
 		rightDriveMaster.config_kP(rightDriveIdx, rightkP, timeout);
 		rightDriveMaster.config_kI(rightDriveIdx, rightkI, timeout);
 		rightDriveMaster.config_kD(rightDriveIdx, rightkD, timeout);
-		
+	}
+	
+	private void setMPDefaults() {
+		// Configures settings for the motion profile
 		leftDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
 		rightDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
 		leftDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
@@ -171,6 +176,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	 * ENCODER METHODS *
 	 *******************/
 	private void setFeedBackDefaults() {
+		// "Instantiates" the encoders and sets them to spin in the same direction as the wheels
 		leftDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, leftDriveIdx, timeout);
 		rightDriveMaster.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, rightDriveIdx, timeout);
 		leftDriveMaster.setSensorPhase(true);
@@ -198,6 +204,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	 **********************/
 	
 	public void resetMP() {
+		// Resets the motion profile 
 		leftDriveMaster.clearMotionProfileTrajectories();
 		rightDriveMaster.clearMotionProfileTrajectories();
 		zeroSensors();
@@ -217,8 +224,8 @@ public class Drivetrain extends ImprovedSubsystem  {
 		TrajectoryPoint leftPoint = new TrajectoryPoint();
 		TrajectoryPoint rightPoint = new TrajectoryPoint();
 		resetMP();
-		int lineNum = leftProfile.length; //TODO right dimension??
 		
+		int lineNum = leftProfile.length; //TODO right dimension??
 		for(int i = 0; i < lineNum; i++) {
 			double leftPosition = leftProfile[i][1];
 			double leftVelocity = leftProfile[i][0];
@@ -251,12 +258,25 @@ public class Drivetrain extends ImprovedSubsystem  {
 			rightDriveMaster.pushMotionProfileTrajectory(rightPoint);		
 		}
 	}
+	
+	public boolean isEnoughPoints() {
+		if(status.btmBufferCnt > 5) return true;
+		else return false;
+	}
+	
+	public boolean isLastPoint() {
+		return status.isLast && status.activePointValid;
+	}
 
 	@Override
 	public void check() {
 		leftDriveMaster.getMotionProfileStatus(status);
 		rightDriveMaster.getMotionProfileStatus(status);
-		if(status.isUnderrun) System.out.println("underrun");
+		if(status.isUnderrun) {
+			System.out.println("UNDERRUN");
+			leftDriveMaster.clearMotionProfileHasUnderrun(0);
+			rightDriveMaster.clearMotionProfileHasUnderrun(0);
+		}
 	}
 	
 	@Override

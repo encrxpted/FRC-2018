@@ -13,7 +13,7 @@ public class StartPlay extends ImprovedCommand {
 		Robot.dt.setMPMode(MPDisable);
     	Robot.oi.setInternalControl(true);
     	Robot.dt.fillMPE(Robot.lg.getLeftMPArray(), Robot.lg.getRightMPArray());
-    	Play.okToPlay(true);
+    	if(Robot.dt.isEnoughPoints()) Play.okToPlay(true);
     }
 
     // Called repeatedly when this Command is scheduled to run
