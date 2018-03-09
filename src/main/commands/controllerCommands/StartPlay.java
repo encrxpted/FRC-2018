@@ -9,11 +9,14 @@ public class StartPlay extends ImprovedCommand {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Robot.lg.resetForRead();
-		Robot.dt.resetMP();
 		Robot.dt.setMPMode(MPDisable);
+		Robot.dt.resetMP();
     	Robot.oi.setInternalControl(true);
     	Robot.dt.fillMPE(Robot.lg.getLeftMPArray(), Robot.lg.getRightMPArray());
-    	if(Robot.dt.isEnoughPoints()) Play.okToPlay(true);
+		if(Robot.dt.isEnoughPoints()) {
+			Play.okToPlay(true);
+			Robot.dt.setMPMode(MPEnable);
+		}
     }
 
     // Called repeatedly when this Command is scheduled to run

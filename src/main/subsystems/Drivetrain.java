@@ -151,7 +151,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 	// Configures the PID loops, f-gain, p-gain, I-gain, and D-gain for each talon
 	private void setPIDDefaults() {
 		// selectProfileSlot: You can have up to 4 different PID loops. This method chooses which loop you are using
-		// for each talon. 
+		// for each talon. The second param is for closed-loop or casaded-loop- we are using closed-loop.
 		leftDriveMaster.selectProfileSlot(leftDriveIdx, pidIdx);
 		leftDriveMaster.config_kF(leftDriveIdx, leftFGain, timeout);
 		leftDriveMaster.config_kP(leftDriveIdx, leftkP, timeout);
@@ -167,12 +167,12 @@ public class Drivetrain extends ImprovedSubsystem  {
 	
 	// Configures settings for the motion profile
 	private void setMPDefaults() {
-		leftDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
-		rightDriveMaster.configMotionProfileTrajectoryPeriod(baseTimeout, timeout);
-		leftDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
-		rightDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, frameRate, timeout);
-		leftDriveMaster.changeMotionControlFramePeriod(frameRate/2);
-		rightDriveMaster.changeMotionControlFramePeriod(frameRate/2);
+		leftDriveMaster.configMotionProfileTrajectoryPeriod(durationMs, timeout);
+		rightDriveMaster.configMotionProfileTrajectoryPeriod(durationMs, timeout);
+		leftDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, durationMs, timeout);
+		rightDriveMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, durationMs, timeout);
+		leftDriveMaster.changeMotionControlFramePeriod(durationMs/2);
+		rightDriveMaster.changeMotionControlFramePeriod(durationMs/2);
 	}
 	
 	/*******************
@@ -207,9 +207,8 @@ public class Drivetrain extends ImprovedSubsystem  {
 	 * MP SUPPORT METHODS *
 	 **********************/
 	
-	// Resets the motion profile by clearing the buffered motion profile and resetting encoders
 	public void resetMP() {
-		leftDriveMaster.clearMotionProfileTrajectories();
+		leftDriveMaster.clearMotionProfileTrajectories(); // Clears trajectory points in the talons
 		rightDriveMaster.clearMotionProfileTrajectories();
 		leftDriveMaster.clearStickyFaults(0);
 		rightDriveMaster.clearStickyFaults(0);
@@ -222,7 +221,7 @@ public class Drivetrain extends ImprovedSubsystem  {
 		rightDriveMaster.processMotionProfileBuffer();
 	}
 
-	// Sets talons on motion profile mode. Param is enum which has states of enable, disable
+	// Sets talons on motion profile mode. Param is enum which has states of enable, disable, and hold
 	public void setMPMode(SetValueMotionProfile MPMode) {
 		leftDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
 		rightDriveMaster.set(MOTION_PROFILE_MODE, MPMode.value);
@@ -234,9 +233,9 @@ public class Drivetrain extends ImprovedSubsystem  {
 		TrajectoryPoint rightPoint = new TrajectoryPoint();
 		resetMP(); // reset just in case
 		
-		int lineNum = leftProfile.length; //TODO right dimension??
+		int lineNum = leftProfile.length;
 		for(int i = 0; i < lineNum; i++) {
-			// Gets the position and velocity of right/left profiles at each line
+			// Gets the position and velocity of right/left profiles at each row of the arrays
 			double leftPosition = leftProfile[i][1];
 			double leftVelocity = leftProfile[i][0];
 			double rightPosition = rightProfile[i][1];
@@ -247,11 +246,11 @@ public class Drivetrain extends ImprovedSubsystem  {
 			rightPoint.position = rightPosition;
 			leftPoint.velocity = leftVelocity;
 			rightPoint.velocity = rightVelocity;
-			leftPoint.headingDeg = 0; // Future feature... leaving it here once this can be used
+			leftPoint.headingDeg = 0; // Future feature... leaving it here for now
 			rightPoint.headingDeg = 0;
-			leftPoint.profileSlotSelect0 = leftDriveIdx;
+			leftPoint.profileSlotSelect0 = leftDriveIdx; // Selects which PID loop the trajectory point is for
 			rightPoint.profileSlotSelect0 = rightDriveIdx;
-			leftPoint.timeDur = duration;
+			leftPoint.timeDur = duration; // Sets the time that is in between each trajectory point
 			rightPoint.timeDur = duration;
 			leftPoint.zeroPos = false;
 			rightPoint.zeroPos = false;
@@ -285,12 +284,14 @@ public class Drivetrain extends ImprovedSubsystem  {
 	// check method called each loop to check if motion profile is underrun and clears the underrun flag if it is.
 	@Override
 	public void check() {
-		leftDriveMaster.getMotionProfileStatus(status);
-		rightDriveMaster.getMotionProfileStatus(status);
-		if(status.isUnderrun) {
-			System.out.println("UNDERRUN");
-			leftDriveMaster.clearMotionProfileHasUnderrun(0);
-			rightDriveMaster.clearMotionProfileHasUnderrun(0);
+		if (leftDriveMaster.getControlMode() == MOTION_PROFILE_MODE || rightDriveMaster.getControlMode() == MOTION_PROFILE_MODE) {
+			leftDriveMaster.getMotionProfileStatus(status);
+			rightDriveMaster.getMotionProfileStatus(status);
+			if (status.isUnderrun) {
+				System.out.println("UNDERRUN");
+				leftDriveMaster.clearMotionProfileHasUnderrun(0);
+				rightDriveMaster.clearMotionProfileHasUnderrun(0);
+			}
 		}
 	}
 	
@@ -299,6 +300,11 @@ public class Drivetrain extends ImprovedSubsystem  {
 		leftDriveMaster.getSensorCollection().setQuadraturePosition(0, timeout);
 		rightDriveMaster.getSensorCollection().setQuadraturePosition(0, timeout); 
 	}	
+	
+	public void resetCtrlMode() {
+		leftDriveMaster.set(PERCENT_VBUS_MODE, 0);
+		rightDriveMaster.set(PERCENT_VBUS_MODE, 0);
+	}
 	
 }
 

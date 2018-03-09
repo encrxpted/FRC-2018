@@ -64,7 +64,6 @@ public class Play implements Loop, Constants {
 				boolean leftTrigger2 = Boolean.parseBoolean(robotState[25]);
 				boolean rightTrigger2 = Boolean.parseBoolean(robotState[26]);
 				
-		    	Robot.dt.setMPMode(MPEnable);
 		    	if(Robot.dt.isLastPoint()) Robot.dt.setMPMode(MPHold);
 		    	Command move = new MoveFromPlay(elevatorVoltage);
 				move.start();

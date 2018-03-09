@@ -127,6 +127,7 @@ public class Robot extends ImprovedRobot {
 		if(isCompetitionMatch) {
 			if(autoPlayCommand.isRunning()) autoPlayCommand.cancel();
 		}
+		dt.resetCtrlMode();
 		autoLooper.stop();		
 	}
 	

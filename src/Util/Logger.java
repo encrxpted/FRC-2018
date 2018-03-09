@@ -34,6 +34,7 @@ public class Logger implements Constants {
 		restrictedFilesList.add(new File(outputPath +"/crash_tracking.txt"));
 	}
 	
+	// This takes the recorded trajectory points and returns the points as an array
 	public double[][] getLeftMPArray() { //TODO counting correct??
 		try {
 			for(int i = 0; i + 1 < countLines(); i++) {
