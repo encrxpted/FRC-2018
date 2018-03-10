@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import loopController.Loop;
 import main.Constants;
 import main.Robot;
+import main.commands.drivetrain.DriveFromMPPlayer;
 import main.commands.elevator.MoveFromPlay;
 
 public class Play implements Loop, Constants {
+	
 	private static boolean playOK = false;
 	private static boolean finished = false;
 	
@@ -64,7 +66,8 @@ public class Play implements Loop, Constants {
 				boolean leftTrigger2 = Boolean.parseBoolean(robotState[25]);
 				boolean rightTrigger2 = Boolean.parseBoolean(robotState[26]);
 				
-		    	if(Robot.dt.isLastPoint()) Robot.dt.setMPMode(MPHold);
+				Command drive = new DriveFromMPPlayer();
+				drive.start();
 		    	Command move = new MoveFromPlay(elevatorVoltage);
 				move.start();
 				Robot.oi.setButtonValues(a, b, x, y, leftBumper, rightBumper, select, start, leftJoystickPress, rightJoystickPress, leftTrigger, rightTrigger);
